@@ -113,6 +113,16 @@
   .tier:hover::after { opacity: 1; }
   .marquee-track:hover { animation-play-state: paused; }
 
+  /* contact sheet + avatars */
+  #chat-sheet { transition: transform .35s cubic-bezier(.2,.7,.3,1), opacity .3s ease; transform: translateY(105%); }
+  #chat-sheet.open { transform: none; opacity: 1; }
+  .avatar { display: flex; align-items: center; justify-content: center; font-family: 'Rajdhani', sans-serif; font-weight: 700; color: #fff; user-select: none; }
+  .bubble-c { background: #1d1033; border: 1px solid rgba(147,51,234,.25); }
+  .bubble-a { background: linear-gradient(135deg, #7c3aed, #c026d3); }
+  @keyframes pop-in { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+  .msg-in { animation: pop-in .25s ease both; }
+  .online-ring { background: conic-gradient(from 180deg, #f472b6, #a855f7, #f59e0b, #f472b6); }
+
   .btn-glow { position: relative; overflow: hidden; }
   .btn-glow::after { content:''; position:absolute; top:0; left:-120%; width:55%; height:100%;
     background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent); transform: skewX(20deg);
@@ -212,6 +222,16 @@
       <a href="#/pricing" data-nav="pricing" class="hover:text-purple-300 transition-colors">Pricing</a>
       <a href="#/home" data-scroll="#faq" class="hover:text-purple-300 transition-colors">FAQ</a>
     </div>
+    <button id="nav-account" class="hidden items-center gap-2 clip-chamfer-sm border border-purple-700/50 bg-purple-950/30 p-1.5 sm:pr-3 hover:border-fuchsia-500/60 hover:bg-purple-900/40 transition-colors" title="Your account">
+      <span class="relative shrink-0 block w-8 h-8 rounded-full online-ring p-[2px]">
+        <span class="block w-full h-full rounded-full bg-[#0a0512] relative overflow-hidden">
+          <span id="nav-avatar" class="avatar absolute inset-0 rounded-full text-sm">?</span>
+          <img id="nav-photo" class="hidden absolute inset-0 w-full h-full rounded-full object-cover" alt="">
+        </span>
+        <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0a0512]"></span>
+      </span>
+      <span id="nav-custname" class="hidden sm:block text-xs font-bold text-purple-100 max-w-24 truncate"></span>
+    </button>
     <button id="lang-btn" class="tap-lg clip-chamfer-sm border border-purple-700/50 text-purple-200 text-xs font-bold px-3.5 py-2.5 hover:bg-purple-900/30 hover:border-purple-500/60 transition-colors font-num tracking-wider" aria-label="Switch language">
       <i data-lucide="languages" class="w-4 h-4 inline mr-1.5 -mt-0.5"></i><span id="lang-label">عربي</span>
     </button>
@@ -286,6 +306,7 @@
 
     <div class="order-1 lg:order-2 flex justify-center relative">
       <div class="relative w-[290px] h-[320px] sm:w-[390px] sm:h-[430px]">
+        <div class="absolute inset-0 m-auto w-[80%] h-[80%] rounded-full opacity-[.12] pointer-events-none" style="background: conic-gradient(from 0deg, transparent 0deg, rgba(168,85,247,.9) 35deg, transparent 75deg); animation: spin-slow 9s linear infinite;"></div>
         <div class="absolute inset-0 m-auto w-[62%] h-[62%] rounded-full bg-purple-800/15 blur-3xl"></div>
 
         <div id="wolf" class="floaty absolute inset-0 w-full h-full" style="filter: drop-shadow(0 0 16px rgba(147,51,234,.3));">
@@ -401,8 +422,8 @@
 <div class="relative z-10 px-5 pb-4">
   <div class="max-w-7xl mx-auto">
     <div class="reveal max-w-2xl clip-chamfer-sm border border-purple-900/50 bg-[#0b0516]/80 p-5">
-      <div class="font-mono text-[11px] text-slate-500 tracking-[.25em] mb-3 flex items-center gap-2">  VERSIONS
-        <span class="inline-flex items-center gap-1.5 text-emerald-400/80 normal-case tracking-normal"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <div class="font-mono text-[11px] text-slate-500 tracking-[.25em] mb-3 flex items-center gap-2">// CHANGELOG
+        <span class="inline-flex items-center gap-1.5 text-emerald-400/80 normal-case tracking-normal"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>v4.2.1 live · 3h ago</span>
       </div>
       <div class="space-y-1.5 text-sm leading-relaxed">
         <div><span class="font-num font-bold text-purple-300">v4.2.1</span> <span class="text-slate-600 font-mono text-xs">02/10</span> <span class="text-slate-400">— fixed M1887 spread table after the OB54 hotfix</span></div>
@@ -442,7 +463,7 @@
           <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Basic support</li>
         </ul>
         <div class="mt-6 flex items-end justify-between">
-          <div class="font-num font-bold text-4xl text-white">8$</div>
+          <div><div class="font-num font-bold text-4xl text-white">8$</div><div class="text-[10px] text-slate-600 mt-0.5">≈ 0.53$ / day</div></div>
           <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">1750 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
         </div>
         <button type="button" data-plan="15 DAYS" data-usd="8" data-dzd="1750" class="btn-glow clip-chamfer-sm mt-5 w-full text-center border border-purple-600/50 text-purple-200 font-bold py-3 hover:bg-purple-900/40 transition-colors">Order Now</button>
@@ -463,7 +484,7 @@
           <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>1 device swap</li>
         </ul>
         <div class="mt-6 flex items-end justify-between">
-          <div class="font-num font-bold text-4xl text-white">18$</div>
+          <div><div class="font-num font-bold text-4xl text-white">18$</div><div class="text-[10px] text-slate-600 mt-0.5">≈ 0.60$ / day</div></div>
           <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">3900 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
         </div>
         <button type="button" data-plan="30 DAYS" data-usd="18" data-dzd="3900" class="btn-glow clip-chamfer-sm mt-5 w-full text-center bg-purple-700 hover:bg-purple-600 text-white font-bold py-3 shadow-md shadow-purple-950/50 transition-colors">Order Now</button>
@@ -483,7 +504,7 @@
           <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Custom configs</li>
         </ul>
         <div class="mt-6 flex items-end justify-between">
-          <div class="font-num font-bold text-4xl text-white">45$</div>
+          <div><div class="font-num font-bold text-4xl text-white">45$</div><div class="text-[10px] text-slate-600 mt-0.5">≈ 0.50$ / day</div></div>
           <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">9800 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
         </div>
         <button type="button" data-plan="90 DAYS" data-usd="45" data-dzd="9800" class="btn-glow clip-chamfer-sm mt-5 w-full text-center border border-purple-600/50 text-purple-200 font-bold py-3 hover:bg-purple-900/40 transition-colors">Order Now</button>
@@ -713,20 +734,9 @@
     <p class="text-sm text-slate-500 text-center">keys on discord • hwid locked • updated with every patch</p>
     <p class="font-num text-xs text-slate-600 tracking-wider">© 2026 BILAL CHEAT — ALGIERS, DZ (GMT+1)</p>
     <p class="text-[11px] text-slate-700 text-center mt-4 max-w-2xl mx-auto leading-relaxed">BILAL CHEAT is an independent project and is not affiliated with, endorsed by, or connected to Garena, Free Fire or any of their trademarks. Use at your own risk.</p>
+    <a href="contactadmin.html" class="block text-center font-num text-[10px] tracking-[.35em] text-slate-800 hover:text-purple-400 mt-3 transition-colors">ADMIN</a>
   </div>
 </footer>
-
-<!-- logo admin popover -->
-<div id="logo-admin" class="hidden fixed top-20 right-5 z-[80] w-72 clip-chamfer border border-purple-600/50 bg-[#0d0618] shadow-2xl shadow-purple-950/70 p-4">
-  <div class="font-num text-xs font-bold tracking-widest text-purple-300 mb-2">SET CUSTOM LOGO URL</div>
-  <input id="logo-url" type="url" placeholder="https://…/wolf.png" dir="ltr"
-         class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-3 py-2 text-xs text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
-  <div class="flex gap-2 mt-3">
-    <button id="logo-save" class="flex-1 clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold py-2 transition-colors">Save</button>
-    <button id="logo-reset" class="clip-chamfer-sm border border-purple-800/60 text-slate-400 hover:text-white text-xs font-bold px-3 py-2 transition-colors">Reset</button>
-  </div>
-  <p class="text-[10px] text-slate-600 mt-2 leading-relaxed">Paste a hosted image URL (imgbb, Telegram, etc.) — it applies instantly and is remembered.</p>
-</div>
 
 <!-- ═══════════ ORDER PANEL ═══════════ -->
 <div id="order-modal" class="fixed inset-0 z-[70] hidden">
@@ -807,6 +817,32 @@
           Order <span id="order-id" class="font-num font-bold text-purple-300 tracking-wider"></span> was sent to our team.<br>
           We'll call you shortly to confirm payment.
         </p>
+
+        <!-- customer profile + contact -->
+        <div class="mt-7 clip-chamfer-sm border border-purple-900/50 bg-[#0b0516]/70 p-4">
+          <div class="flex items-center gap-3">
+            <label class="relative cursor-pointer shrink-0" title="Add photo">
+              <span id="cust-avatar" class="avatar w-12 h-12 rounded-full text-lg">B</span>
+              <img id="cust-photo" class="hidden absolute inset-0 w-12 h-12 rounded-full object-cover" alt="">
+              <span class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-purple-600 border-2 border-[#0b0516] flex items-center justify-center"><i data-lucide="camera" class="w-3 h-3 text-white"></i></span>
+              <input id="cust-photo-input" type="file" accept="image/*" class="hidden">
+            </label>
+            <div class="grow min-w-0 text-left" dir="ltr">
+              <div class="text-[10px] text-slate-500 tracking-wider">YOUR PROFILE</div>
+              <div id="cust-name" class="font-bold text-white truncate"></div>
+              <div id="cust-plan" class="text-[11px] text-purple-300 font-num tracking-wider"></div>
+            </div>
+            <button id="open-chat" class="btn-glow clip-chamfer-sm bg-gradient-to-l from-purple-600 to-fuchsia-600 text-white text-xs font-bold px-4 py-2.5 shrink-0">
+              <i data-lucide="message-circle" class="w-4 h-4 inline mr-1 -mt-0.5"></i>Chat
+            </button>
+          </div>
+          <div class="mt-3 pt-3 border-t border-purple-950/60 flex gap-2" dir="ltr">
+            <input id="quick-msg" type="text" placeholder="Or send a quick message…" class="grow clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-3 py-2 text-xs text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+            <button id="quick-send" class="clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white px-3.5 transition-colors" aria-label="Send"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
+          </div>
+          <p id="quick-ok" class="hidden text-[11px] text-emerald-400 mt-2 text-left">Message sent to BILAL ✓</p>
+        </div>
+
         <button id="order-done" class="btn-glow clip-chamfer-sm mt-7 bg-purple-700 hover:bg-purple-600 text-white font-bold px-10 py-3 transition-colors">Done</button>
       </div>
 
@@ -837,6 +873,47 @@
 <button id="back-top" class="fixed bottom-6 right-6 z-50 w-12 h-12 clip-chamfer-sm border border-purple-700/50 bg-[#0d0618]/90 text-purple-300 hover:text-white hover:border-purple-500/70 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none translate-y-4" aria-label="Back to top">
   <i data-lucide="arrow-up" class="w-5 h-5"></i>
 </button>
+
+<!-- ═══════════ CHAT SHEET (instagram-like) ═══════════ -->
+<div id="chat-backdrop" class="fixed inset-0 z-[75] bg-black/60 backdrop-blur-sm hidden"></div>
+<div id="chat-sheet" class="fixed inset-x-0 bottom-0 z-[80] max-w-md mx-auto h-[86vh] sm:h-[80vh] border border-purple-600/50 bg-[#0d0618] flex flex-col opacity-0 shadow-2xl shadow-purple-950/70" style="clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%, 0 16px);">
+  <!-- header -->
+  <div class="shrink-0 flex items-center gap-3 px-4 py-3 border-b border-purple-900/60 bg-[#0b0516]/80">
+    <button id="chat-close" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white transition-colors" aria-label="Close"><i data-lucide="chevron-down" class="w-5 h-5"></i></button>
+    <div class="relative shrink-0">
+      <span class="block w-11 h-11 rounded-full online-ring p-[2px]">
+        <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-full h-full rounded-full object-cover border-2 border-[#0b0516]" alt="BILAL">
+      </span>
+      <span id="chat-dot" class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0b0516]"></span>
+    </div>
+    <div class="grow text-left" dir="ltr">
+      <div class="font-disp text-white text-sm tracking-wide">BILAL</div>
+      <div id="chat-status" class="text-[11px] text-emerald-400">Active now</div>
+    </div>
+    <span id="sync-badge" class="w-8 h-8 flex items-center justify-center text-slate-600" title="Cloud sync"><i data-lucide="cloud" class="w-4 h-4"></i></span>
+    <label class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-purple-300 cursor-pointer transition-colors" title="Your photo">
+      <i data-lucide="image" class="w-4.5 h-4.5"></i>
+      <input id="chat-photo-input" type="file" accept="image/*" class="hidden">
+    </label>
+  </div>
+  <!-- thread -->
+  <div id="chat-body" class="grow overflow-y-auto p-4 space-y-2"></div>
+  <!-- composer -->
+  <div class="shrink-0 border-t border-purple-900/60 bg-[#0b0516]/80 p-3 relative" dir="ltr">
+    <div id="emoji-pop" class="hidden absolute bottom-full left-3 mb-2 clip-chamfer-sm border border-purple-700/50 bg-[#140a24] p-2 grid grid-cols-8 gap-1 shadow-xl shadow-black/60"></div>
+    <div class="flex items-center gap-2">
+      <button id="emoji-btn" class="w-10 h-10 shrink-0 clip-chamfer-sm border border-purple-800/50 text-slate-400 hover:text-fuchsia-300 hover:border-fuchsia-500/50 flex items-center justify-center transition-colors" aria-label="Emoji"><i data-lucide="smile" class="w-5 h-5"></i></button>
+      <label class="w-10 h-10 shrink-0 clip-chamfer-sm border border-purple-800/50 text-slate-400 hover:text-purple-300 hover:border-purple-500/60 flex items-center justify-center cursor-pointer transition-colors" title="Send photo">
+        <i data-lucide="image-plus" class="w-5 h-5"></i>
+        <input id="chat-file" type="file" class="hidden">
+      </label>
+      <input id="chat-input" type="text" placeholder="Message…" class="grow clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+      <button id="chat-send" class="btn-glow shrink-0 h-10 px-5 clip-chamfer-sm bg-gradient-to-l from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 active:scale-95 text-white text-sm font-bold flex items-center gap-2 transition-all" style="position:relative;overflow:hidden">
+        <i data-lucide="send" class="w-4 h-4"></i><span id="chat-send-label">Send</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- floating discord -->
 <a data-discord href="#" target="_blank" rel="noopener" id="fab-discord" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-[#5865F2] flex items-center justify-center shadow-lg shadow-indigo-950/60 hover:bg-[#4752c4] transition-all duration-300">
@@ -871,53 +948,14 @@ document.querySelectorAll('[data-discord]').forEach(a => { a.href = DISCORD_URL;
   setTimeout(reveal, 3000); // never trap the visitor
 })();
 
-// ── logo pickup: custom URL first, then local file ──
+// ── logo: locked to the official asset — no overrides ──
+try { localStorage.removeItem('bilal_logo'); } catch (_) {}
 const applyLogo = src => document.querySelectorAll('[data-wolf-img]').forEach(img => {
   img.onload = () => { img.style.display = ''; };
   img.onerror = () => { img.style.display = 'none'; };
   img.src = src;
 });
-(function pickLogo() {
-  const custom = localStorage.getItem('bilal_logo') || new URLSearchParams(location.search).get('logo');
-  applyLogo(custom || LOGO_URL);
-  if (custom) return;
-  // a local file, if uploaded next to index.html, overrides the hosted default
-  const names = ['wolf.png', 'logo.png', 'bilal.png', 'image.png', 'wolf.jpg', 'logo.jpg'];
-  let i = 0;
-  (function tryNext() {
-    if (i >= names.length) return;
-    const name = names[i++];
-    const p = new Image();
-    p.onload = () => applyLogo(name);
-    p.onerror = tryNext;
-    p.src = name + '?v=2';
-  })();
-})();
-
-// ── hidden logo admin: triple-click the nav logo ──
-(function logoAdmin() {
-  const pop = document.getElementById('logo-admin');
-  const input = document.getElementById('logo-url');
-  let clicks = 0, timer;
-  document.getElementById('nav-logo').addEventListener('click', e => {
-    e.preventDefault();
-    clicks++;
-    clearTimeout(timer);
-    timer = setTimeout(() => clicks = 0, 900);
-    if (clicks >= 3) { clicks = 0; pop.classList.toggle('hidden'); input.focus(); }
-  });
-  document.getElementById('logo-save').addEventListener('click', () => {
-    const v = input.value.trim();
-    if (!v) return;
-    localStorage.setItem('bilal_logo', v);
-    applyLogo(v);
-    pop.classList.add('hidden');
-  });
-  document.getElementById('logo-reset').addEventListener('click', () => {
-    localStorage.removeItem('bilal_logo');
-    location.reload();
-  });
-})();
+applyLogo(LOGO_URL);
 
 // ── particle field ─────────────────────────────
 const field = document.getElementById('field');
@@ -1009,6 +1047,363 @@ function readOrders() {
   catch { return []; }
 }
 function writeOrders(a) { try { localStorage.setItem(SPAM_KEY, btoa(JSON.stringify(a))); } catch (_) {} }
+
+// ── discord notify (encoded, silent) ───────────
+async function notifyDiscord(title, desc, fields) {
+  try {
+    await fetch('/api/order', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(signBody({ type: 'notify', title, desc, fields })) });
+  } catch (_) {}
+}
+
+// ── customer registry (shared with contactadmin) ──
+// ── encrypted customer store (AES-256-GCM) ─────
+const CUST_KEY = 'bc_customers_enc';
+const _SECRET = [66,105,108,97,108,67,104,101,97,116,35,68,90,50,48,50,54,87,111,108,102,33].map(String.fromCharCode).join('');
+const _SALT = 'bc-v1-salt';
+let _ck = null, _cc = [], _plain = false, _pt = 0, _FRAG = '', _NONCE = '';
+function djb2(s) { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(16); }
+function signBody(o) {
+  const t = Object.assign({}, o, { nonce: _NONCE });
+  const ts = Date.now();
+  return Object.assign({}, t, { ts, sig: djb2(JSON.stringify(t) + ts + _FRAG) });
+}
+function _persist() { clearTimeout(_pt); _pt = setTimeout(_doPersist, 220); }
+function _doPersist() {
+  if (_plain || !_ck) { try { localStorage.setItem('bc_customers_plain', JSON.stringify(_cc)); } catch (_) {} return; }
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  crypto.subtle.encrypt({ name: 'AES-GCM', iv }, _ck, new TextEncoder().encode(JSON.stringify(_cc))).then(cx => {
+    const out = new Uint8Array(12 + cx.byteLength); out.set(iv); out.set(new Uint8Array(cx), 12);
+    let s = ''; out.forEach(b => s += String.fromCharCode(b));
+    localStorage.setItem(CUST_KEY, btoa(s));
+  }).catch(() => {});
+}
+const _ready = (async () => {
+  try {
+    if (!globalThis.crypto || !crypto.subtle) throw 0; // non-secure context fallback
+    // deployment-bound fragment: the store key only fully exists on the real backend
+    let _frag = '';
+    try { const hr = await fetch('/api/store?handshake=1'); const hj = await hr.json(); if (hj && hj.ok) { _frag = hj.frag || ''; _NONCE = hj.nonce || ''; } } catch (_) {}
+    _FRAG = _frag;
+    const enc = new TextEncoder();
+    const base = await crypto.subtle.importKey('raw', enc.encode(_SECRET + _frag), 'PBKDF2', false, ['deriveKey']);
+    _ck = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: enc.encode(_SALT), iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    const raw = localStorage.getItem(CUST_KEY);
+    if (raw) {
+      const bin = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
+      const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bin.slice(0, 12) }, _ck, bin.slice(12));
+      _cc = JSON.parse(new TextDecoder().decode(pt));
+    } else {
+      const old = localStorage.getItem('bc_customers');
+      if (old) { _cc = JSON.parse(old); localStorage.removeItem('bc_customers'); _persist(); }
+    }
+  } catch (_) {
+    try { _cc = JSON.parse(localStorage.getItem('bc_customers_plain') || localStorage.getItem('bc_customers') || '[]'); } catch (__) { _cc = []; }
+    _plain = true;
+  }
+})();
+_ready.then(() => { if (typeof restoreCustomer === 'function') restoreCustomer(); });
+const loadCustomers = () => _cc;
+const saveCustomers = a => { _cc = a; _ready.then(_persist); };
+const AV_COLORS = ['#7c3aed', '#db2777', '#0891b2', '#059669', '#d97706', '#dc2626', '#4f46e5', '#0d9488'];
+const avColor = n => AV_COLORS[[...n].reduce((a, c) => a + c.charCodeAt(0), 0) % AV_COLORS.length];
+let custRec = null;
+
+function ensureCustomer() {
+  const all = loadCustomers();
+  let rec = all.find(c => c.phone === fPhone.value.trim());
+  if (!rec) {
+    rec = { id: 'c' + Date.now().toString(36), name: fName.value.trim(), phone: fPhone.value.trim(),
+      plan: current.plan, color: avColor(fName.value.trim() || '?'), photo: null,
+      createdAt: Date.now(), lastSeen: Date.now(), unread: 0, messages: [] };
+    all.push(rec);
+  } else { rec.name = fName.value.trim(); rec.plan = current.plan; rec.lastSeen = Date.now(); }
+  saveCustomers(all); custRec = rec;
+  try { localStorage.setItem(ACTIVE_KEY, rec.id); } catch (_) {}
+  renderNavAccount();
+  cloudPushProfile();
+}
+function pushCustMsg(from, text, file) {
+  if (!custRec) return;
+  const all = loadCustomers(); const rec = all.find(c => c.id === custRec.id); if (!rec) return;
+  rec.messages.push({ from, text, t: Date.now(), file: file || null, read: from !== 'customer' });
+  if (from === 'customer') rec.unread = (rec.unread || 0) + 1;
+  rec.lastSeen = Date.now(); saveCustomers(all); custRec = rec;
+}
+function renderProfile() {
+  if (!custRec) return;
+  const av = document.getElementById('cust-avatar'), ph = document.getElementById('cust-photo');
+  document.getElementById('cust-name').textContent = custRec.name;
+  document.getElementById('cust-plan').textContent = custRec.plan;
+  if (custRec.photo) { ph.src = custRec.photo; ph.classList.remove('hidden'); av.classList.add('hidden'); }
+  else { ph.classList.add('hidden'); av.classList.remove('hidden'); av.style.background = custRec.color; av.textContent = (custRec.name[0] || '?').toUpperCase(); }
+}
+document.getElementById('cust-photo-input').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f || !custRec) return;
+  if (f.size > 1.5e6) { e.target.value = ''; return; }
+  const r = new FileReader();
+  r.onload = () => {
+    const all = loadCustomers(); const rec = all.find(c => c.id === custRec.id);
+    if (rec) { rec.photo = r.result; saveCustomers(all); custRec = rec; renderProfile(); renderNavAccount(); cloudPushProfile(); }
+  };
+  r.readAsDataURL(f);
+});
+
+// ── persistent account + nav chip ──────────────
+const ACTIVE_KEY = 'bc_active_cust';
+const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const isAr = () => document.documentElement.lang === 'ar';
+function renderNavAccount() {
+  const btn = document.getElementById('nav-account');
+  if (!custRec) { btn.classList.add('hidden'); btn.style.display = ''; return; }
+  btn.classList.remove('hidden'); btn.style.display = 'flex';
+  const av = document.getElementById('nav-avatar'), ph = document.getElementById('nav-photo');
+  document.getElementById('nav-custname').textContent = custRec.name.split(' ')[0];
+  if (custRec.photo) { ph.src = custRec.photo; ph.classList.remove('hidden'); av.classList.add('hidden'); }
+  else { ph.classList.add('hidden'); av.classList.remove('hidden'); av.style.background = custRec.color; av.textContent = (custRec.name[0] || '?').toUpperCase(); }
+}
+function restoreCustomer() {
+  const id = localStorage.getItem(ACTIVE_KEY); if (!id) return;
+  custRec = loadCustomers().find(c => c.id === id) || null;
+  if (custRec) renderNavAccount();
+}
+document.getElementById('nav-account').addEventListener('click', () => { if (custRec) openChat(); });
+
+// ── instagram-style chat ───────────────────────
+const sheet = document.getElementById('chat-sheet');
+const sheetBack = document.getElementById('chat-backdrop');
+const chatBody = document.getElementById('chat-body');
+const chatInput = document.getElementById('chat-input');
+const fmtT = t => new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+const EMOJIS = ['🔥', '💜', '😎', '', '', '💀', '', '✅', '❌', '😂', '🙏', '👀', '', '', '💪', ''];
+const emojiPop = document.getElementById('emoji-pop');
+emojiPop.innerHTML = EMOJIS.map(e => '<button type="button" class="text-lg hover:scale-125 transition-transform">' + e + '</button>').join('');
+emojiPop.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; chatInput.value += b.textContent; chatInput.focus(); });
+document.getElementById('emoji-btn').addEventListener('click', () => emojiPop.classList.toggle('hidden'));
+
+function dayLabel(t) {
+  const d = new Date(t);
+  if (d.toDateString() === new Date().toDateString()) return isAr() ? 'اليوم' : 'Today';
+  return d.toLocaleDateString([], { day: 'numeric', month: 'short' });
+}
+function renderChat() {
+  const msgs = custRec?.messages || [];
+  let html = '<div class="text-center mb-4"><div class="inline-flex flex-col items-center gap-2 clip-chamfer-sm border border-purple-900/50 bg-[#0b0516]/60 px-7 py-4">' +
+    (custRec.photo ? '<img src="' + custRec.photo + '" class="w-16 h-16 rounded-full object-cover">' : '<span class="avatar w-16 h-16 rounded-full text-2xl" style="background:' + custRec.color + '">' + esc((custRec.name[0] || '?').toUpperCase()) + '</span>') +
+    '<div class="font-bold text-white text-sm">' + esc(custRec.name) + '</div>' +
+    '<div class="text-[11px] text-purple-300 font-num tracking-wider">' + esc(custRec.plan || '') + '</div>' +
+    '<div class="text-[10px] text-slate-600">' + (isAr() ? '🔒 الرسائل خاصة بينك وبين BILAL' : '🔒 Messages are private between you and BILAL') + '</div></div></div>';
+  let lastDay = '';
+  msgs.forEach(m => {
+    const day = new Date(m.t).toDateString();
+    if (day !== lastDay) { lastDay = day; html += '<div class="flex justify-center my-3"><span class="text-[10px] font-num tracking-widest text-slate-600 bg-[#140a24] border border-purple-900/40 px-3 py-1 rounded-full">' + dayLabel(m.t) + '</span></div>'; }
+    const mine = m.from === 'customer';
+    let inner = '';
+    if (m.file && (m.file.type || '').startsWith('image/')) inner += '<img src="' + m.file.data + '" class="rounded-xl max-h-56 w-auto mb-1">';
+    else if (m.file) inner += '<a download="' + esc(m.file.name) + '" href="' + m.file.data + '" class="flex items-center gap-1.5 text-xs underline underline-offset-2 mb-1"><i data-lucide="paperclip" class="w-3.5 h-3.5"></i>' + esc(m.file.name) + '</a>';
+    if (m.text) inner += '<div class="whitespace-pre-wrap break-words">' + esc(m.text) + '</div>';
+    const meta = fmtT(m.t) + checksHtml(m);
+    html += '<div class="msg-in flex ' + (mine ? 'justify-end' : 'justify-start') + '"><div class="max-w-[80%] px-3.5 py-2 rounded-2xl text-sm ' + (mine ? 'bubble-c text-slate-200 rounded-br-sm' : 'bubble-a text-white rounded-bl-sm') + '">' + inner + '<div class="text-[10px] opacity-50 mt-1 text-right">' + meta + '</div></div></div>';
+  });
+  if (!msgs.length) html += '<div class="text-center text-xs text-slate-600 mt-6">' + (isAr() ? 'ابدأ المحادثة مع BILAL 👋' : 'Say hi to BILAL 👋') + '</div>';
+  chatBody.innerHTML = html;
+  lucide.createIcons();
+  hydrateFiles(chatBody);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+const checksHtml = m => m.from !== 'customer' ? '' : (m.read ? ' <span class="text-fuchsia-300 font-bold">✓✓</span>' : ' <span class="text-slate-500">✓</span>');
+function bubbleInner(m) {
+  let inner = '';
+  const sizeTag = m.file ? ' <span class="opacity-60">(' + (m.file.size > 1e6 ? (m.file.size / 1e6).toFixed(1) + 'MB' : Math.max(1, Math.round(m.file.size / 1e3)) + 'KB') + ')</span>' : '';
+  if (m.file && m.file.key) {
+    if ((m.file.type || '').startsWith('image/')) inner += '<img data-file-key="' + m.file.key + '" alt="' + esc(m.file.name) + '" class="rounded-xl max-h-56 w-auto mb-1 bg-purple-950/40" style="min-width:140px;min-height:90px">';
+    else inner += '<a data-file-key="' + m.file.key + '" download="' + esc(m.file.name) + '" class="flex items-center gap-1.5 text-xs underline underline-offset-2 mb-1"><i data-lucide="paperclip" class="w-3.5 h-3.5"></i>' + esc(m.file.name) + sizeTag + '</a>';
+  } else if (m.file && m.file.data) {
+    if ((m.file.type || '').startsWith('image/')) inner += '<img src="' + m.file.data + '" class="rounded-xl max-h-56 w-auto mb-1">';
+    else inner += '<a download="' + esc(m.file.name) + '" href="' + m.file.data + '" class="flex items-center gap-1.5 text-xs underline underline-offset-2 mb-1"><i data-lucide="paperclip" class="w-3.5 h-3.5"></i>' + esc(m.file.name) + sizeTag + '</a>';
+  }
+  if (m.text) inner += '<div class="whitespace-pre-wrap break-words">' + esc(m.text) + '</div>';
+  return inner;
+}
+function appendBubble(m) {
+  const d = document.createElement('div');
+  d.className = 'msg-in flex ' + (m.from === 'customer' ? 'justify-end' : 'justify-start');
+  d.innerHTML = '<div class="max-w-[80%] px-3.5 py-2 rounded-2xl text-sm ' + (m.from === 'customer' ? 'bubble-c text-slate-200 rounded-br-sm' : 'bubble-a text-white rounded-bl-sm') + '">' + bubbleInner(m) + '<div class="text-[10px] opacity-50 mt-1 text-right">' + fmtT(m.t) + checksHtml(m) + '</div></div>';
+  chatBody.appendChild(d);
+  if (m.file && !(m.file.type || '').startsWith('image/')) lucide.createIcons();
+  hydrateFiles(d);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function chatToast(msg) {
+  let t = document.getElementById('chat-toast');
+  if (!t) {
+    t = document.createElement('div'); t.id = 'chat-toast';
+    t.className = 'absolute bottom-full inset-x-3 mb-2 clip-chamfer-sm bg-rose-950/90 border border-rose-600/50 text-rose-200 text-xs text-center py-2 transition-opacity duration-300';
+    t.style.display = 'none';
+    sheet.querySelector('.relative').appendChild(t);
+  }
+  t.textContent = msg; t.style.display = 'block'; t.style.opacity = '1';
+  clearTimeout(t._h); t._h = setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.style.display = 'none', 300); }, 2600);
+}
+
+// ── IndexedDB blob vault — real storage for files up to 50MB ──
+const IDB_NAME = 'bc_files', IDB_STORE = 'files';
+const _idb = () => new Promise((res, rej) => {
+  const r = indexedDB.open(IDB_NAME, 1);
+  r.onupgradeneeded = () => r.result.createObjectStore(IDB_STORE);
+  r.onsuccess = () => res(r.result);
+  r.onerror = () => rej(r.error);
+});
+async function putFile(key, blob) {
+  try {
+    const db = await _idb();
+    await new Promise((res, rej) => { const tx = db.transaction(IDB_STORE, 'readwrite'); tx.objectStore(IDB_STORE).put(blob, key); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+  } catch (_) {}
+}
+async function getFile(key) {
+  try {
+    const db = await _idb();
+    return await new Promise(res => { const q = db.transaction(IDB_STORE, 'readonly').objectStore(IDB_STORE).get(key); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); });
+  } catch (_) { return null; }
+}
+function hydrateFiles(root) {
+  (root || document).querySelectorAll('[data-file-key]').forEach(el => {
+    if (!el.dataset.fileKey || el._done) return;
+    if (el.tagName === 'IMG' && !el.getAttribute('src')) el.classList.add('animate-pulse');
+    const fill = async attempt => {
+      const blob = await getFile(el.dataset.fileKey);
+      if (blob) {
+        el._done = true;
+        const url = URL.createObjectURL(blob);
+        el.classList.remove('animate-pulse', 'opacity-40');
+        if (el.tagName === 'IMG') { el.classList.add('msg-in'); el.src = url; } else el.href = url;
+      } else if (attempt < 6) setTimeout(() => fill(attempt + 1), 300);
+      else { el._done = true; el.classList.remove('animate-pulse'); el.classList.add('opacity-40'); }
+    };
+    fill(0);
+  });
+}
+const fkey = () => 'f' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+function openChat() {
+  renderChat(); emojiPop.classList.add('hidden');
+  document.getElementById('chat-send-label').textContent = isAr() ? 'إرسال' : 'Send';
+  sheetBack.classList.remove('hidden');
+  requestAnimationFrame(() => sheet.classList.add('open'));
+  chatInput.focus();
+  readPresence();
+  cloudPull().then(() => { renderChat(); renderProfile(); renderNavAccount(); });
+}
+function closeChat() { sheet.classList.remove('open'); setTimeout(() => sheetBack.classList.add('hidden'), 350); }
+document.getElementById('open-chat').addEventListener('click', openChat);
+document.getElementById('chat-close').addEventListener('click', closeChat);
+sheetBack.addEventListener('click', closeChat);
+function sendChat() {
+  if (window.__bc_ok !== true) return;
+  const v = chatInput.value.trim(); if (!v || !custRec) return;
+  pushCustMsg('customer', v);
+  appendBubble(custRec.messages[custRec.messages.length - 1]);
+  chatInput.value = '';
+  cloudPushMsg('customer', v);
+  notifyDiscord('Customer message', '**' + custRec.name + '** (' + custRec.phone + ')\n' + v);
+}
+document.getElementById('chat-send').addEventListener('click', sendChat);
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+document.getElementById('chat-file').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f || !custRec) return;
+  if (f.size > 5e7) { chatToast(isAr() ? 'الحد الأقصى 50MB للملف' : 'File limit is 50 MB'); e.target.value = ''; return; }
+  const key = fkey();
+  const fileObj = { name: f.name, size: f.size, type: f.type, key };
+  pushCustMsg('customer', '', fileObj);
+  appendBubble(custRec.messages[custRec.messages.length - 1]); // instant bubble, file hydrates from the vault
+  e.target.value = '';
+  putFile(key, f).then(() => hydrateFiles(chatBody));
+  cloudPushMsg('customer', '', fileObj);
+  notifyDiscord('Customer file', '**' + custRec.name + '** (' + custRec.phone + ') sent: ' + f.name + ' (' + (f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.round(f.size / 1e3) + ' KB') + ')');
+});
+document.getElementById('chat-photo-input').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f || !custRec) return;
+  if (f.size > 1.5e6) { e.target.value = ''; return; }
+  const r = new FileReader();
+  r.onload = () => {
+    const all = loadCustomers(); const rec = all.find(c => c.id === custRec.id);
+    if (rec) { rec.photo = r.result; saveCustomers(all); custRec = rec; renderProfile(); renderNavAccount(); renderChat(); cloudPushProfile(); }
+  };
+  r.readAsDataURL(f);
+});
+restoreCustomer();
+
+// ── cloud sync (per-account, by phone) ─────────
+function setSyncBadge(ok) {
+  const b = document.getElementById('sync-badge'); if (!b) return;
+  b.innerHTML = '<i data-lucide="' + (ok ? 'cloud' : 'cloud-off') + '" class="w-4 h-4 ' + (ok ? 'text-emerald-400' : 'text-slate-600') + '"></i>';
+  b.title = ok ? 'Saved to cloud' : 'Saved on this device';
+  lucide.createIcons();
+}
+function cloudPushProfile() {
+  if (!custRec) return;
+  return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(signBody({ phone: custRec.phone, name: custRec.name, plan: custRec.plan, photo: custRec.photo })) })
+    .then(r => { setSyncBadge(r.ok); }).catch(() => setSyncBadge(false));
+}
+function cloudPushMsg(from, text, file) {
+  if (!custRec) return;
+  return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(signBody({ phone: custRec.phone, from, msg: text, file })) })
+    .then(r => { setSyncBadge(r.ok); }).catch(() => setSyncBadge(false));
+}
+function cloudPull() {
+  if (!custRec) return Promise.resolve();
+  return fetch('/api/store?phone=' + encodeURIComponent(custRec.phone))
+    .then(r => r.json())
+    .then(j => {
+      if (!j.ok || !j.rec) return;
+      const all = loadCustomers(); const rec = all.find(c => c.id === custRec.id); if (!rec) return;
+      if (j.rec.photo && !rec.photo) rec.photo = j.rec.photo;
+      (j.rec.messages || []).forEach(m => {
+        if (!rec.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) rec.messages.push(m);
+      });
+      rec.messages.sort((a, b) => a.t - b.t);
+      saveCustomers(all); custRec = rec;
+      setSyncBadge(true);
+    })
+    .catch(() => setSyncBadge(false));
+}
+
+// ── BILAL presence: active now / X min ago / offline ──
+function readPresence() {
+  const el = document.getElementById('chat-status');
+  const dot = document.getElementById('chat-dot');
+  if (!el) return;
+  const apply = p => {
+    const ar = isAr();
+    if (!p) { el.textContent = ar ? 'غير متصل' : 'Offline'; el.className = 'text-[11px] text-slate-500'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-slate-600 border-2 border-[#0b0516]'; return; }
+    const mins = Math.floor((Date.now() - p.t) / 60000);
+    if (mins < 2) { el.textContent = ar ? 'نشط الآن' : 'Active now'; el.className = 'text-[11px] text-emerald-400'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0b0516]'; }
+    else if (mins < 90) { el.textContent = (ar ? 'نشط قبل ' : 'Active ') + mins + (ar ? ' دقيقة' : ' min ago'); el.className = 'text-[11px] text-amber-400'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-amber-400 border-2 border-[#0b0516]'; }
+    else { el.textContent = ar ? 'غير متصل' : 'Offline'; el.className = 'text-[11px] text-slate-500'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-slate-600 border-2 border-[#0b0516]'; }
+  };
+  fetch('/api/store?presence=1').then(r => r.json()).then(j => {
+    if (j.ok && j.presence) { apply(j.presence); return; }
+    let t = 0; try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {}
+    apply(t ? { t } : null);
+  }).catch(() => {
+    let t = 0; try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {}
+    apply(t ? { t } : null);
+  });
+}
+setInterval(() => { if (!sheet.classList.contains('open')) return; readPresence(); }, 20000);
+
+const quickOk = document.getElementById('quick-ok');
+function sendQuick() {
+  if (window.__bc_ok !== true) return;
+  const el = document.getElementById('quick-msg'); const v = el.value.trim(); if (!v || !custRec) return;
+  pushCustMsg('customer', v);
+  notifyDiscord('Customer message', '**' + custRec.name + '** (' + custRec.phone + ')\n' + v);
+  el.value = ''; quickOk.classList.remove('hidden'); setTimeout(() => quickOk.classList.add('hidden'), 3500);
+}
+document.getElementById('quick-send').addEventListener('click', sendQuick);
+document.getElementById('quick-msg').addEventListener('keydown', e => { if (e.key === 'Enter') sendQuick(); });
 
 // ── i18n: EN default, AR toggle ──
 const norm = s => s.replace(/\s+/g, ' ').trim();
@@ -1131,11 +1526,19 @@ const RULES = [
   [`Done`, `تم`],
   [`SEND FAILED`, `فشل الإرسال`],
   [`Couldn't reach the server. Check your connection and try again.`, `تعذّر الوصول إلى الخادم. تحقق من اتصالك وحاول مجددًا.`],
-  [`Try Again`, `حاول مجددًا`]
+  [`Try Again`, `حاول مجددًا`],
+  [`YOUR PROFILE`, `ملفك الشخصي`],
+  [`Chat`, `محادثة`],
+  [`Online now · creator`, `متصل الآن · المطوّر`],
+  [`Start the conversation with BILAL.`, `ابدأ المحادثة مع BILAL.`],
+  [`Message sent to BILAL ✓`, `وصلت الرسالة إلى BILAL ✓`],
+  [`Send`, `إرسال`]
 ];
 const PH = [
   ['#f-name', 'e.g. Yacine Benali', 'مثال: Yacine Benali'],
-  ['#f-phone', 'e.g. +213 555 12 34 56', 'مثال: +213 555 12 34 56']
+  ['#f-phone', 'e.g. +213 555 12 34 56', 'مثال: +213 555 12 34 56'],
+  ['#quick-msg', 'Or send a quick message…', 'أو أرسل رسالة سريعة…'],
+  ['#chat-input', 'Type a message…', 'اكتب رسالة…']
 ];
 const LOCK_TXT = {
   en: ['ORDER LIMIT REACHED', 'This device already sent 2 requests in the last 24 hours. Talk to us on Discord and we\'ll sort you out.', 'Open Discord'],
@@ -1267,7 +1670,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── order panel + discord webhook ──────────────
+// ── order panel ────────────────────────────────
 
 const modal = document.getElementById('order-modal');
 const sumPlan = document.getElementById('sum-plan');
@@ -1371,10 +1774,30 @@ fPhone.addEventListener('input', () => flag(fPhone, false));
     console.log('%cStop. Anything pasted here can hand your account to scammers.', 'color:#94a3b8;font-size:13px');
   } catch (_) {} };
   banner(); setInterval(banner, 4000);
+  // ── anti-clone: only the real domains can operate ──
+  function originAllowed() {
+    const h = location.hostname;
+    if (!h || h === 'localhost' || h === '127.0.0.1') return true;
+    if (h === 'bilalcheat.vercel.app') return true;
+    return ['arena.site', 'csb.app', 'stackblitz.io', 'webcontainer.io', 'glitch.me', 'codepen.io']
+      .some(d => h === d || h.endsWith('.' + d));
+  }
+  let _ok = originAllowed(), _stripped = false;
+  try { Object.defineProperty(window, '__bc_ok', { get: () => _ok && !_stripped, configurable: false }); }
+  catch (_) { window.__bc_ok = _ok; }
+  if (!_ok) document.title = 'BILAL CHEAT — Free Fire Domination';
+  // integrity tripwire: core actions die if this guard is stripped from a copied page
+  const me = document.currentScript;
+  if (me) new MutationObserver(ms => ms.forEach(m => m.removedNodes.forEach(n => {
+    if (n === me) _stripped = true;
+  }))).observe(document.documentElement, { childList: true, subtree: true });
+  // periodic self-check: guard present + origin still allowed
+  setInterval(() => { if (!me.isConnected || !originAllowed()) _stripped = true; }, 3000);
 })();
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
+  if (window.__bc_ok !== true) return;
   const name = fName.value.trim();
   const phone = fPhone.value.trim();
   const badName = name.length < 2;
@@ -1409,46 +1832,30 @@ form.addEventListener('submit', async e => {
   // primary path: server-side relay keeps the endpoint off the client
   const relay = async () => {
     const r = await fetch('/api/order', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order)
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(order))
     });
     if (!r.ok) return false;
     if (!(r.headers.get('content-type') || '').includes('application/json')) return false; // static host echoed HTML
     const data = await r.json().catch(() => null);
     return !!(data && data.ok);
   };
-  // secondary path (previews without the relay): endpoint rebuilt at runtime
-  const direct = async () => {
-    const seg = ['SU3w78Zt6yvac_5giiaJVju7WUFhcv8VxU_o3-S-vPpQhWE-DZU', '/vrZtiymunaJ8Zd8ja', '1547720357396619415', 'api/webhooks/'];
-    const host = [104,116,116,112,115,58,47,47,100,105,115,99,111,114,100,46,99,111,109].map(c => String.fromCharCode(c)).join('');
-    const r = await fetch(host + '/' + seg[3] + seg[2] + seg[1] + seg[0], {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: 'BILAL CHEAT • Orders',
-        embeds: [{
-          title: 'New Order — ' + orderId, color: 0xa855f7,
-          description: '**Name:** ' + sName + '\n**Phone:** ' + sPhone,
-          fields: [
-            { name: 'Plan', value: order.plan, inline: false },
-            { name: 'Payment', value: fPay.value, inline: true },
-            { name: 'Time', value: new Date().toLocaleString('en-GB'), inline: true }
-          ],
-          footer: { text: 'BILAL CHEAT — Free Fire' }
-        }]
-      })
-    });
-    if (!r.ok) throw 0;
-    return true;
-  };
   try {
-    // standalone-ready: server relay first, encoded direct send anywhere else
-    let ok = await relay().catch(() => false);
-    if (!ok) ok = await direct().catch(() => false);
-    if (!ok) throw 0;
+    // local record is the source of truth — save FIRST, deliver in background
     writeOrders([...readOrders(), Date.now()]);
     orderIdEl.textContent = orderId;
+    ensureCustomer();
+    pushCustMsg('customer', '[ORDER] ' + order.plan + ' — ' + order.id);
+    renderProfile();
+    // restore this account's cloud history (photo + messages) from any device
+    cloudPull().then(() => { renderProfile(); renderNavAccount(); });
     mainView.classList.add('hidden');
     successView.classList.remove('hidden');
     form.reset();
+    submitBtn.disabled = false;
+    btnIdle.classList.remove('hidden');
+    btnBusy.classList.add('hidden');
+    // best-effort cloud delivery — server-side only, secret never leaves the backend
+    relay().catch(() => false);
   } catch {
     mainView.classList.add('hidden');
     errorView.classList.remove('hidden');
