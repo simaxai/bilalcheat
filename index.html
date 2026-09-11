@@ -1795,6 +1795,23 @@ fPhone.addEventListener('input', () => flag(fPhone, false));
   setInterval(() => { if (!me.isConnected || !originAllowed()) _stripped = true; }, 3000);
 })();
 
+// ── devtools ejection: open them and you're out ──
+(function eject() {
+  let strikes = 0;
+  const bye = () => { try { window.location.replace('about:blank'); } catch (_) { window.location.href = 'about:blank'; } };
+  const probe = /./;
+  probe.toString = () => { strikes = 99; return ''; };
+  setInterval(() => {
+    try { console.log(probe); } catch (_) {}
+    const t = performance.now();
+    try { (function () {})['constructor']('debugger')(); } catch (_) {}
+    if (performance.now() - t > 100) strikes = 99;
+    if (window.outerWidth - window.innerWidth > 260 || window.outerHeight - window.innerHeight > 260) strikes++;
+    else if (strikes < 99) strikes = Math.max(0, strikes - 1);
+    if (strikes >= 2) bye();
+  }, 2000);
+})();
+
 form.addEventListener('submit', async e => {
   e.preventDefault();
   if (window.__bc_ok !== true) return;
