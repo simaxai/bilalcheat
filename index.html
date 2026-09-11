@@ -123,6 +123,13 @@
   .msg-in { animation: pop-in .25s ease both; }
   .online-ring { background: conic-gradient(from 180deg, #f472b6, #a855f7, #f59e0b, #f472b6); }
 
+  /* connection gate */
+  @keyframes net-ring { 0% { transform: scale(.55); opacity: .8 } 100% { transform: scale(1.9); opacity: 0 } }
+  .net-ring { animation: net-ring 2.4s ease-out infinite; }
+  .net-ring.d2 { animation-delay: .8s; }
+  @keyframes net-shake { 0%,100% { transform: translateX(0) } 20% { transform: translateX(-8px) } 40% { transform: translateX(7px) } 60% { transform: translateX(-5px) } 80% { transform: translateX(3px) } }
+  .net-shake { animation: net-shake .4s ease; }
+
   .btn-glow { position: relative; overflow: hidden; }
   .btn-glow::after { content:''; position:absolute; top:0; left:-120%; width:55%; height:100%;
     background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent); transform: skewX(20deg);
@@ -170,6 +177,26 @@
   </div>
   <div class="font-disp text-xl text-white tracking-[.25em]">BILAL <span class="text-purple-400">CHEAT</span></div>
   <div class="w-44 h-1 bg-purple-950 rounded-full overflow-hidden"><div class="h-full bg-purple-500 rounded-full" style="animation: loaderbar 1.5s ease-in-out infinite;"></div></div>
+</div>
+
+<!-- ═══════════ CONNECTION GATE ═══════════ -->
+<div id="net-gate" class="hidden fixed inset-0 z-[200] bg-[#0a0512] flex items-center justify-center px-5">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 40%, rgba(76,29,149,.25), transparent 60%);"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(rgba(168,85,247,.08) 1px, transparent 1.4px); background-size: 28px 28px;"></div>
+  <div id="net-card" class="relative text-center max-w-sm w-full">
+    <div class="relative w-28 h-28 mx-auto mb-6">
+      <span class="net-ring absolute inset-0 rounded-full border border-purple-500/50"></span>
+      <span class="net-ring d2 absolute inset-0 rounded-full border border-fuchsia-500/40"></span>
+      <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="absolute inset-0 w-full h-full object-contain" style="filter: grayscale(.6) brightness(.7) drop-shadow(0 0 10px rgba(147,51,234,.3));" alt="">
+    </div>
+    <div class="font-disp text-3xl text-white tracking-wide">NO CONNECTION</div>
+    <p id="net-msg" class="text-slate-400 text-sm mt-3"></p>
+    <p class="text-slate-600 text-xs mt-1.5" dir="rtl">الموقع لا يعمل بدون إنترنت — تحقق من اتصالك.</p>
+    <button id="net-retry" class="mt-7 btn-glow clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white font-bold px-8 py-3 transition-colors inline-flex items-center gap-2" style="position:relative;overflow:hidden">
+      <i data-lucide="refresh-cw" class="w-4 h-4" id="net-spin"></i><span>Retry</span>
+    </button>
+    <div id="net-status" class="font-num text-[11px] text-slate-600 mt-4 tracking-widest"></div>
+  </div>
 </div>
 
 <!-- cursor glow -->
@@ -707,7 +734,13 @@
 
 <!-- ═══════════ PAGE: 404 ═══════════ -->
 <div data-page="notfound" class="hidden">
-  <section class="relative z-10 min-h-[82vh] flex items-center justify-center px-5 py-24">
+  <section class="relative z-10 min-h-[82vh] flex items-center justify-center px-5 py-24 overflow-hidden">
+    <svg class="bolt absolute top-[8%] left-[6%] w-12 md:w-16 opacity-0" viewBox="0 0 60 300" fill="none">
+      <path d="M30 0 L18 70 L34 78 L10 160 L28 168 L6 260 L22 300" stroke="#c084fc" stroke-width="2" style="filter: drop-shadow(0 0 5px #9333ea);"/>
+    </svg>
+    <svg class="bolt-2 absolute bottom-[10%] right-[7%] w-10 md:w-14 opacity-0" viewBox="0 0 60 300" fill="none">
+      <path d="M34 0 L44 80 L28 90 L50 180 L32 188 L54 280" stroke="#e879f9" stroke-width="2" style="filter: drop-shadow(0 0 5px #c026d3);"/>
+    </svg>
     <div class="text-center">
       <div class="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto mb-8">
         <div class="absolute -inset-3 border border-dashed border-purple-600/30 rounded-full spin-slow"></div>
@@ -1647,6 +1680,55 @@ document.addEventListener('mousemove', e => {
   top.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 
+// ── connection gate: no net, no arena ──────────
+(function netGate() {
+  const el = document.getElementById('net-gate');
+  const msg = document.getElementById('net-msg');
+  const st = document.getElementById('net-status');
+  const btn = document.getElementById('net-retry');
+  const spin = document.getElementById('net-spin');
+  const card = document.getElementById('net-card');
+  let shown = false, busy = false;
+  const ar = () => document.documentElement.lang === 'ar';
+  const show = why => {
+    if (shown) return; shown = true;
+    el.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    msg.textContent = why === 'slow'
+      ? (ar() ? 'الاتصال ضعيف جداً — الموقع يحتاج إنترنت مستقر.' : 'Connection too weak — the site needs a stable link.')
+      : (ar() ? 'لا يوجد اتصال بالإنترنت.' : 'You are offline.');
+  };
+  const hide = () => { if (!shown) return; shown = false; el.classList.add('hidden'); document.body.style.overflow = ''; };
+  const weak = () => { const c = navigator.connection; return !!(c && (c.effectiveType === '2g' || c.effectiveType === 'slow-2g' || c.downlink < 0.1)); };
+  async function ping() {
+    if (!navigator.onLine) return null;
+    try {
+      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 4000);
+      const t0 = performance.now();
+      const r = await fetch(location.pathname + '?cb=' + Date.now(), { cache: 'no-store', signal: ctl.signal, method: 'HEAD' }).catch(() => null);
+      clearTimeout(to);
+      return r ? Math.round(performance.now() - t0) : null;
+    } catch (_) { return null; }
+  }
+  async function check() {
+    const ms = await ping();
+    if (ms !== null && !weak()) { st.textContent = (ar() ? 'زمن الاستجابة ' : 'LATENCY ') + ms + 'ms'; hide(); return true; }
+    show(ms !== null ? 'slow' : 'off'); return false;
+  }
+  btn.addEventListener('click', async () => {
+    if (busy) return; busy = true;
+    spin.classList.add('animate-spin'); btn.classList.add('opacity-60');
+    const ok = await check();
+    spin.classList.remove('animate-spin'); btn.classList.remove('opacity-60');
+    if (!ok) { card.classList.remove('net-shake'); void card.offsetWidth; card.classList.add('net-shake'); }
+    busy = false;
+  });
+  addEventListener('offline', () => show('off'));
+  addEventListener('online', () => check());
+  setInterval(() => { shown ? check() : (navigator.onLine || show('off')); }, 5000);
+  check();
+})();
+
 // ── floating Discord hides near the footer ────
 (function fabFade() {
   const fab = document.getElementById('fab-discord');
@@ -1749,11 +1831,7 @@ fPhone.addEventListener('input', () => flag(fPhone, false));
 // ── runtime policies ──
 (function guard() {
   const field = t => t.closest && t.closest('input,textarea,select');
-  // 1 · iframe busting — nobody embeds this site
-  if (window.top !== window.self) {
-    try { window.top.location.replace(window.self.location.href); } catch (_) {}
-  }
-  // 2 · block inspect gestures (form fields stay usable)
+  // 1 · block inspect gestures (form fields stay usable)
   ['contextmenu', 'dragstart', 'selectstart', 'copy', 'cut'].forEach(ev =>
     addEventListener(ev, e => { if (!field(e.target)) e.preventDefault(); }, { passive: false }));
   // 3 · keyboard gate
@@ -1800,14 +1878,13 @@ fPhone.addEventListener('input', () => flag(fPhone, false));
   let strikes = 0;
   const bye = () => { try { window.location.replace('about:blank'); } catch (_) { window.location.href = 'about:blank'; } };
   const probe = /./;
-  probe.toString = () => { strikes = 99; return ''; };
+  probe.toString = () => { strikes += 1; return ''; }; // console viewers may format once — not conclusive alone
   setInterval(() => {
     try { console.log(probe); } catch (_) {}
     const t = performance.now();
     try { (function () {})['constructor']('debugger')(); } catch (_) {}
-    if (performance.now() - t > 100) strikes = 99;
-    if (window.outerWidth - window.innerWidth > 260 || window.outerHeight - window.innerHeight > 260) strikes++;
-    else if (strikes < 99) strikes = Math.max(0, strikes - 1);
+    if (performance.now() - t > 100) strikes = 99; // only a real debugger pause is conclusive
+    if (strikes > 0 && strikes < 99) strikes = Math.max(0, strikes - 1);
     if (strikes >= 2) bye();
   }, 2000);
 })();
