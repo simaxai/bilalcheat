@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BILAL CHEAT — Free Fire Domination</title>
+<meta name="description" content="BILAL CHEAT — Free Fire rage & legit tools for PC. Aimbot, ESP, no-recoil. Anti-ban, updated every patch. Keys on Discord.">
+<meta name="theme-color" content="#0a0512">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" fetchpriority="high">
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0a0512; font-family: 'Chakra Petch', sans-serif; -webkit-user-select: none; user-select: none; }
+  /* RTL alignment fixes */
+  [dir="rtl"] .text-right { text-align: left; }
+  [dir="rtl"] .text-left { text-align: right; }
+  [dir="rtl"] .mr-1 { margin-right: 0; margin-left: .25rem; }
+  [dir="rtl"] .mr-1\.5 { margin-right: 0; margin-left: .375rem; }
+  [dir="rtl"] .mr-2 { margin-right: 0; margin-left: .5rem; }
+  [dir="rtl"] .mr-3 { margin-right: 0; margin-left: .75rem; }
+  [dir="rtl"] .ml-2 { margin-left: 0; margin-right: .5rem; }
+  [dir="rtl"] .ml-3 { margin-left: 0; margin-right: .75rem; }
+
+  /* mobile polish */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  section[id], header[id] { scroll-margin-top: 4.5rem; }
+  @media (max-width: 767px) {
+    #wolf-watermark { display: none; }
+    #wolf { filter: drop-shadow(0 0 10px rgba(147,51,234,.25)) !important; }
+  }
+
+  /* page router */
+  @keyframes page-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  [data-page].page-enter { animation: page-in .5s cubic-bezier(.2,.7,.3,1) both; }
+  a.nav-active { color: #e9d5ff; position: relative; }
+  a.nav-active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; border-radius: 2px; background: #a855f7; box-shadow: 0 0 8px rgba(168,85,247,.7); }
+  input, textarea, select { -webkit-user-select: text; user-select: text; }
+  img { -webkit-user-drag: none; user-select: none; }
+  .font-disp { font-family: 'Russo One', sans-serif; letter-spacing: .02em; }
+  .font-num { font-family: 'Rajdhani', sans-serif; }
+
+  ::selection { background: rgba(168,85,247,.35); color: #fff; }
+  ::-webkit-scrollbar { width: 9px; }
+  ::-webkit-scrollbar-track { background: #0b0614; }
+  ::-webkit-scrollbar-thumb { background: #46206b; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6b2fa8; }
+
+  .hex-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='64' viewBox='0 0 56 64'%3E%3Cpath d='M28 2L52 16v28L28 58 4 44V16z' fill='none' stroke='%23a855f7' stroke-opacity='.05'/%3E%3C/svg%3E");
+  }
+
+  .clip-chamfer { clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+  .clip-chamfer-sm { clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px); }
+
+  .neon-text { text-shadow: 0 0 10px rgba(192,132,252,.45), 0 0 28px rgba(147,51,234,.25); }
+  .gold-text { text-shadow: 0 0 12px rgba(251,191,36,.4); }
+
+  @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-9px) } }
+  .floaty { animation: floaty 6s ease-in-out infinite; }
+
+  @keyframes spin-slow { to { transform: rotate(360deg) } }
+  .spin-slow { animation: spin-slow 22s linear infinite; }
+  .spin-rev { animation: spin-slow 30s linear infinite reverse; }
+
+  @keyframes ringpulse { 0% { transform: scale(.9); opacity: .5 } 100% { transform: scale(1.6); opacity: 0 } }
+  .ring-pulse { animation: ringpulse 3.4s ease-out infinite; }
+
+  @keyframes flicker {
+    0%,100% { opacity: 0; } 4% { opacity: .5; } 7% { opacity: .1; } 10% { opacity: .45; }
+    44% { opacity: .4; } 47% { opacity: .05; } 50% { opacity: .4; } 74% { opacity: .3; }
+  }
+  .bolt { animation: flicker 6s linear infinite; }
+  .bolt-2 { animation: flicker 7.5s linear infinite; animation-delay: 2s; }
+
+  @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  .marquee-track { animation: marquee 36s linear infinite; }
+
+  @keyframes eye-glow { 0%,100% { filter: drop-shadow(0 0 4px #e879f9) } 50% { filter: drop-shadow(0 0 14px #f0abfc) } }
+  .wolf-eyes { animation: eye-glow 3.2s ease-in-out infinite; }
+
+  @keyframes barfill { from { width: 0 } }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .tier { transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .tier:hover { transform: translateY(-5px); }
+
+  .btn-glow { position: relative; overflow: hidden; }
+  .btn-glow::after { content:''; position:absolute; top:0; left:-120%; width:55%; height:100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent); transform: skewX(20deg);
+    transition: left .7s ease; }
+  .btn-glow:hover::after { left: 140%; }
+  .btn-glow:active { transform: scale(.97); }
+  a, button { -webkit-tap-highlight-color: transparent; }
+
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+
+  .grad-ring { background: conic-gradient(from 0deg, #7c3aed, #c026d3, #6d28d9, #7c3aed); }
+
+  .stat-bar { height: 5px; background: #241238; border-radius: 99px; overflow: hidden; }
+  .stat-bar > div { height: 100%; border-radius: 99px; background: linear-gradient(to right, #7c3aed, #c084fc); }
+  .in .stat-bar > div { animation: barfill 1.2s cubic-bezier(.2,.7,.3,1) both; }
+
+  /* boot loader */
+  body { transition: opacity .6s ease; }
+  body.preload { opacity: 0; }
+  #loader { transition: opacity .5s ease; }
+  #loader.done { opacity: 0; pointer-events: none; }
+  @keyframes loader-pulse { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.06); opacity: 1 } }
+  @keyframes loaderbar { 0% { width: 0 } 60% { width: 82% } 100% { width: 100% } }
+
+  /* order panel */
+  #order-panel { transition: opacity .3s ease, transform .3s cubic-bezier(.2,.7,.3,1); }
+  #order-backdrop { transition: opacity .3s ease; opacity: 0; }
+  #order-modal.open #order-backdrop { opacity: 1; }
+  #order-modal.open #order-panel { opacity: 1; transform: none; }
+  .field-err { border-color: rgba(244,63,94,.6) !important; }
+</style>
+</head>
+<body class="text-slate-300 antialiased overflow-x-hidden preload">
+
+<!-- boot loader -->
+<div id="loader" class="fixed inset-0 z-[100] bg-[#0a0512] flex flex-col items-center justify-center gap-5">
+  <div class="w-28 h-28" style="animation: loader-pulse 1.6s ease-in-out infinite;">
+    <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-full h-full object-contain" alt="" fetchpriority="high">
+  </div>
+  <div class="font-disp text-xl text-white tracking-[.25em]">BILAL <span class="text-purple-400">CHEAT</span></div>
+  <div class="w-44 h-1 bg-purple-950 rounded-full overflow-hidden"><div class="h-full bg-purple-500 rounded-full" style="animation: loaderbar 1.5s ease-in-out infinite;"></div></div>
+</div>
+
+<!-- cursor glow -->
+<div id="cursor-glow" class="fixed w-[380px] h-[380px] rounded-full pointer-events-none z-0 hidden lg:block"
+     style="background: radial-gradient(circle, rgba(126,34,206,.11), transparent 62%); transform: translate(-50%,-50%);"></div>
+
+<canvas id="field" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+<!-- brand watermark -->
+<img id="wolf-watermark" src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" alt=""
+     class="fixed -right-20 top-1/2 -translate-y-1/2 w-[54vh] max-w-none opacity-[.05] pointer-events-none z-0 select-none"
+     style="filter: blur(.5px);" draggable="false">
+
+<!-- fine dot grid -->
+<div class="fixed inset-0 pointer-events-none z-0"
+     style="background-image: radial-gradient(rgba(168,85,247,.09) 1px, transparent 1.4px); background-size: 28px 28px;"></div>
+
+<!-- depth light + vignette -->
+<div class="fixed inset-0 pointer-events-none z-0"
+     style="background: radial-gradient(ellipse at 50% -12%, rgba(76,29,149,.26), transparent 55%), radial-gradient(ellipse at 12% 105%, rgba(112,26,117,.16), transparent 50%), radial-gradient(ellipse at center, transparent 52%, rgba(4,1,8,.8) 100%);"></div>
+
+<!-- angled light shafts -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <div class="absolute -top-1/2 left-[22%] w-36 h-[200%] rotate-[16deg]" style="background: linear-gradient(90deg, transparent, rgba(147,51,234,.05), transparent);"></div>
+  <div class="absolute -top-1/2 right-[30%] w-20 h-[200%] rotate-[16deg]" style="background: linear-gradient(90deg, transparent, rgba(217,70,239,.04), transparent);"></div>
+</div>
+
+<!-- film grain -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-[.05] mix-blend-overlay"
+     style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/%3E%3C/filter%3E%3Crect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22 opacity=%220.7%22/%3E%3C/svg%3E');"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="fixed top-0 inset-x-0 z-50 backdrop-blur-xl" style="background: rgba(10,5,18,.78); border-bottom: 1px solid rgba(147,51,234,.14);">
+  <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#/home" id="nav-logo" data-nav="home" class="flex items-center gap-3 group">
+      <div class="w-12 h-12 clip-chamfer-sm grad-ring p-[2px] transition-transform group-hover:scale-105 shrink-0">
+        <div class="w-full h-full clip-chamfer-sm bg-[#10061d] relative overflow-hidden">
+          <span class="absolute inset-0 flex items-center justify-center font-disp text-purple-400 text-sm tracking-widest">BC</span>
+          <img data-wolf-img src="wolf.png" alt="BILAL CHEAT" class="absolute inset-0 w-full h-full object-contain p-0.5" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="leading-none">
+        <span class="font-disp text-lg text-white">BILAL</span>
+        <span class="font-disp text-lg text-purple-400"> CHEAT</span>
+        <div class="text-[10px] text-slate-500 mt-1 font-num tracking-wider">FREE FIRE • v4.2.1</div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold">
+      <a href="#/features" data-nav="features" class="hover:text-purple-300 transition-colors">Features</a>
+      <a href="#/pricing" data-nav="pricing" class="hover:text-purple-300 transition-colors">Pricing</a>
+      <a href="#/home" data-scroll="#faq" class="hover:text-purple-300 transition-colors">FAQ</a>
+    </div>
+    <button id="lang-btn" class="clip-chamfer-sm border border-purple-700/50 text-purple-200 text-xs font-bold px-3.5 py-2.5 hover:bg-purple-900/30 hover:border-purple-500/60 transition-colors font-num tracking-wider" aria-label="Switch language">
+      <i data-lucide="languages" class="w-4 h-4 inline mr-1.5 -mt-0.5"></i><span id="lang-label">عربي</span>
+    </button>
+    <a href="#/pricing" class="btn-glow clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white text-sm font-bold px-5 py-2.5 shadow-md shadow-purple-950/60 transition-colors">
+      <i data-lucide="shopping-cart" class="w-4 h-4 inline mr-1.5 -mt-0.5"></i><span id="buy-label">Buy Now</span>
+    </a>
+    <button id="menu-btn" class="md:hidden w-10 h-10 clip-chamfer-sm border border-purple-700/50 text-purple-200 flex items-center justify-center hover:bg-purple-900/30 transition-colors" aria-label="Menu">
+      <i data-lucide="menu" class="w-5 h-5" id="menu-icon-open"></i>
+      <i data-lucide="x" class="w-5 h-5 hidden" id="menu-icon-close"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden hidden border-t border-purple-900/50 bg-[#0a0512]/97 backdrop-blur-xl px-5 py-4">
+    <a href="#/features" class="block py-3 text-sm font-semibold text-slate-300 hover:text-purple-300 border-b border-purple-950/60 transition-colors">Features</a>
+    <a href="#/pricing" class="block py-3 text-sm font-semibold text-slate-300 hover:text-purple-300 border-b border-purple-950/60 transition-colors">Pricing</a>
+    <a href="#/home" data-scroll="#faq" class="block py-3 text-sm font-semibold text-slate-300 hover:text-purple-300 border-b border-purple-950/60 transition-colors">FAQ</a>
+    <a data-discord href="#" target="_blank" rel="noopener" class="mt-3 btn-glow clip-chamfer-sm bg-[#5865F2] hover:bg-[#4752c4] text-white text-sm font-bold px-4 py-3 text-center transition-colors">
+      <i class="fa-brands fa-discord inline mr-1.5"></i>Join Discord
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════ PAGE: HOME ═══════════ -->
+<div data-page="home">
+<!-- ═══════════ HERO ═══════════ -->
+<header id="top" class="relative min-h-screen flex items-center pt-24 pb-16 px-5 z-10">
+
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center w-full">
+
+    <div class="text-center lg:text-left order-2 lg:order-1">
+      <h1 class="font-disp text-4xl sm:text-6xl md:text-7xl leading-[1.1] text-white tracking-wide">
+        BILAL <span class="text-purple-400">CHEAT</span>
+      </h1>
+      <div class="font-num font-semibold tracking-[.3em] text-slate-500 text-sm mt-2">FREE FIRE • OB54 • FOR PC</div>
+
+      <p class="mt-6 text-base text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
+        Aimbot, ESP and no-recoil tuned per weapon and tested on ranked before every release.
+        When Garena pushes a patch, we're back live in hours — <span class="text-slate-200">OB53 took us 3h, OB52 took 1h40.</span>
+        You queue ranked knowing how the match ends.
+      </p>
+
+      <div class="mt-9 flex flex-wrap gap-4 justify-center lg:justify-start">
+        <a href="#/pricing" class="btn-glow clip-chamfer bg-purple-700 hover:bg-purple-600 text-white font-bold text-lg px-8 py-4 shadow-lg shadow-purple-950/60 transition-all">
+          <i data-lucide="crown" class="w-5 h-5 inline mr-2 -mt-1 text-amber-300"></i>Get the Cheat
+        </a>
+        <a href="#/features" class="clip-chamfer border border-purple-700/50 text-purple-200 font-bold text-lg px-8 py-4 hover:bg-purple-950/30 transition-colors">
+          <i data-lucide="eye" class="w-5 h-5 inline mr-2 -mt-1"></i>See Features
+        </a>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="clip-chamfer-sm border border-purple-900/60 bg-[#0e0719]/70 py-4">
+          <div class="font-num font-bold text-3xl text-white">5<span class="text-purple-300">min</span></div>
+          <div class="text-xs text-slate-500 mt-1">Avg. Key Delivery</div>
+        </div>
+        <div class="clip-chamfer-sm border border-purple-900/60 bg-[#0e0719]/70 py-4">
+          <div class="font-num font-bold text-3xl text-emerald-300"><span class="counter" data-target="99">0</span>%</div>
+          <div class="text-xs text-slate-500 mt-1">Anti-Ban Rate</div>
+        </div>
+        <div class="clip-chamfer-sm border border-purple-900/60 bg-[#0e0719]/70 py-4">
+          <div class="font-num font-bold text-3xl text-purple-300"><span class="counter" data-target="24">0</span>/7</div>
+          <div class="text-xs text-slate-500 mt-1">Live Support</div>
+        </div>
+        <div class="clip-chamfer-sm border border-purple-900/60 bg-[#0e0719]/70 py-4">
+          <div class="font-num font-bold text-3xl text-amber-300"><span class="counter" data-target="365">0</span></div>
+          <div class="text-xs text-slate-500 mt-1">Days Updated</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2 flex justify-center relative">
+      <div class="relative w-[290px] h-[320px] sm:w-[390px] sm:h-[430px]">
+        <div class="absolute inset-0 m-auto w-[62%] h-[62%] rounded-full bg-purple-800/15 blur-3xl"></div>
+
+        <div id="wolf" class="floaty absolute inset-0 w-full h-full" style="filter: drop-shadow(0 0 16px rgba(147,51,234,.3));">
+          <span class="absolute inset-0 flex items-center justify-center font-disp text-purple-500/40 text-8xl tracking-widest">BC</span>
+          <img data-wolf-img src="wolf.png" alt="BILAL CHEAT" class="absolute inset-0 w-full h-full object-contain" onerror="this.style.display='none'">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ MARQUEE ═══════════ -->
+<div class="relative z-10 border-y border-purple-900/50 bg-[#0c0617]/80 py-3 overflow-hidden" dir="ltr">
+  <div class="marquee-track flex whitespace-nowrap font-num font-semibold tracking-[.3em] text-sm w-max">
+    <span class="mx-6 text-purple-300">RAGE MODE</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">ESP WALLHACK</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-purple-300">NO RECOIL</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">SPEED HACK</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-purple-300">ANTI-BAN</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">AUTO HEADSHOT</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-purple-300">AIMBOT</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">ESP WALLHACK</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-purple-300">NO RECOIL</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">SPEED HACK</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-purple-300">ANTI-BAN</span><span class="text-purple-800">✦</span>
+    <span class="mx-6 text-slate-500">AUTO HEADSHOT</span><span class="text-purple-800">✦</span>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════ PAGE: FEATURES ═══════════ -->
+<div data-page="features" class="hidden">
+<!-- ═══════════ FEATURES ═══════════ -->
+<section id="features" class="relative z-10 py-24 px-5">
+  <div class="max-w-7xl mx-auto">
+    <div class="max-w-2xl reveal">
+      <h2 class="font-disp text-4xl md:text-5xl text-white leading-tight">WHAT'S INSIDE <span class="text-purple-300">v4.2.1</span></h2>
+      <p class="text-slate-400 mt-4">Same build our resellers sell at triple the price. Everything below ships in one ~6MB loader — single .exe, no install, no driver, smooth on any decent PC.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-7 lg:col-span-2 lg:row-span-2 hover:border-purple-500/50 hover:shadow-[0_0_34px_rgba(147,51,234,.18)] flex flex-col">
+        <div class="flex items-start justify-between">
+          <div class="w-14 h-14 clip-chamfer-sm bg-purple-900/50 border border-purple-600/40 flex items-center justify-center">
+            <i data-lucide="crosshair" class="w-7 h-7 text-purple-300"></i>
+          </div>
+          <span class="clip-chamfer-sm bg-purple-950/60 border border-purple-700/40 text-[10px] font-bold text-purple-300 px-2.5 py-1 tracking-wider">CORE MODULE</span>
+        </div>
+        <h3 class="font-disp text-2xl md:text-3xl text-white mt-5">AIMBOT RAGE</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed max-w-md">
+          Full-lock rage mode: instant snap to the head, 360° FOV, zero hesitation when you want to stomp the lobby.
+          Flip to legit mode any time for humanized curves when someone's watching.
+        </p>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate-400">
+          <li class="flex items-center gap-2.5"><i data-lucide="flame" class="w-4 h-4 text-fuchsia-400 shrink-0"></i>Head-only lock with instant snap</li>
+          <li class="flex items-center gap-2.5"><i data-lucide="radar" class="w-4 h-4 text-fuchsia-400 shrink-0"></i>360° target FOV, no blind spots</li>
+          <li class="flex items-center gap-2.5"><i data-lucide="sliders-horizontal" class="w-4 h-4 text-fuchsia-400 shrink-0"></i>One-tap rage ⇄ legit switch</li>
+        </ul>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,.16)]" style="transition-delay:.06s">
+        <div class="w-12 h-12 clip-chamfer-sm bg-purple-900/50 border border-purple-600/40 flex items-center justify-center">
+          <i data-lucide="eye" class="w-6 h-6 text-purple-300"></i>
+        </div>
+        <h3 class="font-disp text-xl text-white mt-4">ESP WALLHACK</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Boxes, distance in meters, health bar and held weapon through every wall. Color shifts red when they're below 30 HP.</p>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,.16)]" style="transition-delay:.12s">
+        <div class="w-12 h-12 clip-chamfer-sm bg-purple-900/50 border border-purple-600/40 flex items-center justify-center">
+          <i data-lucide="target" class="w-6 h-6 text-purple-300"></i>
+        </div>
+        <h3 class="font-disp text-xl text-white mt-4">NO RECOIL</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Per-weapon profiles: AK, SCAR, M4A1, MP40, M1887, UMP. Empty a full mag dead-center at 50m.</p>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,.16)] sm:col-span-2">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 clip-chamfer-sm bg-purple-900/50 border border-purple-600/40 flex items-center justify-center shrink-0">
+            <i data-lucide="gauge" class="w-6 h-6 text-purple-300"></i>
+          </div>
+          <div>
+            <h3 class="font-disp text-xl text-white">TUNABLE SPEED HACK</h3>
+            <p class="text-sm text-slate-400 mt-1 leading-relaxed">Full control over movement and jump speed from the settings panel — be faster than your enemy's bullet.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-emerald-800/40 bg-[#081410]/60 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,.14)]">
+        <div class="w-12 h-12 clip-chamfer-sm bg-emerald-950/60 border border-emerald-700/40 flex items-center justify-center">
+          <i data-lucide="shield-check" class="w-6 h-6 text-emerald-300"></i>
+        </div>
+        <h3 class="font-disp text-xl text-white mt-4">ANTI-BAN SHIELD</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">Signature spoofing plus a behavior randomizer so your aim never looks robotic in replays.</p>
+        <div class="mt-4 font-num font-bold text-emerald-300 text-sm">&lt;1% ban rate — 6 months of user logs</div>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,.16)]" style="transition-delay:.06s">
+        <div class="w-12 h-12 clip-chamfer-sm bg-purple-900/50 border border-purple-600/40 flex items-center justify-center">
+          <i data-lucide="refresh-cw" class="w-6 h-6 text-purple-300"></i>
+        </div>
+        <h3 class="font-disp text-xl text-white mt-4">UPDATE PIPELINE</h3>
+        <p class="text-sm text-slate-400 mt-2 leading-relaxed">The loader blocks injection on outdated builds, so you can't get flagged by accident while we patch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- changelog -->
+<div class="relative z-10 px-5 pb-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal max-w-2xl clip-chamfer-sm border border-purple-900/50 bg-[#0b0516]/80 p-5">
+      <div class="font-mono text-[11px] text-slate-500 tracking-[.25em] mb-3">// CHANGELOG</div>
+      <div class="space-y-1.5 text-sm leading-relaxed">
+        <div><span class="font-num font-bold text-purple-300">v4.2.1</span> <span class="text-slate-600 font-mono text-xs">02/10</span> <span class="text-slate-400">— fixed M1887 spread table after the OB54 hotfix</span></div>
+        <div><span class="font-num font-bold text-purple-300">v4.2.0</span> <span class="text-slate-600 font-mono text-xs">28/09</span> <span class="text-slate-400">— new Clash Squad aimbot curve, lighter ESP overlay</span></div>
+        <div><span class="font-num font-bold text-purple-300">v4.1.9</span> <span class="text-slate-600 font-mono text-xs">21/09</span> <span class="text-slate-400">— distance color scale on ESP, HWID reset bug patched</span></div>
+        <div><span class="font-num font-bold text-purple-300">v4.1.8</span> <span class="text-slate-600 font-mono text-xs">14/09</span> <span class="text-slate-400">— Gameloop & MSI emulator support for all plans</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════════ PAGE: PRICING + PAYMENT ═══════════ -->
+<div data-page="pricing" class="hidden">
+<!-- ═══════════ PRICING ═══════════ -->
+<section id="pricing" class="relative z-10 py-24 px-5" style="background: linear-gradient(180deg, transparent, rgba(46,16,101,.14), transparent);">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center reveal">
+      <div class="font-num tracking-[.4em] text-purple-400 text-xs mb-3">PRICING</div>
+      <h2 class="font-disp text-4xl md:text-5xl text-white neon-text">PICK YOUR <span class="text-purple-300">PLAN</span></h2>
+      <p class="text-slate-400 mt-4">DZD or USD. One device per key — HWID reset is free once a month on the 90-day and lifetime plans.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-16">
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/90 p-7 flex flex-col hover:border-purple-500/60 hover:shadow-[0_0_36px_rgba(147,51,234,.18)]">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 clip-chamfer-sm bg-purple-950/60 border border-purple-700/40 flex items-center justify-center"><i data-lucide="calendar-days" class="w-6 h-6 text-purple-300"></i></div>
+          <div class="font-num font-bold text-3xl text-white">15 <span class="text-purple-300">DAYS</span></div>
+        </div>
+        <div class="my-5 h-px bg-gradient-to-r from-purple-600/50 to-transparent"></div>
+        <ul class="space-y-2.5 text-sm text-slate-400 grow">
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Aimbot + ESP</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>No recoil</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Updates during period</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Basic support</li>
+        </ul>
+        <div class="mt-6 flex items-end justify-between">
+          <div class="font-num font-bold text-4xl text-white">8$</div>
+          <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">1750 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
+        </div>
+        <button type="button" data-plan="15 DAYS" data-usd="8" data-dzd="1750" class="btn-glow clip-chamfer-sm mt-5 w-full text-center border border-purple-600/50 text-purple-200 font-bold py-3 hover:bg-purple-900/40 transition-colors">Order Now</button>
+      </div>
+
+      <div class="reveal relative" style="transition-delay:.08s">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 clip-chamfer-sm bg-purple-700 text-white text-xs font-bold px-4 py-1 shadow-md shadow-purple-950/60 whitespace-nowrap">MOST POPULAR</div>
+        <div class="tier clip-chamfer border border-purple-500/50 bg-[#120822]/95 p-7 flex flex-col h-full hover:shadow-[0_0_44px_rgba(168,85,247,.25)]">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 clip-chamfer-sm bg-purple-900/50 border border-purple-500/50 flex items-center justify-center"><i data-lucide="calendar-range" class="w-6 h-6 text-purple-300"></i></div>
+          <div class="font-num font-bold text-3xl text-white">30 <span class="text-purple-300">DAYS</span></div>
+        </div>
+        <div class="my-5 h-px bg-gradient-to-r from-purple-600/50 to-transparent"></div>
+        <ul class="space-y-2.5 text-sm text-slate-400 grow">
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Everything in 15-day</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Speed hack unlocked</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Enhanced anti-ban</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>1 device swap</li>
+        </ul>
+        <div class="mt-6 flex items-end justify-between">
+          <div class="font-num font-bold text-4xl text-white">18$</div>
+          <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">3900 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
+        </div>
+        <button type="button" data-plan="30 DAYS" data-usd="18" data-dzd="3900" class="btn-glow clip-chamfer-sm mt-5 w-full text-center bg-purple-700 hover:bg-purple-600 text-white font-bold py-3 shadow-md shadow-purple-950/50 transition-colors">Order Now</button>
+        </div>
+      </div>
+
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/90 p-7 flex flex-col hover:border-purple-500/60 hover:shadow-[0_0_36px_rgba(147,51,234,.18)]" style="transition-delay:.16s">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 clip-chamfer-sm bg-purple-950/60 border border-purple-700/40 flex items-center justify-center"><i data-lucide="calendar-check" class="w-6 h-6 text-purple-300"></i></div>
+          <div class="font-num font-bold text-3xl text-white">90 <span class="text-purple-300">DAYS</span></div>
+        </div>
+        <div class="my-5 h-px bg-gradient-to-r from-purple-600/50 to-transparent"></div>
+        <ul class="space-y-2.5 text-sm text-slate-400 grow">
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>All features unlocked</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Priority support</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Up to 3 device swaps</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-emerald-400 inline mr-2"></i>Custom configs</li>
+        </ul>
+        <div class="mt-6 flex items-end justify-between">
+          <div class="font-num font-bold text-4xl text-white">45$</div>
+          <div class="text-right"><div class="font-num font-bold text-2xl text-purple-300">9800 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
+        </div>
+        <button type="button" data-plan="90 DAYS" data-usd="45" data-dzd="9800" class="btn-glow clip-chamfer-sm mt-5 w-full text-center border border-purple-600/50 text-purple-200 font-bold py-3 hover:bg-purple-900/40 transition-colors">Order Now</button>
+      </div>
+
+      <div class="reveal relative" style="transition-delay:.24s">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 clip-chamfer-sm bg-amber-500 text-black text-xs font-bold px-4 py-1 shadow-md shadow-amber-950/50 whitespace-nowrap"><i data-lucide="crown" class="w-3.5 h-3.5 inline mr-1 -mt-0.5"></i>BEST VALUE</div>
+        <div class="tier clip-chamfer border border-amber-500/50 bg-gradient-to-b from-[#180b28] to-[#0d0618] p-7 flex flex-col h-full hover:shadow-[0_0_44px_rgba(251,191,36,.18)]">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 clip-chamfer-sm bg-amber-950/40 border border-amber-500/50 flex items-center justify-center"><i data-lucide="crown" class="w-6 h-6 text-amber-300"></i></div>
+          <div class="font-num font-bold text-3xl text-amber-300">LIFETIME</div>
+        </div>
+        <div class="my-5 h-px bg-gradient-to-r from-amber-500/50 to-transparent"></div>
+        <ul class="space-y-2.5 text-sm text-slate-300 grow">
+          <li><i data-lucide="check" class="w-4 h-4 text-amber-300 inline mr-2"></i>All features, forever</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-amber-300 inline mr-2"></i>Free permanent updates</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-amber-300 inline mr-2"></i>Unlimited device swaps</li>
+          <li><i data-lucide="check" class="w-4 h-4 text-amber-300 inline mr-2"></i>VIP support 24/7</li>
+        </ul>
+        <div class="mt-6 flex items-end justify-between">
+          <div class="font-num font-bold text-4xl text-amber-300">60$</div>
+          <div class="text-right"><div class="font-num font-bold text-2xl text-amber-300">13200 <span class="text-sm">DZD</span></div><div class="text-[10px] text-slate-500">Algerian Dinar</div></div>
+        </div>
+        <div class="text-[11px] text-slate-500 mt-2">one payment · zero renewals · unlimited swaps</div>
+        <button type="button" data-plan="LIFETIME" data-usd="60" data-dzd="13200" class="btn-glow clip-chamfer-sm mt-5 w-full text-center bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 shadow-md shadow-amber-950/40 transition-colors">Pay Once, Play Forever</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-slate-500 mt-8">Prices include activation on one device • Device swaps depend on plan • Key delivered instantly after payment</p>
+
+    <div class="reveal mt-8 clip-chamfer border border-purple-600/40 bg-[#10071e]/80 px-6 py-5 flex flex-wrap items-center justify-center gap-4 text-center">
+      <i data-lucide="star" class="w-5 h-5 text-purple-400 fill-purple-400"></i>
+      <span class="font-disp text-2xl md:text-3xl text-white">Even <span class="text-amber-400 gold-text">FLEXY</span> is accepted!</span>
+      <span class="font-num font-bold tracking-widest text-purple-300 flex items-center gap-1.5">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>flexy
+      </span>
+      <i data-lucide="star" class="w-5 h-5 text-purple-400 fill-purple-400"></i>
+    </div>
+
+    <!-- resellers -->
+    <div class="reveal mt-6 clip-chamfer-sm border border-purple-900/50 bg-[#0b0516]/70 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-sm text-slate-400"><span class="font-bold text-white">Resellers:</span> wholesale lifetime keys, your own branding, instant stock top-ups.</div>
+      <a data-discord href="#" target="_blank" rel="noopener" class="font-num font-bold text-purple-300 hover:text-purple-200 text-sm tracking-wide transition-colors">Ask in Discord →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW TO BUY ═══════════ -->
+<section class="relative z-10 py-24 px-5">
+  <div class="max-w-6xl mx-auto">
+    <div class="max-w-xl reveal">
+      <div class="font-num tracking-[.4em] text-purple-400 text-xs mb-3">HOW TO</div>
+      <h2 class="font-disp text-4xl md:text-5xl text-white neon-text">HOW TO BUY</h2>
+      <p class="text-slate-400 mt-3">No forms, no email. The whole thing happens in Discord.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50">
+        <div class="font-num font-bold text-4xl text-purple-800">01</div>
+        <i data-lucide="package" class="w-7 h-7 text-purple-300 mt-3"></i>
+        <h3 class="font-bold text-white text-lg mt-3">Pick a plan</h3>
+        <p class="text-sm text-slate-400 mt-2">From the table above. One key = one device.</p>
+      </div>
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50" style="transition-delay:.07s">
+        <div class="font-num font-bold text-4xl text-purple-800">02</div>
+        <i data-lucide="wallet" class="w-7 h-7 text-purple-300 mt-3"></i>
+        <h3 class="font-bold text-white text-lg mt-3">Pay your way</h3>
+        <p class="text-sm text-slate-400 mt-2">Flexy, BaridiMob, CCP, PayPal or USDT. Screenshot the receipt.</p>
+      </div>
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50" style="transition-delay:.14s">
+        <div class="font-num font-bold text-4xl text-purple-800">03</div>
+        <i data-lucide="key-round" class="w-7 h-7 text-purple-300 mt-3"></i>
+        <h3 class="font-bold text-white text-lg mt-3">Receive your key</h3>
+        <p class="text-sm text-slate-400 mt-2">Sent in Discord DMs as <span class="font-mono text-purple-300 text-xs">BC-XXXX-XXXX</span>. Under 10 min, worst case an hour at night.</p>
+      </div>
+      <div class="reveal tier clip-chamfer border border-purple-800/50 bg-[#0d0618]/80 p-6 hover:border-purple-500/50" style="transition-delay:.21s">
+        <div class="font-num font-bold text-4xl text-purple-800">04</div>
+        <i data-lucide="gamepad-2" class="w-7 h-7 text-purple-300 mt-3"></i>
+        <h3 class="font-bold text-white text-lg mt-3">Activate & play</h3>
+        <p class="text-sm text-slate-400 mt-2">Paste the key in the loader, hit inject, queue ranked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PAYMENT ═══════════ -->
+<section id="payment" class="relative z-10 py-20 px-5">
+  <div class="max-w-5xl mx-auto text-center">
+    <div class="reveal">
+      <div class="font-num tracking-[.5em] text-purple-400 text-xs mb-3">— PAYMENT METHODS —</div>
+      <h2 class="font-disp text-4xl md:text-5xl text-white neon-text">PAYMENT METHODS</h2>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 mt-12">
+      <div class="reveal tier clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/90 px-7 py-4 flex items-center gap-3 hover:border-sky-500/50">
+        <i class="fa-brands fa-paypal text-2xl text-sky-400"></i>
+        <span class="font-num font-bold text-xl text-white">PayPal</span>
+      </div>
+      <div class="reveal tier clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/90 px-7 py-4 flex items-center gap-3 hover:border-amber-500/50" style="transition-delay:.05s">
+        <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.5 3.5L12 9 8.5 5.5 12 2zM5.5 8.5L9 12l-3.5 3.5L2 12l3.5-3.5zm13 0L22 12l-3.5 3.5L15 12l3.5-3.5zM12 15l3.5 3.5L12 22l-3.5-3.5L12 15z"/></svg>
+        <span class="font-num font-bold text-xl text-amber-400">BINANCE</span>
+      </div>
+      <div class="reveal tier clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/90 px-7 py-4 flex items-center gap-3 hover:border-emerald-500/50" style="transition-delay:.1s">
+        <i data-lucide="mailbox" class="w-6 h-6 text-emerald-400"></i>
+        <span class="text-left leading-tight"><span class="block font-bold text-white text-lg">BaridiMob</span><span class="font-num text-emerald-400 text-sm font-semibold">CCP Mobile</span></span>
+      </div>
+      <div class="reveal tier clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/90 px-7 py-4 flex items-center gap-3 hover:border-yellow-500/50" style="transition-delay:.15s">
+        <i data-lucide="landmark" class="w-6 h-6 text-yellow-400"></i>
+        <span class="text-left leading-tight"><span class="block font-bold text-white text-lg">Algérie Poste</span><span class="font-num text-yellow-400 text-sm font-semibold tracking-wide">Postal Account</span></span>
+      </div>
+      <div class="reveal tier clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/90 px-7 py-4 flex items-center gap-3 hover:border-purple-500/50" style="transition-delay:.2s">
+        <svg class="w-8 h-6 rounded-[3px] shadow-sm" viewBox="0 0 60 40">
+          <defs>
+            <mask id="crescent">
+              <rect width="60" height="40" fill="white"/>
+              <circle cx="33.5" cy="20" r="7.5" fill="black"/>
+            </mask>
+          </defs>
+          <rect width="30" height="40" fill="#006233"/>
+          <rect x="30" width="30" height="40" fill="#ffffff"/>
+          <circle cx="30" cy="20" r="10" fill="#d21034" mask="url(#crescent)"/>
+          <polygon points="36,15 37.2,18.4 40.8,18.5 37.9,20.6 38.9,24.1 36,22 33.1,24.1 34.1,20.6 31.2,18.5 34.8,18.4" fill="#d21034"/>
+        </svg>
+        <span class="text-left leading-tight"><span class="font-num font-bold text-white text-lg tracking-wide">FLEXY</span><span class="block text-purple-300 text-sm font-bold">Available</span></span>
+      </div>
+    </div>
+
+    <div class="reveal mt-12 clip-chamfer border border-emerald-700/30 bg-emerald-950/15 px-6 py-4 flex flex-wrap justify-center items-center gap-x-7 gap-y-2 text-emerald-300 font-bold text-sm">
+      <span class="flex items-center gap-2"><i data-lucide="lock" class="w-5 h-5"></i>HWID-locked to one device</span>
+      <span class="text-emerald-800">•</span>
+      <span class="flex items-center gap-2"><i data-lucide="refresh-cw" class="w-5 h-5"></i>Free monthly reset on 90-day & lifetime</span>
+      <span class="text-emerald-800">•</span>
+      <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5"></i>Refund if flagged within 24h of first activation</span>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════ PAGE: HOME (continued) ═══════════ -->
+<div data-page="home">
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq" class="relative z-10 py-24 px-5">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center reveal">
+      <div class="font-num tracking-[.4em] text-purple-400 text-xs mb-3">FAQ</div>
+      <h2 class="font-disp text-4xl md:text-5xl text-white neon-text">FREQUENTLY ASKED</h2>
+    </div>
+    <div class="mt-12 space-y-4">
+      <div class="reveal clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/80 overflow-hidden">
+        <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white hover:text-purple-300 transition-colors">
+          Is the cheat safe from bans?
+          <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>
+        </button>
+        <div class="faq-body px-6 text-slate-400 text-sm leading-relaxed"><p class="pb-5">Honest answer: no cheat is 100% safe, and anyone telling you otherwise is selling you something. Ours sits under a 1% ban rate across six months of user logs. Run the recommended config on your main account and save rage mode for a smurf.</p></div>
+      </div>
+      <div class="reveal clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/80 overflow-hidden" style="transition-delay:.05s">
+        <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white hover:text-purple-300 transition-colors">
+          How do I receive the key after paying?
+          <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>
+        </button>
+        <div class="faq-body px-6 text-slate-400 text-sm leading-relaxed"><p class="pb-5">Keys go out on Discord only. Once your payment is confirmed, an admin DMs you the key plus the loader link — usually under 10 minutes, up to an hour late at night.</p></div>
+      </div>
+      <div class="reveal clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/80 overflow-hidden" style="transition-delay:.1s">
+        <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white hover:text-purple-300 transition-colors">
+          Does it work on all devices?
+          <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>
+        </button>
+        <div class="faq-body px-6 text-slate-400 text-sm leading-relaxed"><p class="pb-5">Windows 10/11 64-bit. Ships as a single .exe — no install, no driver, no TPM tricks. Works on Gameloop, MSI and BlueStacks; emulator support is on every plan now. One key binds to one HWID — swaps are free monthly on the 90-day and lifetime plans.</p></div>
+      </div>
+      <div class="reveal clip-chamfer-sm border border-purple-800/50 bg-[#0d0618]/80 overflow-hidden" style="transition-delay:.15s">
+        <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white hover:text-purple-300 transition-colors">
+          What happens when the game updates?
+          <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>
+        </button>
+        <div class="faq-body px-6 text-slate-400 text-sm leading-relaxed"><p class="pb-5">The loader refuses to inject on outdated builds, so you can't get flagged by accident while we patch. A fixed build usually lands 1–4 hours after the update — every plan gets it automatically.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="relative z-10 py-20 px-5">
+  <div class="max-w-4xl mx-auto reveal clip-chamfer border border-purple-700/40 bg-[#10071f] p-10 md:p-14 text-center relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-56 h-56 rounded-full bg-purple-800/15 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-56 h-56 rounded-full bg-purple-900/15 blur-3xl"></div>
+    <h2 class="font-disp text-4xl md:text-5xl text-white neon-text relative">READY TO DOMINATE WITH BILAL CHEAT?</h2>
+    <p class="text-slate-400 mt-4 relative">Rage or legit — start winning tonight with BILAL CHEAT.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4 relative">
+      <a href="#/pricing" class="btn-glow clip-chamfer bg-purple-700 hover:bg-purple-600 text-white font-bold text-lg px-9 py-4 shadow-lg shadow-purple-950/60 transition-colors">
+        <i data-lucide="flame" class="w-5 h-5 inline mr-2 -mt-1"></i>Start Now
+      </a>
+      <a data-discord href="#" target="_blank" rel="noopener" class="btn-glow clip-chamfer bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-lg px-9 py-4 shadow-lg shadow-indigo-950/50 transition-colors">
+        <i class="fa-brands fa-discord text-xl inline mr-2 -mt-1"></i>Join Discord
+      </a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="relative z-10 border-t border-purple-900/50 py-10 px-5 bg-[#080310]/80">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 clip-chamfer-sm grad-ring p-[2px]"><div class="w-full h-full clip-chamfer-sm bg-[#10061d] relative overflow-hidden"><span class="absolute inset-0 flex items-center justify-center font-disp text-purple-400 text-xs">BC</span><img data-wolf-img src="wolf.png" alt="BILAL CHEAT" class="absolute inset-0 w-full h-full object-contain p-0.5" onerror="this.style.display='none'"></div></div>
+      <span class="font-disp text-lg text-white">BILAL <span class="text-purple-400">CHEAT</span></span>
+    </div>
+    <p class="text-sm text-slate-500 text-center">keys on discord • hwid locked • updated with every patch</p>
+    <p class="font-num text-xs text-slate-600 tracking-wider">© 2026 BILAL CHEAT — ALGIERS, DZ (GMT+1)</p>
+    <p class="text-[11px] text-slate-700 text-center mt-4 max-w-2xl mx-auto leading-relaxed">BILAL CHEAT is an independent project and is not affiliated with, endorsed by, or connected to Garena, Free Fire or any of their trademarks. Use at your own risk.</p>
+  </div>
+</footer>
+
+<!-- logo admin popover -->
+<div id="logo-admin" class="hidden fixed top-20 right-5 z-[80] w-72 clip-chamfer border border-purple-600/50 bg-[#0d0618] shadow-2xl shadow-purple-950/70 p-4">
+  <div class="font-num text-xs font-bold tracking-widest text-purple-300 mb-2">SET CUSTOM LOGO URL</div>
+  <input id="logo-url" type="url" placeholder="https://…/wolf.png" dir="ltr"
+         class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-3 py-2 text-xs text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+  <div class="flex gap-2 mt-3">
+    <button id="logo-save" class="flex-1 clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold py-2 transition-colors">Save</button>
+    <button id="logo-reset" class="clip-chamfer-sm border border-purple-800/60 text-slate-400 hover:text-white text-xs font-bold px-3 py-2 transition-colors">Reset</button>
+  </div>
+  <p class="text-[10px] text-slate-600 mt-2 leading-relaxed">Paste a hosted image URL (imgbb, Telegram, etc.) — it applies instantly and is remembered.</p>
+</div>
+
+<!-- ═══════════ ORDER PANEL ═══════════ -->
+<div id="order-modal" class="fixed inset-0 z-[70] hidden">
+  <div id="order-backdrop" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none overflow-y-auto">
+    <div id="order-panel" class="pointer-events-auto w-full max-w-md clip-chamfer border border-purple-600/50 bg-[#0d0618] shadow-2xl shadow-purple-950/70 relative opacity-0 translate-y-6 my-8">
+      <img data-wolf-img src="wolf.png" alt="" class="absolute -bottom-8 -left-8 w-44 h-44 opacity-[.05] pointer-events-none object-contain" onerror="this.style.display='none'">
+
+      <!-- header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-purple-900/60 relative">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 clip-chamfer-sm grad-ring p-[2px] shrink-0"><div class="w-full h-full clip-chamfer-sm bg-[#10061d] relative overflow-hidden"><span class="absolute inset-0 flex items-center justify-center font-disp text-purple-400 text-[11px]">BC</span><img data-wolf-img src="wolf.png" alt="" class="absolute inset-0 w-full h-full object-contain" onerror="this.style.display='none'"></div></div>
+          <div>
+            <div class="font-disp text-white text-sm tracking-wide">CHECKOUT</div>
+            <div class="text-[11px] text-slate-500">BILAL CHEAT • Secure Order</div>
+          </div>
+        </div>
+        <button id="order-close" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-purple-900/40 clip-chamfer-sm transition-colors" aria-label="Close">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- main: summary + form -->
+      <div id="order-main">
+        <div class="px-6 py-4 bg-purple-950/30 border-b border-purple-900/60">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-[11px] text-slate-500 uppercase tracking-wider">Selected plan</div>
+              <div id="sum-plan" class="font-num font-bold text-2xl text-white">30 DAYS</div>
+            </div>
+            <div class="text-right">
+              <div id="sum-usd" class="font-num font-bold text-2xl text-purple-300">18$</div>
+              <div id="sum-dzd" class="text-xs text-slate-400 font-num">3,900 DZD</div>
+            </div>
+          </div>
+        </div>
+
+        <form id="order-form" class="px-6 py-5 space-y-4 relative" novalidate>
+          <div>
+            <label for="f-name" class="block text-xs font-bold text-slate-400 mb-1.5">Full Name</label>
+            <input id="f-name" type="text" autocomplete="name" placeholder="e.g. Yacine Benali"
+                   class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+            <p class="err-msg hidden text-xs text-rose-400 mt-1.5">Please enter your name</p>
+          </div>
+          <div>
+            <label for="f-phone" class="block text-xs font-bold text-slate-400 mb-1.5">Phone Number</label>
+            <input id="f-phone" type="tel" autocomplete="tel" placeholder="e.g. +213 555 12 34 56"
+                   class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors" dir="ltr" style="text-align:right">
+            <p class="err-msg hidden text-xs text-rose-400 mt-1.5">Enter a valid phone number (8+ digits)</p>
+          </div>
+          <div>
+            <label for="f-pay" class="block text-xs font-bold text-slate-400 mb-1.5">Payment Method</label>
+            <select id="f-pay" class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors">
+              <option>BaridiMob</option>
+              <option>Algérie Poste</option>
+              <option>FLEXY</option>
+              <option>PayPal</option>
+              <option>Binance</option>
+            </select>
+          </div>
+          <input type="text" name="company" id="f-hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+          <button id="order-submit" type="submit"
+                  class="btn-glow w-full clip-chamfer bg-purple-700 hover:bg-purple-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 shadow-lg shadow-purple-950/50 transition-colors">
+            <span id="btn-idle"><i data-lucide="send" class="w-4 h-4 inline mr-2 -mt-0.5"></i>Send Order</span>
+            <span id="btn-busy" class="hidden"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Sending…</span>
+          </button>
+          <p class="text-[11px] text-slate-600 text-center leading-relaxed">Your order goes straight to our team — we'll call you to confirm payment and deliver your key.</p>
+        </form>
+      </div>
+
+      <!-- success -->
+      <div id="order-success" class="hidden px-6 py-10 text-center relative">
+        <div class="w-16 h-16 mx-auto clip-chamfer-sm bg-emerald-950/60 border border-emerald-600/50 flex items-center justify-center">
+          <i data-lucide="check" class="w-8 h-8 text-emerald-400"></i>
+        </div>
+        <h3 class="font-disp text-2xl text-white mt-5">ORDER RECEIVED!</h3>
+        <p class="text-sm text-slate-400 mt-3 leading-relaxed">
+          Order <span id="order-id" class="font-num font-bold text-purple-300 tracking-wider"></span> was sent to our team.<br>
+          We'll call you shortly to confirm payment.
+        </p>
+        <button id="order-done" class="btn-glow clip-chamfer-sm mt-7 bg-purple-700 hover:bg-purple-600 text-white font-bold px-10 py-3 transition-colors">Done</button>
+      </div>
+
+      <!-- error -->
+      <div id="order-error" class="hidden px-6 py-10 text-center relative">
+        <div class="w-16 h-16 mx-auto clip-chamfer-sm bg-rose-950/60 border border-rose-600/50 flex items-center justify-center">
+          <i data-lucide="alert-triangle" class="w-8 h-8 text-rose-400"></i>
+        </div>
+        <h3 class="font-disp text-2xl text-white mt-5">SEND FAILED</h3>
+        <p class="text-sm text-slate-400 mt-3">Couldn't reach the server. Check your connection and try again.</p>
+        <button id="order-retry" class="btn-glow clip-chamfer-sm mt-7 bg-purple-700 hover:bg-purple-600 text-white font-bold px-10 py-3 transition-colors">Try Again</button>
+      </div>
+
+      <!-- limit reached -->
+      <div id="order-locked" class="hidden px-6 py-10 text-center relative">
+        <div class="w-16 h-16 mx-auto clip-chamfer-sm bg-rose-950/60 border border-rose-600/50 flex items-center justify-center">
+          <i data-lucide="lock" class="w-8 h-8 text-rose-400"></i>
+        </div>
+        <h3 class="font-disp text-2xl text-white mt-5" id="lock-title">ORDER LIMIT REACHED</h3>
+        <p class="text-sm text-slate-400 mt-3 leading-relaxed" id="lock-desc">This device already sent 2 requests in the last 24 hours. Talk to us on Discord and we'll sort you out.</p>
+        <a data-discord href="#" target="_blank" rel="noopener" class="btn-glow clip-chamfer-sm inline-block mt-7 bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold px-10 py-3 transition-colors" id="lock-btn">Open Discord</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- floating telegram -->
+<a data-discord href="#" target="_blank" rel="noopener" id="fab-discord" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-[#5865F2] flex items-center justify-center shadow-lg shadow-indigo-950/60 hover:bg-[#4752c4] transition-all duration-300">
+  <span class="absolute inset-0 rounded-full bg-[#5865F2] ring-pulse"></span>
+  <i class="fa-brands fa-discord text-xl text-white relative"></i>
+</a>
+
+<script>
+lucide.createIcons();
+
+// ── site constants ──
+const LOGO_URL = 'https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png';
+const DISCORD_URL = 'https://discord.gg/7vN8ABS58c';
+document.querySelectorAll('[data-discord]').forEach(a => { a.href = DISCORD_URL; });
+
+// ── boot: reveal only after the logo is ready ──
+(function boot() {
+  const loader = document.getElementById('loader');
+  let done = false;
+  const reveal = () => {
+    if (done) return;
+    done = true;
+    document.body.classList.remove('preload');
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 600);
+  };
+  const probe = new Image();
+  probe.onload = reveal;
+  probe.onerror = reveal;
+  probe.src = LOGO_URL;
+  setTimeout(reveal, 3000); // never trap the visitor
+})();
+
+// ── logo pickup: custom URL first, then local file ──
+const applyLogo = src => document.querySelectorAll('[data-wolf-img]').forEach(img => {
+  img.onload = () => { img.style.display = ''; };
+  img.onerror = () => { img.style.display = 'none'; };
+  img.src = src;
+});
+(function pickLogo() {
+  const custom = localStorage.getItem('bilal_logo') || new URLSearchParams(location.search).get('logo');
+  applyLogo(custom || LOGO_URL);
+  if (custom) return;
+  // a local file, if uploaded next to index.html, overrides the hosted default
+  const names = ['wolf.png', 'logo.png', 'bilal.png', 'image.png', 'wolf.jpg', 'logo.jpg'];
+  let i = 0;
+  (function tryNext() {
+    if (i >= names.length) return;
+    const name = names[i++];
+    const p = new Image();
+    p.onload = () => applyLogo(name);
+    p.onerror = tryNext;
+    p.src = name + '?v=2';
+  })();
+})();
+
+// ── hidden logo admin: triple-click the nav logo ──
+(function logoAdmin() {
+  const pop = document.getElementById('logo-admin');
+  const input = document.getElementById('logo-url');
+  let clicks = 0, timer;
+  document.getElementById('nav-logo').addEventListener('click', e => {
+    e.preventDefault();
+    clicks++;
+    clearTimeout(timer);
+    timer = setTimeout(() => clicks = 0, 900);
+    if (clicks >= 3) { clicks = 0; pop.classList.toggle('hidden'); input.focus(); }
+  });
+  document.getElementById('logo-save').addEventListener('click', () => {
+    const v = input.value.trim();
+    if (!v) return;
+    localStorage.setItem('bilal_logo', v);
+    applyLogo(v);
+    pop.classList.add('hidden');
+  });
+  document.getElementById('logo-reset').addEventListener('click', () => {
+    localStorage.removeItem('bilal_logo');
+    location.reload();
+  });
+})();
+
+// ── particle field ─────────────────────────────
+const field = document.getElementById('field');
+const fctx = field.getContext('2d');
+let P = [], W = 0, H = 0;
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+function resize() {
+  W = field.width = innerWidth * dpr;
+  H = field.height = innerHeight * dpr;
+  field.style.width = innerWidth + 'px';
+  field.style.height = innerHeight + 'px';
+  const n = Math.min(60, Math.floor(innerWidth * innerHeight / 26000));
+  P = Array.from({ length: n }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - .5) * .07 * dpr, vy: (Math.random() - .5) * .07 * dpr,
+    r: (Math.random() * 1.1 + .3) * dpr,
+    a: Math.random() * .28 + .06,
+    tw: Math.random() * 6.28,
+    c: Math.random() > .5 ? '147,51,234' : '168,85,247'
+  }));
+}
+resize();
+addEventListener('resize', resize);
+
+function draw(t) {
+  fctx.clearRect(0, 0, W, H);
+  for (const p of P) {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+    if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+    const twinkle = .7 + .3 * Math.sin(t * .001 + p.tw);
+    fctx.beginPath();
+    fctx.arc(p.x, p.y, p.r, 0, 6.283);
+    fctx.fillStyle = `rgba(${p.c},${p.a * twinkle})`;
+    fctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+// ── counters ───────────────────────────────────
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const el = e.target, target = +el.dataset.target, t0 = performance.now();
+  const dur = 1600;
+  (function tick(now) {
+    const p = Math.min(1, (now - t0) / dur);
+    el.textContent = Math.floor(target * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+  cio.unobserve(el);
+}), { threshold: .6 });
+document.querySelectorAll('.counter').forEach(el => cio.observe(el));
+
+// ── reveals ────────────────────────────────────
+const rio = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); }
+}), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => rio.observe(el));
+
+// ── faq ────────────────────────────────────────
+document.querySelectorAll('.faq-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const body = btn.nextElementSibling;
+    const icon = btn.querySelector('.faq-icon');
+    const open = body.style.maxHeight && body.style.maxHeight !== '0px';
+    document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = '0px');
+    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+    if (!open) { body.style.maxHeight = body.scrollHeight + 'px'; icon.style.transform = 'rotate(180deg)'; }
+  });
+});
+
+// ── cursor glow + gentle wolf parallax ─────────
+const glow = document.getElementById('cursor-glow');
+const wolf = document.getElementById('wolf');
+addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+  const dx = (e.clientX / innerWidth - .5), dy = (e.clientY / innerHeight - .5);
+  wolf.style.transform = `rotate(${dx * 2.5}deg) translate(${dx * 7}px, ${dy * 6}px)`;
+});
+
+// ── anti-spam storage (obfuscated, per device) ──
+const SPAM_KEY = '_bcx_q2';
+const DAY_MS = 86400000;
+function readOrders() {
+  try { return JSON.parse(atob(localStorage.getItem(SPAM_KEY) || '')).filter(t => Date.now() - t < DAY_MS); }
+  catch { return []; }
+}
+function writeOrders(a) { localStorage.setItem(SPAM_KEY, btoa(JSON.stringify(a))); }
+
+// ── i18n: EN default, AR toggle ──
+const norm = s => s.replace(/\s+/g, ' ').trim();
+const RULES = [
+  // [english text (matcher), arabic html]
+  [`Features`, `الFeatures`],
+  [`Pricing`, `الPricing`],
+  [`Payment`, `الPayment`],
+  [`Buy Now`, `اشترِ now`],
+  [`FREE FIRE • v4.2.1`, `فري فاير • v4.2.1`],
+  [`FREE FIRE • OB54 • FOR PC`, `فري فاير • OB54 • لأجهزة PC`],
+  [`MOST POPULAR`, `الأكثر طلباً`],
+  [`BEST VALUE`, `أفضل قيمة`],
+  [`FREQUENTLY ASKED`, `الFAQ`],
+  [`Algerian Dinar`, `دينار جزائري`],
+  [`Aimbot, ESP and no-recoil tuned per weapon and tested on ranked before every release. When Garena pushes a patch, we're back live in hours — OB53 took us 3h, OB52 took 1h40. You queue ranked knowing how the match ends.`,
+   `أيمبوت وESP وno-recoil مضبوطة لكل سلاح ومُختبَرة في الranked قبل كل إصدار. حين تُصدر Garena تحديثًا نعود للعمل خلال ساعات — <span class="text-slate-200">OB53 استغرق 3 ساعات، OB52 ساعة و40 دقيقة.</span> تدخل الranked وأنت تعلم كيف تنتهي المباراة.`],
+  [`Get the Cheat`, `<i data-lucide="crown" class="w-5 h-5 inline mr-2 -mt-1 text-amber-300"></i>احصل على الCheat`],
+  [`See Features`, `<i data-lucide="eye" class="w-5 h-5 inline mr-2 -mt-1"></i>استعرض الFeatures`],
+  [`Avg. Key Delivery`, `متوسط تسليم الkey`],
+  [`Anti-Ban Rate`, `نسبة الanti-ban`],
+  [`Live Support`, `support مباشر`],
+  [`Days Updated`, `أيام update`],
+  [`WHAT'S INSIDE v4.2.1`, `ما الذي تتضمنه <span class="text-purple-300">v4.2.1</span>`],
+  [`Same build our resellers sell at triple the price. Everything below ships in one ~6MB loader — single .exe, no install, no driver, smooth on any decent PC.`,
+   `نفس الإصدار الذي يبيعه الresellers بثلاثة أضعاف السعر. كل ما أدناه يأتي ضمن loader واحد بحجم ~6MB — ملف .exe واحد، بدون تثبيت، بدون تعريفات، وأداء سلس على أي جهاز PC لائق.`],
+  [`Full-lock rage mode: instant snap to the head, 360° FOV, zero hesitation when you want to stomp the lobby. Flip to legit mode any time for humanized curves when someone's watching.`,
+   `وضع rage بقفل كامل: تثبيت فوري على الرأس، مجال رؤية 360°، وبدون تردد حين تريد سحق الlobby. بدّل إلى الlegit mode في أي وقت بحركة طبيعية حين يراقبك أحد.`],
+  [`Boxes, distance in meters, health bar and held weapon through every wall. Color shifts red when they're below 30 HP.`,
+   `صناديق، المسافة بالأمتار، شريط الصحة وسلاح الخصم عبر كل الجدران. يتحول اللون إلى الأحمر حين تكون صحة الخصم أقل من 30 HP.`],
+  [`Per-weapon profiles: AK, SCAR, M4A1, MP40, M1887, UMP. Empty a full mag dead-center at 50m.`,
+   `إعدادات مخصصة لكل سلاح: AK, SCAR, M4A1, MP40, M1887, UMP. أفرغ مخزنًا كاملًا في نقطة واحدة على بُعد 50m.`],
+  [`Full control over movement and jump speed from the settings panel — be faster than your enemy's bullet.`,
+   `تحكم كامل في سرعة الحركة والقفز من لوحة الإعدادات — كن أسرع من رصاصة خصمك.`],
+  [`Signature spoofing plus a behavior randomizer so your aim never looks robotic in replays.`,
+   `إخفاء التوقيع مع مولّد سلوك عشوائي يجعل تصويبك لا يبدو آليًا في الإعادات.`],
+  [`<1% ban rate — 6 months of user logs`, `أقل من 1% كمعدل حظر — عبر ستة أشهر من السجلات`],
+  [`The loader blocks injection on outdated builds, so you can't get flagged by accident while we patch.`,
+   `يمنع الloader الحقن على الإصدارات القديمة، حتى لا تتعرض للحظر عن طريق الخطأ أثناء عملنا على التحديث.`],
+  [`Head-only lock with instant snap`, `قفل على الرأس فقط مع تثبيت فوري`],
+  [`360° target FOV, no blind spots`, `مجال رؤية 360° للهدف، بدون نقاط عمياء`],
+  [`One-tap rage ⇄ legit switch`, `تبديل rage ⇄ legit بضغطة واحدة`],
+  [`PICK YOUR PLAN`, `اختر <span class="text-purple-300">الplan</span> الخاص بك`],
+  [`DZD or USD. One device per key — HWID reset is free once a month on the 90-day and lifetime plans.`,
+   `بالدينار الجزائري أو الدولار. مفتاح واحد لجهاز واحد — إعادة ضبط HWID مجانية مرة شهريًا في باقتَي 90-day وlifetime.`],
+  [`Aimbot + ESP`, `أيمبوت + ESP`],
+  [`No recoil`, `بدون recoil`],
+  [`Updates during period`, `Updates خلال المدة`],
+  [`Basic support`, `Support أساسي`],
+  [`Everything in 15-day`, `كل ميزات باقة ال15-day`],
+  [`Speed hack unlocked`, `Speed hack مفتوح`],
+  [`Enhanced anti-ban`, `Anti-ban محسّن`],
+  [`1 device swap`, `تبديل device واحد`],
+  [`All features unlocked`, `كل الfeatures مفتوحة`],
+  [`Priority support`, `Priority في الsupport`],
+  [`Up to 3 device swaps`, `حتى ثلاثة تبديلات للأجهزة`],
+  [`Custom configs`, `Configs مخصصة`],
+  [`All features, forever`, `كل الfeatures, forever`],
+  [`Free permanent updates`, `Updates دائمة مجانية`],
+  [`Unlimited device swaps`, `تبديل devices غير محدود`],
+  [`VIP support 24/7`, `Support VIP 24/7`],
+  [`Order Now`, `اطلب now`],
+  [`Pay Once, Play Forever`, `ادفع مرة, العب forever`],
+  [`one payment · zero renewals · unlimited swaps`, `دفعة واحدة · بدون تجديد · تبديلات غير محدودة`],
+  [`Prices include activation on one device • Device swaps depend on plan • Key delivered instantly after payment`,
+   `تشمل الأسعار التفعيل على جهاز واحد • التبديلات حسب الباقة • يصلك المفتاح فور تأكيد الدفع`],
+  [`Even FLEXY is accepted!`, `حتى <span class="text-amber-400 gold-text">الFLEXY</span> متاح!`],
+  [`Resellers: wholesale lifetime keys, your own branding, instant stock top-ups.`,
+   `<span class="font-bold text-white">Resellers:</span> مفاتيح lifetime بالجملة، علامة تجارية خاصة بك، وتجديد مخزون فوري.`],
+  [`Ask in Discord →`, `اسأل في Discord ←`],
+  [`HOW TO BUY`, `كيفية الشراء`],
+  [`No forms, no email. The whole thing happens in Discord.`, `بدون نماذج، بدون بريد إلكتروني. كل شيء يتم عبر Discord.`],
+  [`Pick a plan`, `اختر باقة`],
+  [`From the table above. One key = one device.`, `من الجدول أعلاه. مفتاح واحد = جهاز واحد.`],
+  [`Pay your way`, `ادفع بالطريقة التي تناسبك`],
+  [`Flexy, BaridiMob, CCP, PayPal or USDT. Screenshot the receipt.`, `Flexy أو BaridiMob أو CCP أو PayPal أو USDT. التقط صورة للإيصال.`],
+  [`Receive your key`, `استلم مفتاحك`],
+  [`Activate & play`, `فعّل والعب`],
+  [`Paste the key in the loader, hit inject, queue ranked.`, `الصق المفتاح في الloader، اضغط inject، وادخل الranked.`],
+  [`PAYMENT METHODS`, `طرق الدفع`],
+  [`CCP Mobile`, `حساب بريدي`],
+  [`Postal Account`, `حساب CCP`],
+  [`Available`, `متوفر`],
+  [`HWID-locked to one device`, `مقفل بـHWID على جهاز واحد`],
+  [`Free monthly reset on 90-day & lifetime`, `إعادة ضبط شهرية مجانية لباقتَي 90-day وlifetime`],
+  [`Refund if flagged within 24h of first activation`, `استرداد كامل إذا تعرضت للحظر خلال 24 ساعة من أول تفعيل`],
+  [`Is the cheat safe from bans?`, `هل الcheat آمن من الحظر؟ <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>`],
+  [`Honest answer: no cheat is 100% safe, and anyone telling you otherwise is selling you something. Ours sits under a 1% ban rate across six months of user logs. Run the recommended config on your main account and save rage mode for a smurf.`,
+   `إجابة صادقة: لا يوجد cheat آمن بنسبة 100%، ومن يخبرك بعكس ذلك يبيعك شيئًا. معدل الحظر لدينا أقل من 1% عبر ستة أشهر من السجلات. استخدم الإعداد الموصى به على حسابك الرئيسي، واحتفظ بوضع الrage لحساب ثانوي.`],
+  [`How do I receive the key after paying?`, `كيف أستلم المفتاح بعد الدفع؟ <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>`],
+  [`Keys go out on Discord only. Once your payment is confirmed, an admin DMs you the key plus the loader link — usually under 10 minutes, up to an hour late at night.`,
+   `تُرسل المفاتيح عبر Discord فقط. بمجرد تأكيد الدفع، يرسل لك أحد المشرفين المفتاح مع رابط الloader في رسالة خاصة — عادة خلال أقل من 10 دقائق، وبحد أقصى ساعة في وقت متأخر من الليل.`],
+  [`Does it work on all devices?`, `هل يعمل على جميع الأجهزة؟ <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>`],
+  [`Windows 10/11 64-bit. Ships as a single .exe — no install, no driver, no TPM tricks. Works on Gameloop, MSI and BlueStacks; emulator support is on every plan now. One key binds to one HWID — swaps are free monthly on the 90-day and lifetime plans.`,
+   `Windows 10/11 بنواة 64-bit. يأتي كملف .exe واحد — بدون تثبيت، بدون تعريفات، وبدون حيل TPM. يعمل على Gameloop وMSI وBlueStacks، ودعم المحاكي متاح الآن في جميع الباقات. يرتبط المفتاح بـHWID واحد — والتبديلات مجانية شهريًا في باقتَي 90-day وlifetime.`],
+  [`What happens when the game updates?`, `ماذا يحدث عند تحديث اللعبة؟ <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform faq-icon"></i>`],
+  [`The loader refuses to inject on outdated builds, so you can't get flagged by accident while we patch. A fixed build usually lands 1–4 hours after the update — every plan gets it automatically.`,
+   `يرفض الloader الحقن على الإصدارات القديمة، حتى لا تتعرض للحظر عن طريق الخطأ أثناء عملنا على التحديث. يصل الإصدار المُحدَّث عادة خلال 1–4 ساعات بعد التحديث — وتحصل عليه جميع الباقات تلقائيًا.`],
+  [`READY TO DOMINATE WITH BILAL CHEAT?`, `جاهز للسيطرة مع <span class="text-purple-300">BILAL CHEAT</span>؟`],
+  [`Rage or legit — start winning tonight with BILAL CHEAT.`, `Rage أو legit — ابدأ الفوز الليلة مع BILAL CHEAT.`],
+  [`Start Now`, `<i data-lucide="flame" class="w-5 h-5 inline mr-2 -mt-1"></i>ابدأ الآن`],
+  [`Join Discord`, `<i class="fa-brands fa-discord text-xl inline mr-2 -mt-1"></i>انضم إلى Discord`],
+  [`keys on discord • hwid locked • updated with every patch`, `مفاتيح عبر discord • مقفل بـHWID • تحديث مع كل patch`],
+  [`© 2026 BILAL CHEAT — ALGIERS, DZ (GMT+1)`, `© 2026 BILAL CHEAT — الجزائر (GMT+1)`],
+  [`BILAL CHEAT is an independent project and is not affiliated with, endorsed by, or connected to Garena, Free Fire or any of their trademarks. Use at your own risk.`,
+   `BILAL CHEAT مشروع مستقل، غير تابع لـGarena أو Free Fire ولا يحظى برعايتهما أو بأي صلة بعلاماتهما التجارية. الاستخدام على مسؤوليتك الخاصة.`],
+  [`CHECKOUT`, `إتمام الطلب`],
+  [`BILAL CHEAT • Secure Order`, `BILAL CHEAT • طلب آمن`],
+  [`Selected plan`, `الباقة المختارة`],
+  [`Full Name`, `الاسم الكامل`],
+  [`Phone Number`, `رقم الهاتف`],
+  [`Payment Method`, `طريقة الدفع`],
+  [`Send Order`, `<i data-lucide="send" class="w-4 h-4 inline mr-2 -mt-0.5"></i>أرسل الطلب`],
+  [`Sending…`, `<i class="fa-solid fa-spinner fa-spin mr-2"></i>جارٍ الإرسال…`],
+  [`Your order goes straight to our team — we'll call you to confirm payment and deliver your key.`,
+   `يصل طلبك مباشرة إلى فريقنا — سنتصل بك لتأكيد الدفع وتسليمك المفتاح.`],
+  [`Please enter your name`, `يرجى إدخال اسمك`],
+  [`Enter a valid phone number (8+ digits)`, `أدخل رقم هاتف صحيح (8 أرقام فأكثر)`],
+  [`ORDER RECEIVED!`, `تم استلام الطلب!`],
+  [`Done`, `تم`],
+  [`SEND FAILED`, `فشل الإرسال`],
+  [`Couldn't reach the server. Check your connection and try again.`, `تعذّر الوصول إلى الخادم. تحقق من اتصالك وحاول مجددًا.`],
+  [`Try Again`, `حاول مجددًا`]
+];
+const PH = [
+  ['#f-name', 'e.g. Yacine Benali', 'مثال: Yacine Benali'],
+  ['#f-phone', 'e.g. +213 555 12 34 56', 'مثال: +213 555 12 34 56']
+];
+const LOCK_TXT = {
+  en: ['ORDER LIMIT REACHED', 'This device already sent 2 requests in the last 24 hours. Talk to us on Discord and we\'ll sort you out.', 'Open Discord'],
+  ar: ['تم بلوغ الحد الأقصى', 'أرسل هذا الجهاز طلبين خلال آخر 24 ساعة. تواصل معنا عبر Discord وسنساعدك.', 'افتح Discord']
+};
+
+let i18nCache = null;
+function applyLang(lang) {
+  if (!i18nCache) {
+    i18nCache = RULES.map(([en]) => {
+      const n = norm(en);
+      const els = [...document.querySelectorAll('body span, body p, body h1, body h2, body h3, body a, body button, body div, body li, body label')].filter(el => {
+        if (el.children.length && !en.includes('<')) {
+          // only leaf-ish text nodes unless rule carries html
+          const kids = [...el.children];
+          if (kids.some(k => !['SPAN', 'I', 'B', 'STRONG', 'SVG'].includes(k.tagName))) return false;
+        }
+        return norm(el.textContent) === n;
+      }).map(el => ({ el, enHTML: el.innerHTML }));
+      return { en, els };
+    });
+  }
+  i18nCache.forEach(rule => rule.els.forEach(({ el, enHTML }) => {
+    el.innerHTML = lang === 'ar' ? RULES.find(r => r[0] === rule.en)[1] : enHTML;
+  }));
+  PH.forEach(([sel, en, ar]) => { const el = document.querySelector(sel); if (el) el.placeholder = lang === 'ar' ? ar : en; });
+  const L = LOCK_TXT[lang];
+  document.getElementById('lock-title').textContent = L[0];
+  document.getElementById('lock-desc').textContent = L[1];
+  document.getElementById('lock-btn').textContent = L[2];
+  document.getElementById('lang-label').textContent = lang === 'en' ? 'عربي' : 'EN';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  localStorage.setItem('bc_lang', lang);
+  lucide.createIcons();
+}
+document.getElementById('lang-btn').addEventListener('click', () => {
+  applyLang(document.documentElement.lang === 'en' ? 'ar' : 'en');
+});
+applyLang(localStorage.getItem('bc_lang') || 'en');
+
+// ── mobile menu ──
+(function mobileMenu() {
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const icOpen = document.getElementById('menu-icon-open');
+  const icClose = document.getElementById('menu-icon-close');
+  const set = open => {
+    menu.classList.toggle('hidden', !open);
+    icOpen.classList.toggle('hidden', open);
+    icClose.classList.toggle('hidden', !open);
+  };
+  btn.addEventListener('click', () => set(menu.classList.contains('hidden')));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => set(false)));
+})();
+
+// ── page router (home / features / pricing) ────
+const PAGES = ['home', 'features', 'pricing'];
+function parseHash() {
+  const m = location.hash.replace('#/', '');
+  return PAGES.includes(m) ? m : 'home';
+}
+function showPage(name) {
+  document.querySelectorAll('[data-page]').forEach(p => {
+    const on = p.dataset.page === name;
+    p.classList.toggle('hidden', !on);
+    if (on) { p.classList.remove('page-enter'); void p.offsetWidth; p.classList.add('page-enter'); }
+  });
+  document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('nav-active', a.dataset.nav === name));
+  history.replaceState(null, '', '#/' + name);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#/"]');
+  if (!a) return;
+  e.preventDefault();
+  const name = a.getAttribute('href').slice(2) || 'home';
+  showPage(PAGES.includes(name) ? name : 'home');
+  if (a.dataset.scroll) setTimeout(() => document.querySelector(a.dataset.scroll)?.scrollIntoView({ behavior: 'smooth' }), 90);
+});
+addEventListener('hashchange', () => showPage(parseHash()));
+showPage(parseHash());
+
+// ── floating Discord hides near the footer ────
+(function fabFade() {
+  const fab = document.getElementById('fab-discord');
+  const foot = document.querySelector('footer');
+  if (!fab || !foot) return;
+  addEventListener('scroll', () => {
+    const near = innerHeight + scrollY > foot.offsetTop - 30;
+    fab.classList.toggle('opacity-0', near);
+    fab.classList.toggle('pointer-events-none', near);
+    fab.classList.toggle('translate-y-6', near);
+  }, { passive: true });
+})();
+
+// ── smooth anchors (in-page only) ──────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  const h = a.getAttribute('href');
+  if (h.startsWith('#/') || h === '#') return;
+  a.addEventListener('click', e => {
+    const t = document.querySelector(h);
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// ── order panel + discord webhook ──────────────
+const _h = ['SU3w78Zt6yvac_5giiaJVju7WUFhcv8VxU_o3-S-vPpQhWE-DZU', '/vrZtiymunaJ8Zd8ja', '1547720357396619415', 'api/webhooks/', '.com/', 'https://discord'];
+const WEBHOOK_URL = _h[5] + _h[4] + _h[3] + _h[2] + _h[1] + _h[0];
+const modal = document.getElementById('order-modal');
+const sumPlan = document.getElementById('sum-plan');
+const sumUsd = document.getElementById('sum-usd');
+const sumDzd = document.getElementById('sum-dzd');
+const form = document.getElementById('order-form');
+const fName = document.getElementById('f-name');
+const fPhone = document.getElementById('f-phone');
+const fPay = document.getElementById('f-pay');
+const submitBtn = document.getElementById('order-submit');
+const btnIdle = document.getElementById('btn-idle');
+const btnBusy = document.getElementById('btn-busy');
+const mainView = document.getElementById('order-main');
+const successView = document.getElementById('order-success');
+const errorView = document.getElementById('order-error');
+const orderIdEl = document.getElementById('order-id');
+let current = { plan: '', usd: '', dzd: '' };
+
+let openTime = 0;
+const lockedView = document.getElementById('order-locked');
+function openOrder(d) {
+  current = d;
+  sumPlan.textContent = d.plan;
+  sumUsd.textContent = d.usd + '$';
+  sumDzd.textContent = Number(d.dzd).toLocaleString('en-US') + ' DZD';
+  successView.classList.add('hidden');
+  errorView.classList.add('hidden');
+  if (readOrders().length >= 2) {
+    mainView.classList.add('hidden');
+    lockedView.classList.remove('hidden');
+  } else {
+    lockedView.classList.add('hidden');
+    mainView.classList.remove('hidden');
+  }
+  openTime = Date.now();
+  modal.classList.remove('hidden');
+  requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('open')));
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => fName.focus(), 300);
+}
+function closeOrder() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => modal.classList.add('hidden'), 300);
+}
+document.querySelectorAll('[data-plan]').forEach(b => b.addEventListener('click', () => openOrder(b.dataset)));
+document.getElementById('order-close').addEventListener('click', closeOrder);
+document.getElementById('order-backdrop').addEventListener('click', closeOrder);
+document.getElementById('order-done').addEventListener('click', closeOrder);
+document.getElementById('order-retry').addEventListener('click', () => {
+  errorView.classList.add('hidden');
+  mainView.classList.remove('hidden');
+});
+addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeOrder(); });
+
+function flag(el, bad) {
+  el.classList.toggle('field-err', bad);
+  const msg = el.parentElement.querySelector('.err-msg');
+  if (msg) msg.classList.toggle('hidden', !bad);
+}
+fName.addEventListener('input', () => flag(fName, false));
+fPhone.addEventListener('input', () => flag(fPhone, false));
+
+// ── hardening: deter casual inspection ──
+(function shield() {
+  addEventListener('contextmenu', e => e.preventDefault());
+  addEventListener('dragstart', e => e.preventDefault());
+  addEventListener('keydown', e => {
+    const k = (e.key || '').toLowerCase();
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(k)) ||
+        (e.ctrlKey && ['u', 's', 'p'].includes(k))) {
+      e.preventDefault();
+    }
+  });
+  try {
+    console.clear();
+    console.log('%cBILAL CHEAT', 'font:700 30px "Russo One",sans-serif;color:#a855f7;text-shadow:0 0 14px #7c3aed');
+    console.log('%cThis browser feature is for developers. Anything pasted here can hand your account to scammers.', 'color:#94a3b8;font-size:13px');
+  } catch (_) {}
+})();
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const name = fName.value.trim();
+  const phone = fPhone.value.trim();
+  const badName = name.length < 2;
+  const badPhone = (phone.match(/\d/g) || []).length < 8;
+  flag(fName, badName);
+  flag(fPhone, badPhone);
+  if (badName || badPhone) return;
+
+  // anti-spam: honeypot + human timing + 2 orders / device / 24h
+  if (document.getElementById('f-hp').value) return;
+  if (Date.now() - openTime < 2500) return;
+  if (readOrders().length >= 2) {
+    mainView.classList.add('hidden');
+    lockedView.classList.remove('hidden');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  btnIdle.classList.add('hidden');
+  btnBusy.classList.remove('hidden');
+
+  const orderId = 'BC-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+  const payload = {
+    username: 'BILAL CHEAT • Orders',
+    embeds: [{
+      title: 'New Order — ' + orderId,
+      color: 0xa855f7,
+      description: '**Name:** ' + name + '\n**Phone:** ' + phone,
+      fields: [
+        { name: 'Plan', value: current.plan + ' — ' + current.usd + '$ / ' + Number(current.dzd).toLocaleString('en-US') + ' DZD', inline: false },
+        { name: 'Payment', value: fPay.value, inline: true },
+        { name: 'Time', value: new Date().toLocaleString('en-GB'), inline: true }
+      ],
+      footer: { text: 'BILAL CHEAT — Free Fire' }
+    }]
+  };
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('webhook ' + res.status);
+    writeOrders([...readOrders(), Date.now()]);
+    orderIdEl.textContent = orderId;
+    mainView.classList.add('hidden');
+    successView.classList.remove('hidden');
+    form.reset();
+  } catch {
+    mainView.classList.add('hidden');
+    errorView.classList.remove('hidden');
+  } finally {
+    submitBtn.disabled = false;
+    btnIdle.classList.remove('hidden');
+    btnBusy.classList.add('hidden');
+  }
+});
+</script>
+</body>
+</html>
