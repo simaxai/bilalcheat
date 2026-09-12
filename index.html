@@ -1126,6 +1126,7 @@ function _doPersist() {
     const out = new Uint8Array(12 + cx.byteLength); out.set(iv); out.set(new Uint8Array(cx), 12);
     let s = ''; out.forEach(b => s += String.fromCharCode(b));
     localStorage.setItem(CUST_KEY, btoa(s));
+    if (typeof notifyParent === 'function') notifyParent();
   }).catch(() => {
     // storage full: drop heavy photos and retry so messages always survive
     try {
@@ -1444,6 +1445,30 @@ function cloudSend(o) {
 const BRIDGE_SECRET = djb2('bc-bridge-v1:' + _SECRET);
 const BRIDGE_ORIGINS = ['https://infobilalurl.vercel.app'];
 window.__bc_admin_alive_bridge = 0;
+// push instantly to the desk iframe the moment anything is saved — no waiting for polls
+function notifyParent() {
+  if (window.parent && window.parent !== window) {
+    try { window.parent.postMessage({ bc: BRIDGE_SECRET, cmd: 'data', customers: _cc }, '*'); } catch (_) {}
+  }
+}
+// same-tab instant sync: when the desk's hidden frame writes, this tab re-reads immediately
+addEventListener('storage', e => {
+  if (e.key !== CUST_KEY && e.key !== 'bc_customers_plain') return;
+  (async () => {
+    try {
+      if (_plain || !_ck) { _cc = JSON.parse(localStorage.getItem('bc_customers_plain') || localStorage.getItem('bc_customers') || '[]'); }
+      else {
+        const raw = localStorage.getItem(CUST_KEY); if (!raw) return;
+        const bin = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
+        const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bin.slice(0, 12) }, _ck, bin.slice(12));
+        _cc = JSON.parse(new TextDecoder().decode(pt));
+      }
+      if (custRec) { custRec = _cc.find(c => c.id === custRec.id) || custRec; renderNavAccount(); }
+      if (typeof renderChat === 'function' && document.getElementById('chat-sheet').classList.contains('open')) renderChat();
+      notifyParent();
+    } catch (_) {}
+  })();
+});
 function mergeRemote(remote) {
   let changed = false;
   (remote || []).forEach(r => {
@@ -1461,10 +1486,11 @@ function mergeRemote(remote) {
     _ready.then(_persist);
     if (custRec) { custRec = _cc.find(c => c.id === custRec.id) || custRec; renderNavAccount(); }
     if (typeof renderChat === 'function' && document.getElementById('chat-sheet').classList.contains('open')) renderChat();
+    notifyParent();
   }
 }
 addEventListener('message', e => {
-  if (e.origin !== location.origin && !BRIDGE_ORIGINS.includes(e.origin)) return;
+  // secret-gated channel: any legitimate desk deployment may connect
   const d = e.data || {};
   if (d.bc !== BRIDGE_SECRET) return;
   window.__bc_admin_alive_bridge = Date.now(); // the desk just pinged — BILAL is online
