@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BILAL CHEAT — Admin</title>
+<meta name="theme-color" content="#0a0512">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0a0512; font-family: 'Chakra Petch', sans-serif; }
+  .font-disp { font-family: 'Russo One', sans-serif; }
+  .font-num { font-family: 'Rajdhani', sans-serif; }
+  ::selection { background: rgba(168,85,247,.35); color: #fff; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #0b0614; }
+  ::-webkit-scrollbar-thumb { background: #46206b; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6b2fa8; }
+  .clip-chamfer { clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+  .clip-chamfer-sm { clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px); }
+  .avatar { display: flex; align-items: center; justify-content: center; font-family: 'Rajdhani', sans-serif; font-weight: 700; color: #fff; user-select: none; }
+  .bubble-a { background: linear-gradient(135deg, #7c3aed, #c026d3); }
+  .bubble-c { background: #1d1033; border: 1px solid rgba(147,51,234,.25); }
+  .cust-item.active { background: rgba(124,58,237,.16); border-color: rgba(168,85,247,.5); }
+  input, textarea { -webkit-user-select: text; user-select: text; }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(168,85,247,.07) 1px, transparent 1.4px);
+    background-size: 28px 28px;
+  }
+  @keyframes pulse-dot { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+  .live-dot { animation: pulse-dot 2s ease-in-out infinite; }
+  @keyframes shake { 0%,100% { transform: translateX(0) } 20% { transform: translateX(-9px) } 40% { transform: translateX(8px) } 60% { transform: translateX(-6px) } 80% { transform: translateX(4px) } }
+  .shake { animation: shake .4s ease; }
+
+  /* connection gate */
+  @keyframes net-ring { 0% { transform: scale(.55); opacity: .8 } 100% { transform: scale(1.9); opacity: 0 } }
+  .net-ring { animation: net-ring 2.4s ease-out infinite; }
+  .net-ring.d2 { animation-delay: .8s; }
+  .pat-node.on { background: #a855f7; border-color: #e9d5ff; transform: translate(-50%,-50%) scale(1.4); box-shadow: 0 0 16px rgba(168,85,247,.85); }
+  .pat-node.ok { background: #34d399; border-color: #a7f3d0; box-shadow: 0 0 14px rgba(52,211,153,.7); }
+  .pat-node.bad { background: #fb7185; border-color: #fecdd3; box-shadow: 0 0 14px rgba(251,113,133,.7); }
+</style>
+</head>
+<body class="text-slate-300 antialiased">
+
+<!-- loader: nothing shows until assets are ready -->
+<div id="loader" class="fixed inset-0 z-[300] bg-[#0a0512] flex flex-col items-center justify-center gap-4">
+  <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-24 h-24 object-contain" style="filter: drop-shadow(0 0 14px rgba(147,51,234,.45)); animation: lpulse 1.6s ease-in-out infinite;" alt="">
+  <div class="font-disp text-base text-white tracking-[.25em]">BILAL <span class="text-purple-400">· ADMIN</span></div>
+</div>
+<style>@keyframes lpulse { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.07); opacity: 1 } }</style>
+<script>
+(function () {
+  var l = document.getElementById('loader'), d = false;
+  var go = function () { if (d) return; d = true; l.style.transition = 'opacity .4s'; l.style.opacity = '0'; setTimeout(function () { l.remove(); }, 450); };
+  addEventListener('load', go);
+  setTimeout(go, 3500);
+})();
+</script>
+
+<!-- ═══════════ CONNECTION GATE ═══════════ -->
+<div id="net-gate" class="hidden fixed inset-0 z-[200] bg-[#0a0512] flex items-center justify-center px-5">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 40%, rgba(76,29,149,.25), transparent 60%);"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(rgba(168,85,247,.08) 1px, transparent 1.4px); background-size: 28px 28px;"></div>
+  <div id="net-card" class="relative text-center max-w-sm w-full">
+    <div class="relative w-28 h-28 mx-auto mb-6">
+      <span class="net-ring absolute inset-0 rounded-full border border-purple-500/50"></span>
+      <span class="net-ring d2 absolute inset-0 rounded-full border border-fuchsia-500/40"></span>
+      <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="absolute inset-0 w-full h-full object-contain" style="filter: grayscale(.6) brightness(.7) drop-shadow(0 0 10px rgba(147,51,234,.3));" alt="">
+    </div>
+    <div class="font-disp text-3xl text-white tracking-wide">NO CONNECTION</div>
+    <p id="net-msg" class="text-slate-400 text-sm mt-3">You are offline.</p>
+    <p class="text-slate-600 text-xs mt-1.5" dir="rtl">لوحة التحكم لا تعمل بدون إنترنت — تحقق من اتصالك.</p>
+    <button id="net-retry" class="mt-7 clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white font-bold px-8 py-3 transition-colors inline-flex items-center gap-2" style="position:relative;overflow:hidden">
+      <i data-lucide="refresh-cw" class="w-4 h-4" id="net-spin"></i><span>Retry</span>
+    </button>
+    <div id="net-status" class="font-num text-[11px] text-slate-600 mt-4 tracking-widest"></div>
+  </div>
+</div>
+
+<!-- ═══════════ PATTERN GATE ═══════════ -->
+<div id="gate" class="fixed inset-0 z-50 bg-[#0a0512] flex items-center justify-center px-5">
+  <div id="gate-card" class="w-full max-w-sm clip-chamfer border border-purple-700/40 bg-[#0d0618] p-8 text-center shadow-2xl shadow-purple-950/50">
+    <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-20 h-20 mx-auto object-contain" style="filter: drop-shadow(0 0 14px rgba(147,51,234,.4));" alt="">
+    <h1 class="font-disp text-xl text-white mt-4 tracking-wide">BILAL CHEAT <span class="text-purple-400">· ADMIN</span></h1>
+    <p id="gate-hint" class="text-xs text-slate-500 mt-2 flex items-center justify-center gap-1.5"><i data-lucide="lock-keyhole" class="w-3.5 h-3.5"></i>Maker access only</p>
+    <div class="relative mt-6">
+      <input id="pin-input" type="password" maxlength="40" placeholder="Password" autocomplete="off" spellcheck="false"
+             class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-3 pr-11 text-center font-num font-bold text-lg tracking-[.15em] text-white placeholder:text-slate-700 focus:border-purple-500 focus:outline-none transition-colors">
+      <button id="pin-eye" type="button" tabindex="-1" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-slate-500 hover:text-purple-300 transition-colors" title="Show / hide">
+        <i data-lucide="eye" class="w-4 h-4" id="pin-eye-icon"></i>
+      </button>
+    </div>
+    <p id="pin-err" class="hidden text-xs text-rose-400 mt-2.5"></p>
+    <button id="pin-go" class="mt-5 w-full btn-glow clip-chamfer-sm bg-purple-700 hover:bg-purple-600 active:scale-[.98] text-white font-bold py-3 transition-all" style="position:relative;overflow:hidden">Enter</button>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app" class="hidden h-screen flex flex-col">
+
+  <!-- top bar -->
+  <header class="shrink-0 border-b border-purple-900/50 bg-[#0b0516]/90 backdrop-blur-xl px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-10 h-10 clip-chamfer-sm p-[2px] shrink-0" style="background: conic-gradient(from 0deg, #7c3aed, #c026d3, #6d28d9, #7c3aed);">
+        <div class="w-full h-full clip-chamfer-sm bg-[#10061d] p-0.5"><img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-full h-full object-contain" alt=""></div>
+      </div>
+      <div class="leading-none min-w-0">
+        <div class="font-disp text-sm sm:text-base text-white truncate">BILAL CHEAT <span class="text-purple-400">· ADMIN</span></div>
+        <div class="text-[10px] text-slate-500 mt-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 live-dot"></span>support desk online</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="hidden md:flex items-center gap-4 font-num text-xs text-slate-500 mr-3">
+        <span id="cloud-chip" class="flex items-center gap-1.5 text-emerald-300/80" title="AES-256 at rest · signed requests · cloud sync"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i>AES·SIG</span>
+        <span><b id="stat-cust" class="text-white text-sm">0</b> customers</span>
+        <span><b id="stat-unread" class="text-fuchsia-300 text-sm">0</b> unread</span>
+        <span><b id="stat-files" class="text-purple-300 text-sm">0</b> files</span>
+      </div>
+      <button id="btn-export" title="Export data" class="w-10 h-10 clip-chamfer-sm border border-purple-800/50 text-slate-400 hover:text-white hover:border-purple-500/60 flex items-center justify-center transition-colors"><i data-lucide="download" class="w-4 h-4"></i></button>
+      <button id="btn-lock" title="Lock" class="w-10 h-10 clip-chamfer-sm border border-purple-800/50 text-slate-400 hover:text-rose-300 hover:border-rose-500/50 flex items-center justify-center transition-colors"><i data-lucide="lock" class="w-4 h-4"></i></button>
+    </div>
+  </header>
+
+  <div class="grow flex min-h-0">
+
+    <!-- sidebar -->
+    <aside id="side" class="w-full md:w-80 lg:w-96 shrink-0 border-r border-purple-900/50 bg-[#0b0516]/70 flex flex-col min-h-0">
+      <div class="p-3 border-b border-purple-900/50 space-y-2.5">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-slate-600 absolute top-1/2 -translate-y-1/2 left-3"></i>
+          <input id="search" type="text" placeholder="Search name or phone…" class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 pl-9 pr-3 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+        </div>
+        <button id="btn-new" class="w-full btn-glow clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white text-sm font-bold py-2.5 transition-colors" style="position:relative;overflow:hidden">
+          <i data-lucide="user-plus" class="w-4 h-4 inline mr-1.5 -mt-0.5"></i>New customer
+        </button>
+      </div>
+      <div id="cust-list" class="grow overflow-y-auto"></div>
+      <div id="list-empty" class="hidden p-6 text-center text-sm text-slate-600 space-y-3">
+        <div>No customers yet — they appear here after their first order.</div>
+        <div class="clip-chamfer-sm border border-purple-900/50 bg-[#0d0618] p-3 text-left text-xs text-slate-500 leading-relaxed" dir="ltr">
+          <span class="text-purple-300 font-bold">Same-origin rule:</span> orders are stored per domain. Open this admin on the same URL as your store:<br>
+          <code id="admin-url" class="block mt-1.5 text-emerald-300 break-all"></code>
+        </div>
+      </div>
+    </aside>
+
+    <!-- conversation -->
+    <main id="main" class="grow flex flex-col min-h-0 bg-[#08030f]">
+      <div id="conv-empty" class="grow flex flex-col items-center justify-center text-center px-6">
+        <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-24 h-24 object-contain opacity-30" alt="">
+        <p class="text-slate-600 text-sm mt-5 max-w-xs">Select a customer to open their support thread, exchange files and manage their profile.</p>
+      </div>
+
+      <div id="conv" class="hidden grow flex flex-col min-h-0">
+        <!-- header -->
+        <div class="shrink-0 flex items-center gap-3 px-4 py-3 border-b border-purple-900/50 bg-[#0b0516]/80">
+          <button id="btn-back" class="w-9 h-9 shrink-0 clip-chamfer-sm border border-purple-800/50 text-slate-400 hover:text-white hover:border-purple-500/60 hover:bg-purple-900/30 active:scale-90 flex items-center justify-center transition-all" title="Exit conversation">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
+          <label class="relative cursor-pointer shrink-0" title="Change photo">
+            <span id="cv-avatar" class="avatar w-11 h-11 rounded-full text-lg">?</span>
+            <img id="cv-photo" class="hidden absolute inset-0 w-11 h-11 rounded-full object-cover" alt="">
+            <span class="absolute -bottom-0.5 -right-0.5 w-5 h-5 p-0.5 rounded-full bg-purple-600 border-2 border-[#0b0516] flex items-center justify-center"><i data-lucide="camera" class="w-3 h-3 text-white"></i></span>
+            <input id="cv-photo-input" type="file" accept="image/*" class="hidden">
+          </label>
+          <div class="grow min-w-0">
+            <div id="cv-name" class="font-bold text-white truncate"></div>
+            <div id="cv-meta" class="text-[11px] text-slate-500 font-num tracking-wider truncate"></div>
+          </div>
+          <span id="cv-plan" class="hidden sm:inline clip-chamfer-sm border border-purple-700/50 text-purple-300 text-[11px] font-bold px-2.5 py-1 font-num tracking-wider"></span>
+          <button id="btn-del" title="Delete customer" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-rose-400 transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+        </div>
+        <!-- thread -->
+        <div id="cv-body" class="grow overflow-y-auto p-4 space-y-2.5"></div>
+        <!-- composer -->
+        <div class="shrink-0 border-t border-purple-900/50 bg-[#0b0516]/80 p-3">
+          <div id="cv-pending" class="hidden mb-2 flex flex-wrap gap-2"></div>
+          <div class="flex items-center gap-1 clip-chamfer-sm border border-purple-800/50 bg-[#140a24] focus-within:border-purple-500 focus-within:shadow-[0_0_0_3px_rgba(124,58,237,.18)] transition-all p-1.5">
+            <label class="w-10 h-10 shrink-0 rounded-full text-slate-400 hover:text-fuchsia-300 hover:bg-purple-900/40 flex items-center justify-center cursor-pointer transition-colors" title="Attach files (up to 50MB)">
+              <i data-lucide="paperclip" class="w-5 h-5"></i>
+              <input id="cv-files" type="file" multiple class="hidden">
+            </label>
+            <input id="cv-input" type="text" placeholder="Write a reply…" autocomplete="off"
+                   class="grow bg-transparent px-2 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none">
+            <button id="cv-send" type="button" disabled title="Send (Enter)"
+                    class="w-10 h-10 shrink-0 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-fuchsia-900/50 active:scale-90 disabled:opacity-35 disabled:hover:scale-100 disabled:hover:shadow-none">
+              <i data-lucide="arrow-up" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[90] clip-chamfer-sm bg-emerald-950/95 border border-emerald-600/50 text-emerald-200 text-sm font-bold px-5 py-3 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">Exported ✓</div>
+
+<!-- new customer modal -->
+<div id="nc-backdrop" class="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm hidden"></div>
+<div id="nc-modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 pointer-events-none">
+  <div class="pointer-events-auto w-full max-w-sm clip-chamfer border border-purple-600/50 bg-[#0d0618] p-6 shadow-2xl shadow-purple-950/70">
+    <h3 class="font-disp text-white text-lg">NEW CUSTOMER</h3>
+    <div class="mt-4 space-y-3">
+      <input id="nc-name" type="text" placeholder="Full name" class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors">
+      <input id="nc-phone" type="tel" placeholder="Phone" class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-purple-500 focus:outline-none transition-colors" dir="ltr" style="text-align:right">
+      <select id="nc-plan" class="w-full clip-chamfer-sm bg-[#140a24] border border-purple-800/50 px-4 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none transition-colors">
+        <option>15 DAYS</option><option>30 DAYS</option><option>90 DAYS</option><option>LIFETIME</option>
+      </select>
+    </div>
+    <div class="flex gap-2 mt-5">
+      <button id="nc-cancel" class="flex-1 clip-chamfer-sm border border-purple-800/60 text-slate-400 hover:text-white py-2.5 text-sm font-bold transition-colors">Cancel</button>
+      <button id="nc-save" class="flex-1 clip-chamfer-sm bg-purple-700 hover:bg-purple-600 text-white py-2.5 text-sm font-bold transition-colors">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── shared storage ─────────────────────────────
+// ── encrypted customer store (AES-256-GCM) ─────
+// both sites sync through ONE canonical API so messages meet in the same place
+const API_BASE = 'https://bilalcheat.vercel.app';
+const CUST_KEY = 'bc_customers_enc';
+const _SECRET = [66,105,108,97,108,67,104,101,97,116,35,68,90,50,48,50,54,87,111,108,102,33].map(String.fromCharCode).join('');
+const _SALT = 'bc-v1-salt';
+let _ck = null, _cc = [], _plain = false, _pt = 0, _FRAG = '', _NONCE = '';
+function djb2(s) { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(16); }
+function signBody(o) {
+  const t = Object.assign({}, o, { nonce: _NONCE });
+  const ts = Date.now();
+  return Object.assign({}, t, { ts, sig: djb2(JSON.stringify(t) + ts + _FRAG) });
+}
+function _persist() { clearTimeout(_pt); _pt = setTimeout(_doPersist, 220); }
+function _doPersist() {
+  if (_plain || !_ck) { try { localStorage.setItem('bc_customers_plain', JSON.stringify(_cc)); } catch (_) {} return; }
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  crypto.subtle.encrypt({ name: 'AES-GCM', iv }, _ck, new TextEncoder().encode(JSON.stringify(_cc))).then(cx => {
+    const out = new Uint8Array(12 + cx.byteLength); out.set(iv); out.set(new Uint8Array(cx), 12);
+    let s = ''; out.forEach(b => s += String.fromCharCode(b));
+    localStorage.setItem(CUST_KEY, btoa(s));
+  }).catch(() => {
+    try {
+      const slim = _cc.map(c => Object.assign({}, c, { photo: null }));
+      const iv2 = crypto.getRandomValues(new Uint8Array(12));
+      crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv2 }, _ck, new TextEncoder().encode(JSON.stringify(slim))).then(cx2 => {
+        const out2 = new Uint8Array(12 + cx2.byteLength); out2.set(iv2); out2.set(new Uint8Array(cx2), 12);
+        let s2 = ''; out2.forEach(b => s2 += String.fromCharCode(b));
+        localStorage.setItem(CUST_KEY, btoa(s2));
+      }).catch(() => {});
+    } catch (_) {}
+  });
+}
+const _ready = (async () => {
+  try {
+    if (!globalThis.crypto || !crypto.subtle) throw 0; // non-secure context fallback
+    let _frag = '';
+    try { const hr = await fetch(API_BASE + '/api/store?handshake=1'); const hj = await hr.json(); if (hj && hj.ok) { _frag = hj.frag || ''; _NONCE = hj.nonce || ''; } } catch (_) {}
+    _FRAG = _frag;
+    const enc = new TextEncoder();
+    const base = await crypto.subtle.importKey('raw', enc.encode(_SECRET + _frag), 'PBKDF2', false, ['deriveKey']);
+    _ck = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: enc.encode(_SALT), iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    const raw = localStorage.getItem(CUST_KEY);
+    if (raw) {
+      const bin = Uint8Array.from(atob(raw), c => c.charCodeAt(0));
+      const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bin.slice(0, 12) }, _ck, bin.slice(12));
+      _cc = JSON.parse(new TextDecoder().decode(pt));
+    } else {
+      const old = localStorage.getItem('bc_customers');
+      if (old) { _cc = JSON.parse(old); localStorage.removeItem('bc_customers'); _persist(); }
+    }
+  } catch (_) {
+    try { _cc = JSON.parse(localStorage.getItem('bc_customers_plain') || localStorage.getItem('bc_customers') || '[]'); } catch (__) { _cc = []; }
+    _plain = true;
+  }
+})();
+_ready.then(() => { if (typeof refreshList === 'function') refreshList(); });
+const loadCustomers = () => _cc;
+const saveCustomers = a => { _cc = a; _ready.then(_persist); };
+const AV_COLORS = ['#7c3aed', '#db2777', '#0891b2', '#059669', '#d97706', '#dc2626', '#4f46e5', '#0d9488'];
+const avColor = n => AV_COLORS[[...n].reduce((a, c) => a + c.charCodeAt(0), 0) % AV_COLORS.length];
+const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const fmtT = t => new Date(t).toLocaleString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+const fmtSize = b => b > 1e6 ? (b / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1e3)) + ' KB';
+
+// ── IndexedDB blob vault — real storage for files up to 50MB ──
+const IDB_NAME = 'bc_files', IDB_STORE = 'files';
+const _idb = () => new Promise((res, rej) => {
+  const r = indexedDB.open(IDB_NAME, 1);
+  r.onupgradeneeded = () => r.result.createObjectStore(IDB_STORE);
+  r.onsuccess = () => res(r.result);
+  r.onerror = () => rej(r.error);
+});
+async function putFile(key, blob) {
+  try {
+    const db = await _idb();
+    await new Promise((res, rej) => { const tx = db.transaction(IDB_STORE, 'readwrite'); tx.objectStore(IDB_STORE).put(blob, key); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+    return true;
+  } catch (_) { return false; } // IDB unavailable (file:// / private mode) → caller keeps a dataURL fallback
+}
+async function getFile(key) {
+  try {
+    const db = await _idb();
+    return await new Promise(res => { const q = db.transaction(IDB_STORE, 'readonly').objectStore(IDB_STORE).get(key); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); });
+  } catch (_) { return null; }
+}
+function hydrateFiles(root) {
+  (root || document).querySelectorAll('[data-file-key]').forEach(el => {
+    if (!el.dataset.fileKey || el._done) return;
+    if (el.tagName === 'IMG' && !el.getAttribute('src')) el.classList.add('animate-pulse');
+    const fill = async attempt => {
+      const blob = await getFile(el.dataset.fileKey);
+      if (blob) {
+        el._done = true;
+        const url = URL.createObjectURL(blob);
+        el.classList.remove('animate-pulse', 'opacity-40');
+        if (el.tagName === 'IMG') { el.classList.add('msg-in'); el.src = url; } else el.href = url;
+      } else if (attempt < 6) setTimeout(() => fill(attempt + 1), 300);
+      else {
+        el._done = true; el.classList.remove('animate-pulse');
+        const has = el.tagName === 'IMG' ? el.getAttribute('src') : el.getAttribute('href');
+        if (!has || has === '#') el.classList.add('opacity-40'); // dataURL fallback already live — keep it bright
+      }
+    };
+    fill(0);
+  });
+}
+const fkey = () => 'f' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+// ── password gate ──────────────────────────────
+const gate = document.getElementById('gate');
+// ── anti-clone: admin only runs on the official domains ──
+function originAllowed() {
+  const h = location.hostname;
+  if (!h || h === 'localhost' || h === '127.0.0.1') return true;
+  if (h === 'bilalcheat.vercel.app' || h === 'infobilalurl.vercel.app') return true;
+  return ['arena.site', 'csb.app', 'stackblitz.io', 'webcontainer.io', 'glitch.me', 'codepen.io']
+    .some(d => h === d || h.endsWith('.' + d));
+}
+let gateBlocked = !originAllowed();
+if (gateBlocked) document.getElementById('gate-hint').textContent = 'This admin panel only runs on the official domain.';
+function gateShake() {
+  const c = document.getElementById('gate-card');
+  c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+}
+
+// ── fixed maker key — encoded, never plaintext ──
+const _MK = [66,73,76,65,76,64,73,78,70,79].map(String.fromCharCode).join(''); // BILAL@INFO
+// second independent check, char-by-char — immune to any string-build glitch
+function mkMatch(v) {
+  const c = [66,73,76,65,76,64,73,78,70,79];
+  if (v.length !== c.length) return false;
+  for (let i = 0; i < c.length; i++) if (v.charCodeAt(i) !== c[i]) return false;
+  return true;
+}
+const pinIn = document.getElementById('pin-input');
+const pinErr = document.getElementById('pin-err');
+let pinFails = +localStorage.getItem('bc_fails') || 0;
+let pinLockUntil = +localStorage.getItem('bc_lock') || 0;
+function gateCheck() {
+  if (!originAllowed()) return;
+  const v = pinIn.value.replace(/\s/g, '').toUpperCase();
+  if (v === _MK || mkMatch(v)) { // correct key always wins — clears any lock
+    pinFails = 0; pinLockUntil = 0;
+    localStorage.removeItem('bc_fails'); localStorage.removeItem('bc_lock');
+    pinErr.classList.add('hidden');
+    enterApp();
+    return;
+  }
+  if (Date.now() < pinLockUntil) {
+    pinErr.textContent = 'Locked — try again in ' + Math.ceil((pinLockUntil - Date.now()) / 60000) + ' min';
+    pinErr.classList.remove('hidden'); gateShake(); return;
+  }
+  pinFails++;
+  localStorage.setItem('bc_fails', pinFails);
+  localStorage.removeItem('bc_admin_session');
+  if (pinFails >= 5) {
+    pinLockUntil = Date.now() + (pinFails >= 15 ? 86400000 : pinFails >= 10 ? 1800000 : 300000);
+    localStorage.setItem('bc_lock', pinLockUntil);
+  }
+  pinErr.textContent = pinFails < 5 ? 'Wrong password (' + pinFails + '/5)' : 'Too many tries — locked ' + Math.ceil((pinLockUntil - Date.now()) / 60000) + ' min';
+  pinErr.classList.remove('hidden');
+  pinIn.value = '';
+  gateShake();
+}
+document.getElementById('pin-go').addEventListener('click', gateCheck);
+pinIn.addEventListener('keydown', e => { if (e.key === 'Enter') gateCheck(); });
+document.getElementById('pin-eye').addEventListener('click', () => {
+  const show = pinIn.type === 'password';
+  pinIn.type = show ? 'text' : 'password';
+  document.getElementById('pin-eye-icon').setAttribute('data-lucide', show ? 'eye-off' : 'eye');
+  lucide.createIcons();
+  pinIn.focus();
+});
+// signed session: editing the stored value by hand fails the signature
+(function bootSession() {
+  const s = (localStorage.getItem('bc_admin_session') || '').split('.');
+  const ts = +s[0] || 0;
+  if (ts > Date.now() && s[1] === djb2('sess' + ts + _MK)) enterApp();
+})();
+
+// ── devtools ejection: open them and you're out ──
+(function eject() {
+  let strikes = 0;
+  const bye = () => { try { window.location.replace('about:blank'); } catch (_) { window.location.href = 'about:blank'; } };
+  const probe = /./;
+  probe.toString = () => { strikes += 1; return ''; };
+  setInterval(() => {
+    try { console.log(probe); } catch (_) {}
+    const t = performance.now();
+    try { (function () {})['constructor']('debugger')(); } catch (_) {}
+    if (performance.now() - t > 100) strikes = 99;
+    if (strikes > 0 && strikes < 99) strikes = Math.max(0, strikes - 1);
+    if (strikes >= 2) bye();
+  }, 2000);
+})();
+
+function enterApp() {
+  const _ts = Date.now() + 43200000; // 12h, signed against the master key
+  localStorage.setItem('bc_admin_session', _ts + '.' + djb2('sess' + _ts + _MK));
+  gate.classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('admin-url').textContent = location.origin + '/contactadmin.html';
+  lucide.createIcons();
+  refreshList();
+  if (enterApp._beat) return; // never duplicate the heartbeat
+  enterApp._beat = true;
+  // presence heartbeat — customers see "Active now / X min ago"
+  const beat = () => {
+    try { localStorage.setItem('bc_admin_alive', String(Date.now())); } catch (_) {}
+    if (cloudAlive !== false) fetch(API_BASE + '/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody({ type: 'presence' })) }).catch(() => {});
+  };
+  beat(); setInterval(beat, 30000);
+}
+document.getElementById('btn-lock').addEventListener('click', () => {
+  localStorage.removeItem('bc_admin_session'); location.reload();
+});
+
+// ── state ──────────────────────────────────────
+let activeId = null;
+let pendingFiles = [];
+
+// ── cloud sync (per-account, by phone) ─────────
+// with no backend deployed, the probe flips cloud off and the desk runs local-only
+let cloudAlive = null;
+(async () => { try { const r = await fetch(API_BASE + '/api/store?handshake=1', { cache: 'no-store' }); cloudAlive = r.ok; } catch (_) { cloudAlive = false; } })();
+async function cloudGet(phone) {
+  if (cloudAlive === false) return null;
+  try {
+    const r = await fetch(API_BASE + '/api/store?phone=' + encodeURIComponent(phone));
+    const j = await r.json();
+    setCloud(j.ok);
+    return j.ok ? j.rec : null;
+  } catch (_) { setCloud(false); return null; }
+}
+// programmatic cloud: signed posts + outbox that retries until delivered
+function _qPush(o) { try { const q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); q.push(o); localStorage.setItem('bc_outbox', JSON.stringify(q.slice(-60))); } catch (_) {} }
+async function _qFlush() {
+  if (cloudAlive === false) return;
+  let q; try { q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); } catch (_) { return; }
+  if (!q.length) return;
+  const rest = [];
+  for (const o of q) {
+    try {
+      const r = await fetch(API_BASE + '/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(o)) });
+      if (!r.ok) { rest.push(o); break; }
+    } catch (_) { rest.push(o); break; }
+  }
+  try { localStorage.setItem('bc_outbox', JSON.stringify(rest)); } catch (_) {}
+  if (!rest.length) setCloud(true);
+}
+setInterval(() => { if (cloudAlive !== false) _qFlush(); }, 15000);
+addEventListener('online', _qFlush);
+async function cloudPost(body) {
+  if (cloudAlive === false) { _qPush(body); return; }
+  try {
+    const r = await fetch(API_BASE + '/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(body)) });
+    setCloud(r.ok);
+    if (r.ok) _qFlush(); else _qPush(body);
+  } catch (_) { setCloud(false); _qPush(body); }
+}
+function setCloud(on) {
+  const c = document.getElementById('cloud-chip');
+  if (c) c.innerHTML = '<i data-lucide="shield-check" class="w-3.5 h-3.5"></i>' + (on ? 'AES·SIG·☁' : 'AES·SIG');
+  lucide.createIcons();
+}
+
+// ── cross-origin bridge: hidden signed channel to the store, no server needed ──
+const BRIDGE_SECRET = djb2('bc-bridge-v1:' + _SECRET);
+const STORE_ORIGIN = 'https://bilalcheat.vercel.app';
+let bridgeWin = null, bridgeOk = false;
+(function bridge() {
+  let tries = 0;
+  const spawn = () => {
+    if (bridgeWin || tries > 4) return;
+    tries++;
+    const f = document.createElement('iframe');
+    f.src = STORE_ORIGIN + '/#top';
+    f.style.cssText = 'position:fixed;width:2px;height:2px;opacity:0;pointer-events:none;border:0;left:-20px;top:-20px';
+    f.setAttribute('aria-hidden', 'true');
+    f.addEventListener('load', () => { bridgeWin = f.contentWindow; });
+    document.body.appendChild(f);
+  };
+  spawn();
+  // if the frame was refused or crashed, respawn until the link is live
+  setInterval(() => { if (!bridgeWin || bridgeWin.closed) { bridgeWin = null; spawn(); } }, 8000);
+})();
+function bridgePush() {
+  if (bridgeWin) { try { bridgeWin.postMessage({ bc: BRIDGE_SECRET, cmd: 'set', customers: _cc }, STORE_ORIGIN); } catch (_) {} }
+}
+setInterval(() => {
+  if (bridgeWin) { try { bridgeWin.postMessage({ bc: BRIDGE_SECRET, cmd: 'get' }, STORE_ORIGIN); } catch (_) {} }
+}, 1200);
+// self-diagnosis: if the bridge never answers, tell the maker exactly why
+setTimeout(() => {
+  if (bridgeOk) return;
+  const c = document.getElementById('cloud-chip');
+  if (c) {
+    c.innerHTML = '<i data-lucide="unlink" class="w-3.5 h-3.5"></i>BRIDGE ✕';
+    c.className = 'flex items-center gap-1.5 text-amber-400';
+    c.title = 'Bridge to the store is blocked. Fix one of:\n1) Remove vercel.json from the store project (frame-ancestors blocks the hidden link), then redeploy.\n2) OR upload BOTH html files into ONE Vercel project so they share the same address.';
+    lucide.createIcons();
+  }
+}, 12000);
+function mergeRemoteAdmin(remote) {
+  let changed = false;
+  (remote || []).forEach(r => {
+    if (!r || !r.phone) return;
+    let loc = _cc.find(c => c.id === r.id || (c.phone && c.phone === r.phone));
+    if (!loc) { _cc.push(r); changed = true; return; }
+    (r.messages || []).forEach(m => {
+      if (!loc.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) { loc.messages.push(m); changed = true; }
+    });
+    loc.messages.sort((a, b) => a.t - b.t);
+    if (r.photo && !loc.photo) { loc.photo = r.photo; changed = true; }
+    if ((r.unread || 0) !== (loc.unread || 0)) loc.unread = r.unread;
+  });
+  if (changed) {
+    saveCustomers(_cc);
+    refreshList();
+    if (activeId) { const rec = _cc.find(c => c.id === activeId); if (rec) { renderHeader(rec); renderThread(rec); } }
+  }
+}
+addEventListener('message', e => {
+  // secret-gated channel: trust the signature, not the host
+  const d = e.data || {};
+  if (d.bc !== BRIDGE_SECRET) return;
+  if (!bridgeOk) { bridgeOk = true; setCloud(true); }
+  if (d.cmd === 'data' && Array.isArray(d.customers)) mergeRemoteAdmin(d.customers);
+});
+function mergeCloud(cr) {
+  if (!cr || !activeId) return;
+  const all = loadCustomers(); const rec = all.find(c => c.id === activeId); if (!rec) return;
+  let changed = false;
+  if (cr.photo && !rec.photo) { rec.photo = cr.photo; changed = true; }
+  (cr.messages || []).forEach(m => {
+    if (!rec.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) { rec.messages.push(m); changed = true; }
+  });
+  if (changed) {
+    rec.messages.sort((a, b) => a.t - b.t);
+    saveCustomers(all); renderHeader(rec); renderThread(rec); refreshList();
+  }
+}
+
+// ── sidebar ────────────────────────────────────
+const listEl = document.getElementById('cust-list');
+const searchEl = document.getElementById('search');
+function refreshList() {
+  const all = loadCustomers().sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
+  const q = searchEl.value.trim().toLowerCase();
+  const shown = all.filter(c => !q || c.name.toLowerCase().includes(q) || (c.phone || '').toLowerCase().includes(q));
+  document.getElementById('list-empty').classList.toggle('hidden', shown.length > 0);
+  document.getElementById('stat-cust').textContent = all.length;
+  document.getElementById('stat-unread').textContent = all.reduce((s, c) => s + (c.unread || 0), 0);
+  document.getElementById('stat-files').textContent = all.reduce((s, c) => s + (c.messages || []).filter(m => m.file).length, 0);
+  listEl.innerHTML = shown.map(c => {
+    const last = (c.messages || [])[c.messages.length - 1];
+    const av = c.photo
+      ? '<img src="' + c.photo + '" class="w-11 h-11 rounded-full object-cover shrink-0" alt="">'
+      : '<span class="avatar w-11 h-11 rounded-full text-lg shrink-0" style="background:' + c.color + '">' + esc((c.name[0] || '?').toUpperCase()) + '</span>';
+    return '<button data-id="' + c.id + '" class="cust-item w-full flex items-center gap-3 px-3.5 py-3 border-b border-purple-950/50 hover:bg-purple-950/30 text-right transition-colors ' + (c.id === activeId ? 'active' : '') + '">' +
+      av +
+      '<div class="grow min-w-0">' +
+      '<div class="flex items-center justify-between gap-2"><span class="font-bold text-sm text-white truncate">' + esc(c.name) + '</span><span class="text-[10px] text-slate-600 font-num shrink-0">' + (c.lastSeen ? fmtT(c.lastSeen) : '') + '</span></div>' +
+      '<div class="flex items-center justify-between gap-2 mt-0.5"><span class="text-xs text-slate-500 truncate">' + esc(last ? (last.file ? '📎 ' + last.file.name : last.text) : (c.plan || '')) + '</span>' +
+      (c.unread ? '<span class="shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-fuchsia-600 text-white text-[10px] font-bold flex items-center justify-center font-num">' + c.unread + '</span>' : '') +
+      '</div></div></button>';
+  }).join('');
+}
+searchEl.addEventListener('input', refreshList);
+listEl.addEventListener('click', e => {
+  const b = e.target.closest('[data-id]'); if (!b) return;
+  openConv(b.dataset.id);
+});
+
+// ── conversation ───────────────────────────────
+const conv = document.getElementById('conv');
+const convEmpty = document.getElementById('conv-empty');
+function openConv(id) {
+  activeId = id;
+  const rec = loadCustomers().find(c => c.id === id); if (!rec) return;
+  rec.unread = 0;
+  (rec.messages || []).forEach(m => { if (m.from === 'customer') m.read = true; });
+  saveCustomers(loadCustomers().map(c => c.id === id ? rec : c));
+  convEmpty.classList.add('hidden'); conv.classList.remove('hidden');
+  if (window.innerWidth < 768) document.getElementById('side').classList.add('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  renderHeader(rec); renderThread(rec); refreshList();
+  lastSig = convSig(rec);
+  cloudGet(rec.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } });
+}
+function renderHeader(rec) {
+  document.getElementById('cv-name').textContent = rec.name;
+  document.getElementById('cv-meta').textContent = rec.phone + '  ·  since ' + new Date(rec.createdAt).toLocaleDateString();
+  document.getElementById('cv-plan').textContent = rec.plan || '—';
+  const av = document.getElementById('cv-avatar'), ph = document.getElementById('cv-photo');
+  if (rec.photo) { ph.src = rec.photo; ph.classList.remove('hidden'); av.classList.add('hidden'); }
+  else { ph.classList.add('hidden'); av.classList.remove('hidden'); av.style.background = rec.color; av.textContent = (rec.name[0] || '?').toUpperCase(); }
+}
+function renderThread(rec) {
+  document.getElementById('cv-body').innerHTML = (rec.messages || []).map(m =>
+    '<div class="flex ' + (m.from === 'admin' ? 'justify-end' : 'justify-start') + '">' +
+    '<div class="max-w-[80%] px-3.5 py-2 rounded-2xl text-sm ' + (m.from === 'admin' ? 'bubble-a text-white rounded-br-sm' : 'bubble-c text-slate-200 rounded-bl-sm') + '">' +
+    (m.text ? '<div class="whitespace-pre-wrap break-words">' + esc(m.text) + '</div>' : '') +
+    (m.file ? ((m.file.type || '').startsWith('image/')
+      ? '<a data-file-key="' + (m.file.key || '') + '" download="' + esc(m.file.name) + '" href="' + (m.file.data || '#') + '" title="Download ' + esc(m.file.name) + '"><img data-file-key="' + (m.file.key || '') + '" src="' + (m.file.data || '') + '" class="rounded-xl max-h-56 w-auto mb-1 hover:opacity-90 transition-opacity bg-purple-950/40" style="min-width:140px;min-height:90px"></a>'
+      : '<a data-file-key="' + (m.file.key || '') + '" download="' + esc(m.file.name) + '" href="' + (m.file.data || '#') + '" class="mt-1.5 flex items-center gap-2 clip-chamfer-sm bg-black/25 border border-white/15 px-2.5 py-2 text-xs hover:bg-black/40 transition-colors"><i data-lucide="file-down" class="w-4 h-4 shrink-0"></i><span class="min-w-0"><span class="block font-bold truncate max-w-40">' + esc(m.file.name) + '</span><span class="block opacity-60">' + fmtSize(m.file.size) + ' · download</span></span></a>') : '') +
+    '<div class="text-[10px] opacity-50 mt-1 text-right">' + fmtT(m.t) + '</div></div></div>'
+  ).join('') || '<div class="text-center text-xs text-slate-600 mt-10">No messages yet. Say hi or attach the loader build.</div>';
+  lucide.createIcons();
+  hydrateFiles(document.getElementById('cv-body'));
+  document.getElementById('cv-body').scrollTop = 1e9;
+}
+document.getElementById('btn-back').addEventListener('click', () => {
+  activeId = null;
+  conv.classList.add('hidden'); convEmpty.classList.remove('hidden');
+  document.getElementById('side').classList.remove('hidden');
+  refreshList();
+});
+
+// profile photo upload
+document.getElementById('cv-photo-input').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f || !activeId) return;
+  if (f.size > 1.5e6) { alert('Max 1.5 MB for profile photos'); e.target.value = ''; return; }
+  const r = new FileReader();
+  r.onload = () => {
+    const phone = loadCustomers().find(c => c.id === activeId)?.phone;
+    saveCustomers(loadCustomers().map(c => c.id === activeId ? Object.assign(c, { photo: r.result }) : c));
+    renderHeader(loadCustomers().find(c => c.id === activeId)); refreshList(); bridgePush();
+    if (phone) cloudPost({ phone, photo: r.result });
+  };
+  r.readAsDataURL(f);
+});
+
+// files pending
+const pendEl = document.getElementById('cv-pending');
+function cvSync() {
+  const b = document.getElementById('cv-send'), i = document.getElementById('cv-input');
+  if (b && i) b.disabled = !(i.value.trim() || pendingFiles.length);
+}
+document.getElementById('cv-input').addEventListener('input', cvSync);
+document.getElementById('cv-files').addEventListener('change', e => {
+  [...e.target.files].forEach(f => {
+    if (f.size > 5e7) { alert('"' + f.name + '" is over 50 MB — skipped'); return; }
+    const key = fkey();
+    const rd = new FileReader();
+    rd.onload = () => {
+      const dataUrl = rd.result;
+      putFile(key, f).then(ok => {
+        pendingFiles.push({ name: f.name, size: f.size, type: f.type, key, data: ok ? undefined : dataUrl });
+        renderPending(); cvSync();
+      });
+    };
+    rd.readAsDataURL(f);
+  });
+  e.target.value = '';
+});
+function renderPending() {
+  pendEl.classList.toggle('hidden', pendingFiles.length === 0);
+  pendEl.innerHTML = pendingFiles.map((f, i) =>
+    '<span class="clip-chamfer-sm bg-purple-950/60 border border-purple-700/40 text-purple-200 text-xs px-2.5 py-1.5 flex items-center gap-2">📎 ' + esc(f.name) + ' <button data-rm="' + i + '" class="text-slate-500 hover:text-rose-400"><i data-lucide="x" class="w-3 h-3"></i></button></span>'
+  ).join('');
+  lucide.createIcons();
+}
+pendEl.addEventListener('click', e => {
+  const b = e.target.closest('[data-rm]'); if (!b) return;
+  pendingFiles.splice(+b.dataset.rm, 1); renderPending(); cvSync();
+});
+
+// send
+function sendAdmin() {
+  const inp = document.getElementById('cv-input');
+  const text = inp.value.trim();
+  if (!text && !pendingFiles.length) return;
+  const all = loadCustomers(); const rec = all.find(c => c.id === activeId); if (!rec) return;
+  if (text) rec.messages.push({ from: 'admin', text, t: Date.now() });
+  pendingFiles.forEach(f => rec.messages.push({ from: 'admin', text: '', t: Date.now(), file: f }));
+  rec.lastSeen = Date.now();
+  saveCustomers(all);
+  if (text) cloudPost({ phone: rec.phone, from: 'admin', msg: text });
+  pendingFiles.forEach(f => cloudPost({ phone: rec.phone, from: 'admin', file: f }));
+  pendingFiles = []; renderPending(); inp.value = '';
+  renderThread(rec); refreshList(); cvSync(); bridgePush();
+  const sb = document.getElementById('cv-send');
+  sb.classList.add('ring-2', 'ring-emerald-400');
+  setTimeout(() => sb.classList.remove('ring-2', 'ring-emerald-400'), 700);
+  inp.focus();
+}
+document.getElementById('cv-send').addEventListener('click', sendAdmin);
+document.getElementById('cv-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendAdmin(); });
+
+// delete (two-tap confirm)
+const delBtn = document.getElementById('btn-del');
+let delArmed = false;
+delBtn.addEventListener('click', () => {
+  if (!delArmed) {
+    delArmed = true; delBtn.innerHTML = '<span class="text-[10px] font-bold text-rose-400">SURE?</span>';
+    setTimeout(() => { delArmed = false; delBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>'; lucide.createIcons(); }, 2600);
+    return;
+  }
+  saveCustomers(loadCustomers().filter(c => c.id !== activeId));
+  delArmed = false; delBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>'; lucide.createIcons();
+  bridgePush();
+  document.getElementById('btn-back').click();
+});
+
+// new customer modal
+const ncBack = document.getElementById('nc-backdrop');
+const ncModal = document.getElementById('nc-modal');
+function ncOpen() { ncBack.classList.remove('hidden'); ncModal.classList.remove('hidden'); ncModal.classList.add('flex'); document.getElementById('nc-name').focus(); }
+function ncClose() { ncBack.classList.add('hidden'); ncModal.classList.add('hidden'); ncModal.classList.remove('flex'); }
+document.getElementById('btn-new').addEventListener('click', ncOpen);
+document.getElementById('nc-cancel').addEventListener('click', ncClose);
+ncBack.addEventListener('click', ncClose);
+document.getElementById('nc-save').addEventListener('click', () => {
+  const name = document.getElementById('nc-name').value.trim();
+  const phone = document.getElementById('nc-phone').value.trim();
+  if (name.length < 2 || (phone.match(/\d/g) || []).length < 8) return;
+  const all = loadCustomers();
+  all.push({ id: 'c' + Date.now().toString(36), name, phone, plan: document.getElementById('nc-plan').value,
+    color: avColor(name), photo: null, createdAt: Date.now(), lastSeen: Date.now(), unread: 0, messages: [] });
+  saveCustomers(all);
+  cloudPost({ phone, name, plan: document.getElementById('nc-plan').value });
+  bridgePush();
+  document.getElementById('nc-name').value = ''; document.getElementById('nc-phone').value = '';
+  ncClose(); refreshList();
+});
+
+// export
+document.getElementById('btn-export').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(loadCustomers(), null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'bilal-customers-' + Date.now() + '.json';
+  a.click(); URL.revokeObjectURL(a.href);
+  const t = document.getElementById('toast');
+  t.classList.remove('opacity-0', 'translate-y-4');
+  setTimeout(() => t.classList.add('opacity-0', 'translate-y-4'), 2200);
+});
+
+// ── connection gate: no net, no admin ──────────
+(function netGate() {
+  if (location.protocol === 'file:') return; // standalone file mode: never block
+  const el = document.getElementById('net-gate');
+  const msg = document.getElementById('net-msg');
+  const st = document.getElementById('net-status');
+  const btn = document.getElementById('net-retry');
+  const spin = document.getElementById('net-spin');
+  const card = document.getElementById('net-card');
+  let shown = false, busy = false;
+  const show = why => {
+    if (shown) return; shown = true;
+    el.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    msg.textContent = why === 'slow' ? 'Connection too weak — the desk needs a stable link.' : 'You are offline.';
+  };
+  const hide = () => { if (!shown) return; shown = false; el.classList.add('hidden'); document.body.style.overflow = ''; };
+  const weak = () => { const c = navigator.connection; return !!(c && (c.effectiveType === '2g' || c.effectiveType === 'slow-2g' || c.downlink < 0.1)); };
+  async function ping() {
+    if (!navigator.onLine) return null;
+    try {
+      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 4000);
+      const t0 = performance.now();
+      const r = await fetch(location.pathname + '?cb=' + Date.now(), { cache: 'no-store', signal: ctl.signal, method: 'HEAD' }).catch(() => null);
+      clearTimeout(to);
+      return r ? Math.round(performance.now() - t0) : null;
+    } catch (_) { return null; }
+  }
+  async function check() {
+    const ms = await ping();
+    if (ms !== null && !weak()) { st.textContent = 'LATENCY ' + ms + 'ms'; hide(); return true; }
+    show(ms !== null ? 'slow' : 'off'); return false;
+  }
+  btn.addEventListener('click', async () => {
+    if (busy) return; busy = true;
+    spin.classList.add('animate-spin'); btn.classList.add('opacity-60');
+    const ok = await check();
+    spin.classList.remove('animate-spin'); btn.classList.remove('opacity-60');
+    if (!ok) { card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake'); }
+    busy = false;
+  });
+  addEventListener('offline', () => show('off'));
+  addEventListener('online', () => check());
+  setInterval(() => { shown ? check() : (navigator.onLine || show('off')); }, 5000);
+  check();
+})();
+
+// live poll — re-render only when data actually changes; keep scroll position
+let pollTick = 0, lastSig = 0, idxTick = 0;
+function convSig(rec) {
+  const m = (rec.messages || []);
+  return m.length + '|' + (m[m.length - 1]?.t || 0) + '|' + (rec.photo || '') + '|' + rec.name + '|' + (rec.unread || 0);
+}
+setInterval(() => {
+  refreshList();
+  if (activeId) {
+    const rec = loadCustomers().find(c => c.id === activeId);
+    if (rec) {
+      const sig = convSig(rec);
+      const body = document.getElementById('cv-body');
+      const nearBottom = body.scrollHeight - body.scrollTop - body.clientHeight < 90;
+      if (sig !== lastSig) { lastSig = sig; renderThread(rec); renderHeader(rec); }
+      if (nearBottom) body.scrollTop = body.scrollHeight;
+    }
+    if (++pollTick % 3 === 0) cloudGet(rec?.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } });
+  }
+  // discover new customers from the cloud index — no bridge required
+  if (cloudAlive !== false && ++idxTick % 2 === 0) {
+    fetch(API_BASE + '/api/store?index=1', { cache: 'no-store' }).then(r => r.json()).then(j => {
+      if (!j.ok || !Array.isArray(j.index)) return;
+      j.index.filter(p => !_cc.some(c => c.phone === p)).forEach(p => {
+        cloudGet(p).then(cr => {
+          if (!cr || !cr.phone) return;
+          _cc.push({ id: 'c' + String(cr.phone).slice(-6) + Date.now().toString(36), name: cr.name || 'Customer', phone: cr.phone,
+            plan: cr.plan || '', color: avColor(cr.name || '?'), photo: cr.photo || null,
+            createdAt: Date.now(), lastSeen: Date.now(), unread: (cr.messages || []).filter(m => m.from === 'customer').length, messages: cr.messages || [] });
+          saveCustomers(_cc); refreshList();
+        });
+      });
+    }).catch(() => {});
+  }
+}, 2500);
+
+lucide.createIcons();
+</script>
+</body>
+</html>
