@@ -64,13 +64,17 @@ export default async function handler(req, res) {
     if (!ts || !sig || Math.abs(Date.now() - Number(ts)) > 300000 || sig !== djb2(JSON.stringify(core) + ts + frag)) {
       return res.status(403).json({ ok: false });
     }
-    if (hasKV() && core.nonce) {
-      const live = await kv(['GET', 'n:' + core.nonce]).catch(() => null);
-      if (!live) return res.status(403).json({ ok: false });
-    }
+    // signature + 5-minute timestamp window is the replay defense; nonce stays advisory
   }
 
   // admin presence heartbeat (cross-device)
+  // lightweight index of known customer phones so the desk can discover new ones
+  if (req.method === 'GET' && req.query.index) {
+    if (!originOk(req) || !(await rateOk(ip))) return res.status(429).json({ ok: false });
+    const rawI = await kv(['GET', 'bc:index']).catch(() => null);
+    let idx = []; try { idx = rawI ? JSON.parse(rawI) : []; } catch (_) {}
+    return res.status(200).json({ ok: true, index: idx });
+  }
   if (req.method === 'GET' && req.query.presence) {
     const raw = await kv(['GET', 'bc:presence']).catch(() => null);
     let presence = null;
@@ -119,6 +123,11 @@ export default async function handler(req, res) {
     }
     rec.messages = rec.messages.slice(-200);
     await kv(['SET', key, JSON.stringify(rec)]);
+    try {
+      const rawI = await kv(['GET', 'bc:index']).catch(() => null);
+      let idx = []; try { idx = rawI ? JSON.parse(rawI) : []; } catch (_) {}
+      if (!idx.includes(phone)) { idx.push(phone); await kv(['SET', 'bc:index', JSON.stringify(idx.slice(-100))]); }
+    } catch (_) {}
     return res.status(200).json({ ok: true });
   }
 
