@@ -279,7 +279,15 @@ const _ready = (async () => {
     _plain = true;
   }
 })();
-_ready.then(() => { if (typeof refreshList === 'function') refreshList(); });
+_ready.then(() => {
+  if (typeof refreshList === 'function') refreshList();
+  // reopen the last conversation after a reload — no more "nobody here" glitch
+  try {
+    const saved = localStorage.getItem('bc_active_conv');
+    const app = document.getElementById('app');
+    if (saved && app && !app.classList.contains('hidden') && _cc.some(c => c.id === saved) && typeof openConv === 'function') openConv(saved);
+  } catch (_) {}
+});
 const loadCustomers = () => _cc;
 const saveCustomers = a => { _cc = a; _ready.then(_persist); };
 const AV_COLORS = ['#7c3aed', '#db2777', '#0891b2', '#059669', '#d97706', '#dc2626', '#4f46e5', '#0d9488'];
@@ -435,7 +443,7 @@ function enterApp() {
     try { localStorage.setItem('bc_admin_alive', String(Date.now())); } catch (_) {}
     if (cloudAlive !== false) fetch(API_BASE + '/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody({ type: 'presence' })) }).catch(() => {});
   };
-  beat(); setInterval(beat, 30000);
+  beat(); setInterval(beat, 20000);
 }
 document.getElementById('btn-lock').addEventListener('click', () => {
   localStorage.removeItem('bc_admin_session'); location.reload();
@@ -484,9 +492,14 @@ async function cloudPost(body) {
     if (r.ok) _qFlush(); else _qPush(body);
   } catch (_) { setCloud(false); _qPush(body); }
 }
+let _cloudState = null;
 function setCloud(on) {
   const c = document.getElementById('cloud-chip');
-  if (c) c.innerHTML = '<i data-lucide="shield-check" class="w-3.5 h-3.5"></i>' + (on ? 'AES·SIG·☁' : 'AES·SIG');
+  if (!c) return;
+  const changed = _cloudState !== on;
+  _cloudState = on;
+  c.innerHTML = '<i data-lucide="shield-check" class="w-3.5 h-3.5"></i>' + (on ? 'AES·SIG·☁' : 'AES·SIG');
+  if (on && changed) { c.style.transition = 'none'; c.style.transform = 'scale(1.25)'; requestAnimationFrame(() => { c.style.transition = 'transform .5s ease'; c.style.transform = 'scale(1)'; }); }
   lucide.createIcons();
 }
 
@@ -603,6 +616,7 @@ const conv = document.getElementById('conv');
 const convEmpty = document.getElementById('conv-empty');
 function openConv(id) {
   activeId = id;
+  try { localStorage.setItem('bc_active_conv', id); } catch (_) {}
   const rec = loadCustomers().find(c => c.id === id); if (!rec) return;
   rec.unread = 0;
   (rec.messages || []).forEach(m => { if (m.from === 'customer') m.read = true; });
@@ -638,6 +652,7 @@ function renderThread(rec) {
 }
 document.getElementById('btn-back').addEventListener('click', () => {
   activeId = null;
+  try { localStorage.removeItem('bc_active_conv'); } catch (_) {}
   conv.classList.add('hidden'); convEmpty.classList.remove('hidden');
   document.getElementById('side').classList.remove('hidden');
   refreshList();
@@ -826,7 +841,7 @@ setInterval(() => {
       if (sig !== lastSig) { lastSig = sig; renderThread(rec); renderHeader(rec); }
       if (nearBottom) body.scrollTop = body.scrollHeight;
     }
-    if (++pollTick % 3 === 0) cloudGet(rec?.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } });
+    cloudGet(rec?.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } }); // every tick — near-instant replies
   }
   // discover new customers from the cloud index — no bridge required
   if (cloudAlive !== false && ++idxTick % 2 === 0) {
@@ -843,7 +858,7 @@ setInterval(() => {
       });
     }).catch(() => {});
   }
-}, 2500);
+}, 1500);
 
 lucide.createIcons();
 </script>
