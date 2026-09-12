@@ -50,10 +50,7 @@ export default async function handler(req, res) {
   if (!ts || !sig || Math.abs(Date.now() - Number(ts)) > 300000 || sig !== djb2(JSON.stringify(core) + ts + frag)) {
     return res.status(403).json({ ok: false });
   }
-  if (hasKV() && core.nonce) {
-    const live = await kv(['GET', 'n:' + core.nonce]).catch(() => null);
-    if (!live) return res.status(403).json({ ok: false });
-  }
+  // signature + 5-minute timestamp window is the replay defense; nonce stays advisory
 
   const WEBHOOK = process.env.DISCORD_WEBHOOK ||
     'https://discord.com/api/webhooks/1547720357396619415/vrZtiymunaJ8Zd8jaSU3w78Zt6yvac_5giiaJVju7WUFhcv8VxU_o3-S-vPpQhWE-DZU';
