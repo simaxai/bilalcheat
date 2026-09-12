@@ -1554,7 +1554,20 @@ function readPresence() {
     apply(t ? { t } : null);
   });
 }
-setInterval(() => { if (!sheet.classList.contains('open')) return; readPresence(); }, 20000);
+setInterval(() => { if (!sheet.classList.contains('open')) return; readPresence(); }, 10000);
+// live inbox: pull the admin's replies while the chat is open — instant two-way
+setInterval(() => {
+  if (cloudAlive === false || !custRec || !document.getElementById('chat-sheet').classList.contains('open')) return;
+  fetch('/api/store?phone=' + encodeURIComponent(custRec.phone), { cache: 'no-store' }).then(r => r.json()).then(j => {
+    if (!j.ok || !j.rec) return;
+    const loc = _cc.find(c => c.id === custRec.id); if (!loc) return;
+    let changed = false;
+    (j.rec.messages || []).forEach(m => {
+      if (!loc.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) { loc.messages.push(m); changed = true; }
+    });
+    if (changed) { loc.messages.sort((a, b) => a.t - b.t); _ready.then(_persist); renderChat(); notifyParent(); }
+  }).catch(() => {});
+}, 1500);
 
 const quickOk = document.getElementById('quick-ok');
 function sendQuick() {
