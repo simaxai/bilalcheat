@@ -176,7 +176,8 @@
     <img src="https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Discord-Bilal.png" class="w-full h-full object-contain" alt="" fetchpriority="high">
   </div>
   <div class="font-disp text-xl text-white tracking-[.25em]">BILAL <span class="text-purple-400">CHEAT</span></div>
-  <div class="w-44 h-1 bg-purple-950 rounded-full overflow-hidden"><div class="h-full bg-purple-500 rounded-full" style="animation: loaderbar 1.5s ease-in-out infinite;"></div></div>
+  <div class="w-48 h-1 bg-purple-950 rounded-full overflow-hidden"><div id="load-bar" class="h-full bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full transition-all duration-300" style="width:6%"></div></div>
+  <div id="load-pct" class="font-num text-[11px] text-slate-600 tracking-[.3em]">0%</div>
 </div>
 
 <!-- ═══════════ CONNECTION GATE ═══════════ -->
@@ -962,23 +963,39 @@ const LOGO_URL = 'https://raw.githubusercontent.com/simaxai/LOGOBILALMY/main/Dis
 const DISCORD_URL = 'https://discord.gg/7vN8ABS58c';
 document.querySelectorAll('[data-discord]').forEach(a => { a.href = DISCORD_URL; });
 
-// ── boot: reveal only after the logo is ready ──
+// ── boot: reveal only after EVERY asset is ready ──
 (function boot() {
   const loader = document.getElementById('loader');
+  const bar = document.getElementById('load-bar');
+  const pct = document.getElementById('load-pct');
   let done = false;
+  const setP = p => { if (bar) bar.style.width = p + '%'; if (pct) pct.textContent = Math.round(p) + '%'; };
   const reveal = () => {
     if (done) return;
     done = true;
-    document.body.classList.remove('preload');
-    showPage(parseHash()); // replay the page entrance once the loader lifts
-    loader.classList.add('done');
-    setTimeout(() => loader.remove(), 600);
+    setP(100);
+    setTimeout(() => {
+      document.body.classList.remove('preload');
+      showPage(parseHash()); // replay the page entrance once the loader lifts
+      loader.classList.add('done');
+      setTimeout(() => loader.remove(), 600);
+    }, 220);
   };
-  const probe = new Image();
-  probe.onload = reveal;
-  probe.onerror = reveal;
-  probe.src = LOGO_URL;
-  setTimeout(reveal, 3000); // never trap the visitor
+  // wait for images + fonts together
+  const imgs = [...document.images];
+  let loaded = 0, fontsDone = false, imgsDone = imgs.length === 0;
+  const tick = () => {
+    loaded++;
+    setP(6 + (loaded / Math.max(1, imgs.length)) * 74);
+    if (loaded >= imgs.length) { imgsDone = true; maybeReveal(); }
+  };
+  const maybeReveal = () => { if (fontsDone && imgsDone) { setP(94); reveal(); } };
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = true; maybeReveal(); });
+  imgs.forEach(im => {
+    if (im.complete) tick();
+    else { im.addEventListener('load', tick, { once: true }); im.addEventListener('error', tick, { once: true }); }
+  });
+  setTimeout(reveal, 6000); // never trap the visitor
 })();
 
 // ── logo: locked to the official asset — no overrides ──
@@ -1303,7 +1320,8 @@ async function putFile(key, blob) {
   try {
     const db = await _idb();
     await new Promise((res, rej) => { const tx = db.transaction(IDB_STORE, 'readwrite'); tx.objectStore(IDB_STORE).put(blob, key); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
-  } catch (_) {}
+    return true;
+  } catch (_) { return false; }
 }
 async function getFile(key) {
   try {
@@ -1323,7 +1341,11 @@ function hydrateFiles(root) {
         el.classList.remove('animate-pulse', 'opacity-40');
         if (el.tagName === 'IMG') { el.classList.add('msg-in'); el.src = url; } else el.href = url;
       } else if (attempt < 6) setTimeout(() => fill(attempt + 1), 300);
-      else { el._done = true; el.classList.remove('animate-pulse'); el.classList.add('opacity-40'); }
+      else {
+        el._done = true; el.classList.remove('animate-pulse');
+        const has = el.tagName === 'IMG' ? el.getAttribute('src') : el.getAttribute('href');
+        if (!has || has === '#') el.classList.add('opacity-40');
+      }
     };
     fill(0);
   });
@@ -1357,13 +1379,20 @@ document.getElementById('chat-file').addEventListener('change', e => {
   const f = e.target.files[0]; if (!f || !custRec) return;
   if (f.size > 5e7) { chatToast(isAr() ? 'الحد الأقصى 50MB للملف' : 'File limit is 50 MB'); e.target.value = ''; return; }
   const key = fkey();
-  const fileObj = { name: f.name, size: f.size, type: f.type, key };
-  pushCustMsg('customer', '', fileObj);
-  appendBubble(custRec.messages[custRec.messages.length - 1]); // instant bubble, file hydrates from the vault
+  const rd = new FileReader();
+  rd.onload = () => {
+    const dataUrl = rd.result;
+    putFile(key, f).then(ok => {
+      const fileObj = { name: f.name, size: f.size, type: f.type, key, data: ok ? undefined : dataUrl };
+      pushCustMsg('customer', '', fileObj);
+      appendBubble(custRec.messages[custRec.messages.length - 1]);
+      hydrateFiles(chatBody);
+      cloudPushMsg('customer', '', { name: f.name, size: f.size, type: f.type, key });
+      notifyDiscord('Customer file', '**' + custRec.name + '** (' + custRec.phone + ') sent: ' + f.name + ' (' + (f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.round(f.size / 1e3) + ' KB') + ')');
+    });
+  };
+  rd.readAsDataURL(f);
   e.target.value = '';
-  putFile(key, f).then(() => hydrateFiles(chatBody));
-  cloudPushMsg('customer', '', fileObj);
-  notifyDiscord('Customer file', '**' + custRec.name + '** (' + custRec.phone + ') sent: ' + f.name + ' (' + (f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.round(f.size / 1e3) + ' KB') + ')');
 });
 document.getElementById('chat-photo-input').addEventListener('change', e => {
   const f = e.target.files[0]; if (!f || !custRec) return;
@@ -1384,17 +1413,35 @@ function setSyncBadge(ok) {
   b.title = ok ? 'Saved to cloud' : 'Saved on this device';
   lucide.createIcons();
 }
+// programmatic cloud: signed posts + outbox that retries until delivered
+function _qPush(o) { try { const q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); q.push(o); localStorage.setItem('bc_outbox', JSON.stringify(q.slice(-60))); } catch (_) {} }
+async function _qFlush() {
+  let q; try { q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); } catch (_) { return; }
+  if (!q.length) return;
+  const rest = [];
+  for (const o of q) {
+    try {
+      const r = await fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(o)) });
+      if (!r.ok) { rest.push(o); break; }
+    } catch (_) { rest.push(o); break; }
+  }
+  try { localStorage.setItem('bc_outbox', JSON.stringify(rest)); } catch (_) {}
+  if (!rest.length) setSyncBadge(true);
+}
+setInterval(_qFlush, 15000);
+addEventListener('online', _qFlush);
+function cloudSend(o) {
+  return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(o)) })
+    .then(r => { setSyncBadge(r.ok); if (r.ok) _qFlush(); else _qPush(o); })
+    .catch(() => { setSyncBadge(false); _qPush(o); });
+}
 function cloudPushProfile() {
   if (!custRec) return;
-  return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(signBody({ phone: custRec.phone, name: custRec.name, plan: custRec.plan, photo: custRec.photo })) })
-    .then(r => { setSyncBadge(r.ok); }).catch(() => setSyncBadge(false));
+  return cloudSend({ phone: custRec.phone, name: custRec.name, plan: custRec.plan, photo: custRec.photo });
 }
 function cloudPushMsg(from, text, file) {
   if (!custRec) return;
-  return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(signBody({ phone: custRec.phone, from, msg: text, file })) })
-    .then(r => { setSyncBadge(r.ok); }).catch(() => setSyncBadge(false));
+  return cloudSend({ phone: custRec.phone, from, msg: text, file });
 }
 function cloudPull() {
   if (!custRec) return Promise.resolve();
@@ -1693,6 +1740,7 @@ document.addEventListener('mousemove', e => {
 
 // ── connection gate: no net, no arena ──────────
 (function netGate() {
+  if (location.protocol === 'file:') return; // standalone file mode: never block
   const el = document.getElementById('net-gate');
   const msg = document.getElementById('net-msg');
   const st = document.getElementById('net-status');
