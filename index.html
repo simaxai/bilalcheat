@@ -1440,6 +1440,41 @@ function cloudSend(o) {
     .then(r => { setSyncBadge(r.ok); if (r.ok) _qFlush(); else _qPush(o); })
     .catch(() => { setSyncBadge(false); _qPush(o); });
 }
+// ── cross-origin bridge: the admin desk syncs through a hidden signed channel ──
+const BRIDGE_SECRET = djb2('bc-bridge-v1:' + _SECRET);
+const BRIDGE_ORIGINS = ['https://infobilalurl.vercel.app'];
+window.__bc_admin_alive_bridge = 0;
+function mergeRemote(remote) {
+  let changed = false;
+  (remote || []).forEach(r => {
+    if (!r || !r.phone) return;
+    let loc = _cc.find(c => c.id === r.id || (c.phone && c.phone === r.phone));
+    if (!loc) { _cc.push(r); changed = true; return; }
+    (r.messages || []).forEach(m => {
+      if (!loc.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) { loc.messages.push(m); changed = true; }
+    });
+    loc.messages.sort((a, b) => a.t - b.t);
+    if (r.photo && !loc.photo) { loc.photo = r.photo; changed = true; }
+    if (r.name && r.name !== loc.name) { loc.name = r.name; changed = true; }
+  });
+  if (changed) {
+    _ready.then(_persist);
+    if (custRec) { custRec = _cc.find(c => c.id === custRec.id) || custRec; renderNavAccount(); }
+    if (typeof renderChat === 'function' && document.getElementById('chat-sheet').classList.contains('open')) renderChat();
+  }
+}
+addEventListener('message', e => {
+  if (e.origin !== location.origin && !BRIDGE_ORIGINS.includes(e.origin)) return;
+  const d = e.data || {};
+  if (d.bc !== BRIDGE_SECRET) return;
+  window.__bc_admin_alive_bridge = Date.now(); // the desk just pinged — BILAL is online
+  if (d.cmd === 'get') {
+    e.source.postMessage({ bc: BRIDGE_SECRET, cmd: 'data', customers: _cc }, e.origin === location.origin ? '*' : e.origin);
+  } else if (d.cmd === 'set' && Array.isArray(d.customers)) {
+    mergeRemote(d.customers);
+  }
+});
+
 function cloudPushProfile() {
   if (!custRec) return;
   return cloudSend({ phone: custRec.phone, name: custRec.name, plan: custRec.plan, photo: custRec.photo });
@@ -1480,7 +1515,8 @@ function readPresence() {
     else { el.textContent = ar ? 'غير متصل' : 'Offline'; el.className = 'text-[11px] text-slate-500'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-slate-600 border-2 border-[#0b0516]'; }
   };
   if (cloudAlive === false) {
-    let t = 0; try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {}
+    let t = window.__bc_admin_alive_bridge || 0;
+    if (!t || Date.now() - t > 60000) { try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {} }
     apply(t ? { t } : null); return;
   }
   fetch('/api/store?presence=1').then(r => r.json()).then(j => {
