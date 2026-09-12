@@ -405,13 +405,6 @@ document.getElementById('pin-eye').addEventListener('click', () => {
   lucide.createIcons();
   pinIn.focus();
 });
-// signed session: editing the stored value by hand fails the signature
-(function bootSession() {
-  const s = (localStorage.getItem('bc_admin_session') || '').split('.');
-  const ts = +s[0] || 0;
-  if (ts > Date.now() && s[1] === djb2('sess' + ts + _MK)) enterApp();
-})();
-
 // ── devtools ejection: open them and you're out ──
 (function eject() {
   let strikes = 0;
@@ -567,17 +560,15 @@ addEventListener('message', e => {
   if (d.cmd === 'data' && Array.isArray(d.customers)) mergeRemoteAdmin(d.customers);
 });
 function mergeCloud(cr) {
-  if (!cr || !activeId) return;
-  const all = loadCustomers(); const rec = all.find(c => c.id === activeId); if (!rec) return;
+  if (!cr || !activeId) return false;
+  const all = loadCustomers(); const rec = all.find(c => c.id === activeId); if (!rec) return false;
   let changed = false;
   if (cr.photo && !rec.photo) { rec.photo = cr.photo; changed = true; }
   (cr.messages || []).forEach(m => {
     if (!rec.messages.some(x => Math.abs(x.t - m.t) < 1500 && x.from === m.from && (x.text || '') === (m.text || ''))) { rec.messages.push(m); changed = true; }
   });
-  if (changed) {
-    rec.messages.sort((a, b) => a.t - b.t);
-    saveCustomers(all); renderHeader(rec); renderThread(rec); refreshList();
-  }
+  if (changed) { rec.messages.sort((a, b) => a.t - b.t); saveCustomers(all); }
+  return changed; // merge only — rendering is handled by the sig loop, never by blind rebuilds
 }
 
 // ── sidebar ────────────────────────────────────
@@ -585,7 +576,7 @@ const listEl = document.getElementById('cust-list');
 const searchEl = document.getElementById('search');
 function refreshList() {
   const all = loadCustomers().sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
-  const q = searchEl.value.trim().toLowerCase();
+  const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
   const shown = all.filter(c => !q || c.name.toLowerCase().includes(q) || (c.phone || '').toLowerCase().includes(q));
   document.getElementById('list-empty').classList.toggle('hidden', shown.length > 0);
   document.getElementById('stat-cust').textContent = all.length;
@@ -625,8 +616,8 @@ function openConv(id) {
   if (window.innerWidth < 768) document.getElementById('side').classList.add('hidden');
   document.getElementById('main').classList.remove('hidden');
   renderHeader(rec); renderThread(rec); refreshList();
-  lastSig = convSig(rec);
-  cloudGet(rec.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } });
+  lastSig = convSig(rec); lastListSig = listSig();
+  cloudGet(rec.phone).then(cr => { if (cr && mergeCloud(cr)) lastSig = ''; });
 }
 function renderHeader(rec) {
   document.getElementById('cv-name').textContent = rec.name;
@@ -655,7 +646,7 @@ document.getElementById('btn-back').addEventListener('click', () => {
   try { localStorage.removeItem('bc_active_conv'); } catch (_) {}
   conv.classList.add('hidden'); convEmpty.classList.remove('hidden');
   document.getElementById('side').classList.remove('hidden');
-  refreshList();
+  lastSig = 0; syncList();
 });
 
 // profile photo upload
@@ -824,41 +815,58 @@ document.getElementById('btn-export').addEventListener('click', () => {
   check();
 })();
 
-// live poll — re-render only when data actually changes; keep scroll position
-let pollTick = 0, lastSig = 0, idxTick = 0;
+// live poll — event-driven rendering: nothing rebuilds unless the data truly changed
+let lastSig = 0, idxTick = 0, lastListSig = '';
+const normPhone = p => String(p || '').replace(/\D/g, '');
 function convSig(rec) {
   const m = (rec.messages || []);
   return m.length + '|' + (m[m.length - 1]?.t || 0) + '|' + (rec.photo || '') + '|' + rec.name + '|' + (rec.unread || 0);
 }
+function listSig() {
+  return loadCustomers().map(c => c.id + ':' + (c.unread || 0) + ':' + (c.messages || []).length + ':' + (c.name || '') + ':' + (c.photo ? 1 : 0)).join(',');
+}
+function syncList() { const ls = listSig(); if (ls !== lastListSig) { lastListSig = ls; refreshList(); } }
 setInterval(() => {
-  refreshList();
-  if (activeId) {
-    const rec = loadCustomers().find(c => c.id === activeId);
-    if (rec) {
-      const sig = convSig(rec);
-      const body = document.getElementById('cv-body');
-      const nearBottom = body.scrollHeight - body.scrollTop - body.clientHeight < 90;
-      if (sig !== lastSig) { lastSig = sig; renderThread(rec); renderHeader(rec); }
-      if (nearBottom) body.scrollTop = body.scrollHeight;
+  try {
+    syncList();
+    if (activeId) {
+      const rec = loadCustomers().find(c => c.id === activeId);
+      if (rec) {
+        const sig = convSig(rec);
+        if (sig !== lastSig) { lastSig = sig; renderThread(rec); renderHeader(rec); }
+        const body = document.getElementById('cv-body');
+        if (body.scrollHeight - body.scrollTop - body.clientHeight < 90) body.scrollTop = body.scrollHeight;
+      }
+      cloudGet(rec?.phone).then(cr => { if (cr && mergeCloud(cr)) lastSig = ''; }); // pull replies, render only on real change
     }
-    cloudGet(rec?.phone).then(cr => { if (cr) { mergeCloud(cr); lastSig = ''; } }); // every tick — near-instant replies
-  }
-  // discover new customers from the cloud index — no bridge required
-  if (cloudAlive !== false && ++idxTick % 2 === 0) {
-    fetch(API_BASE + '/api/store?index=1', { cache: 'no-store' }).then(r => r.json()).then(j => {
-      if (!j.ok || !Array.isArray(j.index)) return;
-      j.index.filter(p => !_cc.some(c => c.phone === p)).forEach(p => {
-        cloudGet(p).then(cr => {
-          if (!cr || !cr.phone) return;
-          _cc.push({ id: 'c' + String(cr.phone).slice(-6) + Date.now().toString(36), name: cr.name || 'Customer', phone: cr.phone,
-            plan: cr.plan || '', color: avColor(cr.name || '?'), photo: cr.photo || null,
-            createdAt: Date.now(), lastSeen: Date.now(), unread: (cr.messages || []).filter(m => m.from === 'customer').length, messages: cr.messages || [] });
-          saveCustomers(_cc); refreshList();
+    // discover new customers from the cloud index — dedupe by normalized phone
+    if (cloudAlive !== false && ++idxTick % 2 === 0) {
+      fetch(API_BASE + '/api/store?index=1', { cache: 'no-store' }).then(r => r.json()).then(j => {
+        if (!j.ok || !Array.isArray(j.index)) return;
+        const known = new Set(loadCustomers().map(c => normPhone(c.phone)));
+        j.index.map(normPhone).filter(p => p && !known.has(p)).forEach(p => {
+          cloudGet(p).then(cr => {
+            if (!cr || !cr.phone) return;
+            if (loadCustomers().some(c => normPhone(c.phone) === normPhone(cr.phone))) return;
+            _cc.push({ id: 'c' + String(cr.phone).slice(-6) + Date.now().toString(36), name: cr.name || 'Customer', phone: cr.phone,
+              plan: cr.plan || '', color: avColor(cr.name || '?'), photo: cr.photo || null,
+              createdAt: Date.now(), lastSeen: Date.now(), unread: (cr.messages || []).filter(m => m.from === 'customer').length, messages: cr.messages || [] });
+            saveCustomers(_cc); syncList();
+          });
         });
-      });
-    }).catch(() => {});
-  }
+      }).catch(() => {});
+    }
+  } catch (_) {}
 }, 1500);
+
+// signed session auto-login — MUST run last: every const, listener and loop is alive by now
+(function bootSession() {
+  try {
+    const s = (localStorage.getItem('bc_admin_session') || '').split('.');
+    const ts = +s[0] || 0;
+    if (ts > Date.now() && s[1] === djb2('sess' + ts + _MK)) enterApp();
+  } catch (_) {}
+})();
 
 lucide.createIcons();
 </script>
