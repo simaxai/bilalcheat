@@ -1109,7 +1109,18 @@ function _doPersist() {
     const out = new Uint8Array(12 + cx.byteLength); out.set(iv); out.set(new Uint8Array(cx), 12);
     let s = ''; out.forEach(b => s += String.fromCharCode(b));
     localStorage.setItem(CUST_KEY, btoa(s));
-  }).catch(() => {});
+  }).catch(() => {
+    // storage full: drop heavy photos and retry so messages always survive
+    try {
+      const slim = _cc.map(c => Object.assign({}, c, { photo: null }));
+      const iv2 = crypto.getRandomValues(new Uint8Array(12));
+      crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv2 }, _ck, new TextEncoder().encode(JSON.stringify(slim))).then(cx2 => {
+        const out2 = new Uint8Array(12 + cx2.byteLength); out2.set(iv2); out2.set(new Uint8Array(cx2), 12);
+        let s2 = ''; out2.forEach(b => s2 += String.fromCharCode(b));
+        localStorage.setItem(CUST_KEY, btoa(s2));
+      }).catch(() => {});
+    } catch (_) {}
+  });
 }
 const _ready = (async () => {
   try {
