@@ -926,7 +926,7 @@
     </div>
     <span id="sync-badge" class="w-8 h-8 flex items-center justify-center text-slate-600" title="Cloud sync"><i data-lucide="cloud" class="w-4 h-4"></i></span>
     <label class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-purple-300 cursor-pointer transition-colors" title="Your photo">
-      <i data-lucide="image" class="w-4.5 h-4.5"></i>
+      <i data-lucide="image" class="w-5 h-5"></i>
       <input id="chat-photo-input" type="file" accept="image/*" class="hidden">
     </label>
   </div>
@@ -1414,8 +1414,12 @@ function setSyncBadge(ok) {
   lucide.createIcons();
 }
 // programmatic cloud: signed posts + outbox that retries until delivered
+// if no backend is deployed, the probe flips cloud off and everything runs local-only
+let cloudAlive = null;
+(async () => { try { const r = await fetch('/api/store?handshake=1', { cache: 'no-store' }); cloudAlive = r.ok; } catch (_) { cloudAlive = false; } })();
 function _qPush(o) { try { const q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); q.push(o); localStorage.setItem('bc_outbox', JSON.stringify(q.slice(-60))); } catch (_) {} }
 async function _qFlush() {
+  if (cloudAlive === false) return;
   let q; try { q = JSON.parse(localStorage.getItem('bc_outbox') || '[]'); } catch (_) { return; }
   if (!q.length) return;
   const rest = [];
@@ -1428,9 +1432,10 @@ async function _qFlush() {
   try { localStorage.setItem('bc_outbox', JSON.stringify(rest)); } catch (_) {}
   if (!rest.length) setSyncBadge(true);
 }
-setInterval(_qFlush, 15000);
+setInterval(() => { if (cloudAlive !== false) _qFlush(); }, 15000);
 addEventListener('online', _qFlush);
 function cloudSend(o) {
+  if (cloudAlive === false) { setSyncBadge(false); _qPush(o); return Promise.resolve(); }
   return fetch('/api/store', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(signBody(o)) })
     .then(r => { setSyncBadge(r.ok); if (r.ok) _qFlush(); else _qPush(o); })
     .catch(() => { setSyncBadge(false); _qPush(o); });
@@ -1474,6 +1479,10 @@ function readPresence() {
     else if (mins < 90) { el.textContent = (ar ? 'نشط قبل ' : 'Active ') + mins + (ar ? ' دقيقة' : ' min ago'); el.className = 'text-[11px] text-amber-400'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-amber-400 border-2 border-[#0b0516]'; }
     else { el.textContent = ar ? 'غير متصل' : 'Offline'; el.className = 'text-[11px] text-slate-500'; if (dot) dot.className = 'absolute bottom-0 right-0 w-3 h-3 rounded-full bg-slate-600 border-2 border-[#0b0516]'; }
   };
+  if (cloudAlive === false) {
+    let t = 0; try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {}
+    apply(t ? { t } : null); return;
+  }
   fetch('/api/store?presence=1').then(r => r.json()).then(j => {
     if (j.ok && j.presence) { apply(j.presence); return; }
     let t = 0; try { t = +localStorage.getItem('bc_admin_alive') || 0; } catch (_) {}
